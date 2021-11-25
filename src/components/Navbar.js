@@ -11,27 +11,30 @@ function Navbar() {
 
     const showSidebar = () => setSidebar(!sidebar);
 
+    const navMenu = `bg-primary w-64 h-screen flex justify-center fixed top-0 delay-700`;
+    const navMenuActive = `active:left-0 duration-300 ease-in-out active:delay-200 duration-300`
     return (
         <>
             <IconContext.Provider value={{ color: '#fff' }}>
-                <div className='navbar'>
-                    <Link to='#' className='menu-bars'>
+                <div className='bg-primary h-20 flex justify-items-start items-center'>
+                    <Link to='#' className='m-8 text-3xl bg-none'>
                         <FaIcons.FaBars onClick={showSidebar} />
                     </Link>
                 </div>
-                <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
-                    <ul className='nav-menu-items' onClick={showSidebar}>
-                        <li className='navbar-toggle'>
-                            <Link to='#' className='menu-bars'>
+
+                <nav className={sidebar ?  `${navMenu} ${navMenuActive}` : `${navMenu} left-full`  }>
+                    <ul className='w-full' onClick={showSidebar}>
+                        <li className='bg-primary w-full h-20 flex justify-start items-center'>
+                            <Link to='#' className='m-8 text-3xl bg-none'>
                                 <AiIcons.AiOutlineClose />
                             </Link>
                         </li>
                         {SideBarData.map((item, index) => {
                             return (
                                 <li key={index} className={item.cName}>
-                                    <Link to={item.path}>
+                                    <Link className="list-none text-primary text-lg w-12/13 h-full flex items-center pt-0 pr-4 rounded" to={item.path}>
                                         {item.icon}
-                                        <span>{item.title}</span>
+                                        <span className="ml-4">{item.title}</span>
                                     </Link>
                                 </li>
                             );
