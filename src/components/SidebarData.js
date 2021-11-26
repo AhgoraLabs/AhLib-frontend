@@ -11,36 +11,36 @@ export const SideBarData = [
         title: 'Painel',
         path: '/',
         icon: <AiIcons.AiFillHome />,
-        cName: 'nav-text'
+        cName: `flex justify-start items-center py-2 pl-4 list-none h-14 hover:bg-blue`
     },
     {
         title: 'Relatórios',
         path: '/relatorios',
         icon: <IoIcons.IoIosPaper />,
-        cName: 'nav-text'
+        cName: `flex justify-start items-center py-2 pl-4 list-none h-14 hover:bg-blue`
     },
     {
         title: 'Livros',
         path: '/livros',
         icon: <ImIcons.ImBooks />,
-        cName: 'nav-text'
+        cName: `flex justify-start items-center py-2 pl-4 list-none h-14 hover:bg-blue`
     },
     {
         title: 'Equipe',
         path: '/equipe',
         icon: <IoIcons.IoMdPeople />,
-        cName: 'nav-text'
+        cName: `flex justify-start items-center py-2 pl-4 list-none h-14 hover:bg-blue`
     },
     {
         title: 'Mensagens',
         path: '/mensagens',
         icon: <FaIcons.FaEnvelopeOpenText />,
-        cName: 'nav-text'
+        cName: `flex justify-start items-center py-2 pl-4 list-none h-14 hover:bg-blue`
     },
     {
         title: 'Suporte',
         path: '/suporte',
         icon: <IoIcons.IoMdHelpCircle />,
-        cName: 'nav-text'
+        cName: `flex justify-start items-center py-2 pl-4 list-none h-14 hover:bg-blue`
     },
 ]
