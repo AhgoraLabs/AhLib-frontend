@@ -1,28 +1,33 @@
 
-import './App.css';
-import Navbar from './components/Navbar';
-
 import {
-	BrowserRouter as Router,
-	Switch,
+	BrowserRouter as Routes,
 	Route,
-	Link
-  } from "react-router-dom";
+} from "react-router-dom";
+import Reports from './pages/Reports';
+import Home from './pages/Home';
+import Navbar from './components/Navbar';
+import Books from './pages/Books';
 
-function App() {
+const App = () => {
+
+	const NavRoute = ({ exact, path, component: Component }) => (
+		<Route exact={exact} path={path} render={(props) => (
+			<div>
+				<Navbar />
+				<Component {...props} />
+			</div>
+		)} />
+	)
+
 	return (
-		<>
-			<Router>
-				<Switch>
-				<Navbar/>
-					<Route exact path='/'>
-					</Route>
-					<Route exact path='/relatorios'>
-					</Route>
-				</Switch>
-			</Router>
+		<div >
+			<Routes>
+				<NavRoute exact path='/' component={Home}></NavRoute>
+				<NavRoute exact path='/relatorios' component={Reports}></NavRoute>
+				<NavRoute exact path='/livros' component={Books}></NavRoute>
 
-		</>
+			</Routes>
+		</div>
 	);
 }
 
