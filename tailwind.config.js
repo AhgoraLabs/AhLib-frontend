@@ -13,10 +13,20 @@ module.exports = {
        'secondary': '#ffed4a',
        'danger': '#e3342f',
      },
+     fontFamily: {
+      'sans': ['Roboto','ui-sans-serif', 'system-ui']
+     },
 
+     boxShadow:{
+       'input-box-shadow':'0px 8px 4px rgba(0, 0, 0, 0.25)',
+     },
     extend: {
       width:{
-        '12/13': '95%'
+        '12/13': '95%',
+        'large':'1030px'
+      },
+      height:{
+        'large':'730px'
       }
     },
   },
