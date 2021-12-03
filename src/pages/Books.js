@@ -2,8 +2,8 @@ import React from 'react'
 import Input from '../components/Input'
 import Button from '../components/Button';
 import Box from '../components/Box';
-import { totalStart } from '../utils/totalStar';
-import { dados }  from '../utils/mock';
+import { totalStars } from '../utils/totalStar';
+import { dados } from '../utils/mock';
 import { BiBookAdd, BiCommentEdit, BiTrashAlt } from "react-icons/bi";
 import { IconContext } from 'react-icons';
 const buttonsValues = [
@@ -31,9 +31,9 @@ const Books = () => {
                 <section className='w-56 h-large'>
                 </section>
                 <section className='w-8/12 h-large flex justify-center flex-row flex-wrap'>
-                {dados.map(({title , authors, star, image, coments, alugado}) => (
-                   <Box title={title} authors={authors} star={totalStart(star)} image={image} coments={coments}  alugado={alugado}/>
-                ))}
+                    {dados.map(({ title, authors, star, image, coments, alugado }) => (
+                        <Box title={title} authors={authors} star={totalStars(star)} image={image} coments={coments} alugado={alugado} />
+                    ))}
                 </section>
                 <aside className='w-56 h-large flex flex-col items-end'>
                     <IconContext.Provider value={{ color: '#fff' }}>
