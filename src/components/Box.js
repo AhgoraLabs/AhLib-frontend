@@ -2,7 +2,6 @@ import React from 'react'
 import Rating from '@mui/material/Rating';
 
 const Box = ({title, authors, star, image, coments, alugado}) => {
-    console.log(star);
     return (
         <div className="h-80 w-56 mx-10 border border-gray-100 rounded-3xl shadow-input-box-shadow">
             <div style={{backgroundImage: `url(${image})`}} className="h-52 mt-4 bg-no-repeat bg-contain bg-center "></div>

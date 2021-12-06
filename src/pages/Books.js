@@ -2,22 +2,15 @@ import React from 'react'
 import Input from '../components/Input'
 import Button from '../components/Button';
 import Box from '../components/Box';
+import { Link } from 'react-router-dom';
 import { totalStars } from '../utils/totalStar';
 import { dados } from '../utils/mock';
-import { BiBookAdd, BiCommentEdit, BiTrashAlt } from "react-icons/bi";
+import { BiBookAdd } from "react-icons/bi";
 import { IconContext } from 'react-icons';
 const buttonsValues = [
     {
         name: 'Cadastrar',
         icon: <BiBookAdd className="w-12" />
-    },
-    {
-        name: 'Editar',
-        icon: <BiCommentEdit className="w-12" />
-    },
-    {
-        name: 'Deletar',
-        icon: <BiTrashAlt className="w-12" />
     }
 ]
 
@@ -31,8 +24,10 @@ const Books = () => {
                 <section className='w-56 h-large'>
                 </section>
                 <section className='w-8/12 h-large flex justify-center flex-row flex-wrap'>
-                    {dados.map(({ title, authors, star, image, coments, alugado }) => (
-                        <Box title={title} authors={authors} star={totalStars(star)} image={image} coments={coments} alugado={alugado} />
+                    {dados.map(({ id, title, authors, star, image, coments, alugado }) => (
+                        <Link to={`livros/bookInfo/${id}`}>
+                            <Box title={title} authors={authors} star={totalStars(star)} image={image} coments={coments} alugado={alugado} />
+                        </Link>
                     ))}
                 </section>
                 <aside className='w-56 h-large flex flex-col items-end'>
