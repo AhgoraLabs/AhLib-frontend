@@ -15,7 +15,7 @@ function Navbar() {
     return (
         <>
             <IconContext.Provider value={{ color: '#fff' }}>
-                <div className='bg-primary h-20 flex justify-items-start items-center'>
+                <div className='bg-primary h-20 flex justify-items-start items-center sticky top-0'>
                     <Link to='#' className='m-8 text-3xl bg-none'>
                         <FaIcons.FaBars onClick={showSidebar} />
                     </Link>
