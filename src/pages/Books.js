@@ -10,6 +10,7 @@ import { IconContext } from 'react-icons';
 const buttonsValues = [
     {
         name: 'Cadastrar',
+        path: '/livros/cadastrar',
         icon: <BiBookAdd className="w-12" />
     }
 ]
@@ -32,13 +33,15 @@ const Books = () => {
                 </section>
                 <aside className='w-56 h-large flex flex-col items-end'>
                     <IconContext.Provider value={{ color: '#fff' }}>
-                        {buttonsValues.map(({ name, icon }) => (
-                            <Button>
-                                {icon}
-                                <label>
-                                    {name}
-                                </label>
-                            </Button>
+                        {buttonsValues.map(({ name, icon, path }) => (
+                            <Link to={path}>
+                                <Button>
+                                    {icon}
+                                    <label>
+                                        {name}
+                                    </label>
+                                </Button>
+                            </Link>
                         ))}
                     </IconContext.Provider>
                 </aside>
