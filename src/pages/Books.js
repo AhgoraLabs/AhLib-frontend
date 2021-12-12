@@ -23,6 +23,7 @@ const Books = () => {
 
     const [books, setBooks] = useState([])
     const { state: { profile } } = useContext(UserContext);
+    console.log(profile);
     const fetchBooks = async () => {
         const {data:{ data } } = await listBooks();
         setBooks(data)
