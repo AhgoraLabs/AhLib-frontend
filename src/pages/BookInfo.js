@@ -21,17 +21,12 @@ const BookInfo = () => {
     const { id } = useParams();
 
     const fetchBook = async () => {
-        let bookInformation = await getBook(id);
-        setBook(bookInformation[0]);
+        let [bookInformation] = await getBook(id);
+        setBook(bookInformation);
     }
-
-    console.log(book);
-
     useEffect(() => {
         fetchBook();
     }, [id])
-
-
 
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
