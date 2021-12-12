@@ -24,7 +24,7 @@ const App = () => {
 				<NavRoute exact path='/livros' header={<Navbar />} component={Books}></NavRoute>
 				<NavRoute exact path='/livros/bookInfo/:id' header={<Navbar />} component={BookInfo}></NavRoute>
 				<NavRoute exact path='/livros/cadastrar' header={<Navbar />} component={BookRegister}></NavRoute>
-				<NavRoute exact path='/relatorios/avaliacoes' component={ReportPage}></NavRoute>
+				<NavRoute exact path='/relatorios/avaliacoes' header={<Navbar />} component={ReportPage}></NavRoute>
 			</Routes>
 		</div>
 	);
