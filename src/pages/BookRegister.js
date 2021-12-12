@@ -26,7 +26,7 @@ const BookRegister = () => {
 
     const { register, handleSubmit } = useForm();
 
-    const onSubmit =  async (dataForm) => {
+    const onSubmit = async (dataForm) => {
         const response = dataForm.ISBN ? await createBook(valueForm) : await createBook(dataForm)
         const { data } = response;
 
@@ -34,18 +34,14 @@ const BookRegister = () => {
     };
 
     const fetchBook = async (value) => {
-        let data = '';
-
         if (value !== '') {
-            data = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=%22%22+isbn=${value}`)
+           const { data: { volumeInfo } } = await axios.get(`http://localhost:5000/books/isbn/${value}`)
+           console.log(volumeInfo)
+           return setValueForm(volumeInfo ?  normalizeBookData(volumeInfo) : {});
         }
-        const dataNormalized = normalizeBookData(data);
-
-    
-        return setValueForm(dataNormalized)
+     
+        return {}
     };
-
-
 
     return (
         <div className="flex justify-around items-center">
@@ -102,7 +98,7 @@ const BookRegister = () => {
                     {...register('image')}
                     defaultValue={valueForm?.image}
                 />
-                <input  
+                <input
                     className={styleInput}
                     placeholder={'Idioma'}
                     {...register('language')}
