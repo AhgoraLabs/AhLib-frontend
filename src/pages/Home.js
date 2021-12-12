@@ -4,6 +4,7 @@ const Home = () => {
   
     return (
         <div>
+            TELA PRINCIPAL
         </div>
     )
 }
