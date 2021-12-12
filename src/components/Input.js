@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Input = ({ value, placeholder, width, height, shadow, border }) => {
+const Input = ({ value, placeholder, width, height, shadow, border, fetchBookForInput  }) => {
 
     const styleClass = `
     ${height ? height : 'h-16'}
@@ -14,7 +14,9 @@ const Input = ({ value, placeholder, width, height, shadow, border }) => {
             <input
              className={styleClass}
              placeholder={placeholder}
-             value={value}/>
+             value={value}
+             onChange={(e) => fetchBookForInput(e.target.value)}
+             />
     )
 }
 
