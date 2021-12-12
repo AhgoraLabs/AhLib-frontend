@@ -11,14 +11,18 @@
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.24.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-hook-form": "^7.21.0",
     "react-icons": "^4.3.1",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "web-vitals": "^1.1.2"
   },
+  "proxy": "http://api.teste.com.br/v1",
   "scripts": {
     "start": "craco start",
     "build": "craco build",
