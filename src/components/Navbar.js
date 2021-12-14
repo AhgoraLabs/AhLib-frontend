@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { SideBarData } from './SidebarData';
 import { IconContext } from 'react-icons';
+import AuthContext from '../context/auth/AuthContext';
 
 function Navbar() {
     const [sidebar, setSidebar] = useState(false);
-
+    const { user } = useContext(AuthContext);
     const showSidebar = () => setSidebar(!sidebar);
 
     const navMenu = `bg-primary w-64 h-screen flex justify-center fixed top-0 delay-700`;
@@ -15,10 +16,11 @@ function Navbar() {
     return (
         <>
             <IconContext.Provider value={{ color: '#fff' }}>
-                <div className='bg-primary h-20 flex justify-items-start items-center sticky top-0'>
+                <div className='bg-primary h-20 flex justify-between items-start items-center sticky top-0 px-4'>
                     <Link to='#' className='m-8 text-3xl bg-none'>
                         <FaIcons.FaBars onClick={showSidebar} />
                     </Link>
+                    <span className="text-primary">{user}</span>
                 </div>
 
                 <nav className={sidebar ?  `${navMenu} ${navMenuActive}` : `${navMenu} left-full`  }>

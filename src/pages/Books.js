@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import Input from '../components/Input'
 import Button from '../components/Button';
@@ -6,7 +6,6 @@ import Box from '../components/Box';
 import { BiBookAdd } from "react-icons/bi";
 import { IconContext } from 'react-icons';
 import { listBooks, getBook } from '../api/apiService';
-import UserContext from '../../src/context/user/index';
 import { isUser } from '../utils/validationProfile';
 // import { totalStars } from '../utils/totalStar';
 // import { normalizeBookData } from '../utils/normalize';
@@ -22,8 +21,6 @@ const buttonsValues = [
 const Books = () => {
 
     const [books, setBooks] = useState([])
-    const { state: { profile } } = useContext(UserContext);
-    console.log(profile);
     const fetchBooks = async () => {
         const {data:{ data } } = await listBooks();
         setBooks(data)
@@ -63,7 +60,7 @@ const Books = () => {
                 </section>
                 <aside className='w-56 h-large flex flex-col items-end'>
                     <IconContext.Provider value={{ color: '#fff' }}>
-                        {isUser(profile) ?  buttonsValues.map(({ name, icon, path }) => (
+                        {isUser('admin') ?  buttonsValues.map(({ name, icon, path }) => (
                             <Link to={path}>
                                 <Button>
                                     {icon}
