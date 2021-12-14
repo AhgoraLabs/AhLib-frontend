@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { useParams } from 'react-router-dom';
 import { totalStars } from '../utils/totalStar';
 import Rating from '@mui/material/Rating';
@@ -11,25 +11,23 @@ import BoxInfoBook from '../components/BoxInfoBook';
 import Button from '../components/Button';
 import { getBook } from '../api/apiService';
 import { isUser } from '../utils/validationProfile';
-import UserContext from '../context/user';
 
 const BookInfo = () => {
 
     const [isOpen, setIsOpen] = useState(!true)
     const [book, setBook] = useState({});
-    const { state: { profile } } = useContext(UserContext);
     const { id } = useParams();
 
-    const fetchBook = async () => {
-        let bookInformation = await getBook(id);
-        setBook(bookInformation[0]);
-    }
+    const fetchBook = useCallback(async function () {
+            let bookInformation = await getBook(id);
+            setBook(bookInformation[0]);
+        }, [id])
 
     console.log(book);
 
     useEffect(() => {
         fetchBook();
-    }, [id])
+    }, [fetchBook])
 
 
 
@@ -56,7 +54,7 @@ const BookInfo = () => {
                     <div style={{ backgroundImage: `url(${image})` }} className="h-96 bg-no-repeat bg-48 bg-center"></div>
                     <div className="flex justify-around">
                         {alugado && <Button width="w-18" height="h-8" fontSize="text-base">Alugar</Button>}
-                        {isUser(profile) &&
+                        {isUser('admin') &&
                             <>
                                 <Button width="w-18" height="h-8" fontSize="text-base">Editar</Button>
                                 <Button width="w-18" height="h-8" fontSize="text-base">Excluir</Button>

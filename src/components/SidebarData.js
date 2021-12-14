@@ -8,8 +8,8 @@ import * as ImIcons from 'react-icons/im';
 
 export const SideBarData = [
     {
-        title: 'Painel',
-        path: '/',
+        title: 'Home',
+        path: '/Home',
         icon: <AiIcons.AiFillHome />,
         cName: `flex justify-start items-center py-2 pl-4 list-none h-14 hover:bg-blue`
     },
@@ -27,19 +27,19 @@ export const SideBarData = [
     },
     {
         title: 'Equipe',
-        path: '/equipe',
+        path: '/Home',
         icon: <IoIcons.IoMdPeople />,
         cName: `flex justify-start items-center py-2 pl-4 list-none h-14 hover:bg-blue`
     },
     {
         title: 'Mensagens',
-        path: '/mensagens',
+        path: '/Home',
         icon: <FaIcons.FaEnvelopeOpenText />,
         cName: `flex justify-start items-center py-2 pl-4 list-none h-14 hover:bg-blue`
     },
     {
         title: 'Suporte',
-        path: '/suporte',
+        path: '/Home',
         icon: <IoIcons.IoMdHelpCircle />,
         cName: `flex justify-start items-center py-2 pl-4 list-none h-14 hover:bg-blue`
     },
