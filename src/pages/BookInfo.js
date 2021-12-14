@@ -29,8 +29,6 @@ const BookInfo = () => {
         fetchBook();
     }, [fetchBook])
 
-
-
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
     const {

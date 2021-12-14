@@ -24,7 +24,7 @@
   },
   "proxy": "http://api.teste.com.br/v1",
   "scripts": {
-    "start": "craco start",
+    "start": "craco --openssl-legacy-provider start",
     "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject"
