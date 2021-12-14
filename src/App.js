@@ -12,6 +12,7 @@ import ReportPage from './pages/GenerateReport';
 import BookInfo from "./pages/BookInfo";
 import BookRegister from "./pages/BookRegister";
 import Home from "./pages/Home";
+import Suggestions from './pages/Suggestions';
 
 const App = () => {
 
@@ -25,6 +26,7 @@ const App = () => {
 				<NavRoute exact path='/livros/bookInfo/:id' header={<Navbar />} component={BookInfo}></NavRoute>
 				<NavRoute exact path='/livros/cadastrar' header={<Navbar />} component={BookRegister}></NavRoute>
 				<NavRoute exact path='/relatorios/avaliacoes' header={<Navbar />} component={ReportPage}></NavRoute>
+				<NavRoute exact path='/sugestoes/' header={<Navbar />} component={Suggestions}></NavRoute>
 			</Routes>
 		</div>
 	);
