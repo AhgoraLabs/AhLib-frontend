@@ -32,8 +32,8 @@ export const SideBarData = [
         cName: `flex justify-start items-center py-2 pl-4 list-none h-14 hover:bg-blue`
     },
     {
-        title: 'Mensagens',
-        path: '/mensagens',
+        title: 'Sugestões',
+        path: '/sugestoes',
         icon: <FaIcons.FaEnvelopeOpenText />,
         cName: `flex justify-start items-center py-2 pl-4 list-none h-14 hover:bg-blue`
     },
