@@ -25,7 +25,7 @@
   "proxy": "http://api.teste.com.br/v1",
   "scripts": {
     "start": "craco start",
-    "build": "react-scripts build",
+    "build": "craco build && react-scripts build",
     "test": "craco test",
     "eject": "react-scripts eject"
   },
