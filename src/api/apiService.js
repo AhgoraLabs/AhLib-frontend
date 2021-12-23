@@ -26,8 +26,8 @@ export const listBooks = async () => {
     return data;
 }
 
-export const getBook = async (title) => {
-    const { data:{ data } } = await axios.get(`http://localhost:5000/books/book?title=${title}`)
+export const getBook = async (id) => {
+    const { data:{ data } } = await axios.get(`http://localhost:5000/books/${id}`)
     return data;
 }
 

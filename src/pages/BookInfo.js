@@ -20,9 +20,8 @@ const BookInfo = () => {
 
     const fetchBook = useCallback(async function () {
             let bookInformation = await getBook(id);
-            setBook(bookInformation[0]);
+            setBook(bookInformation);
         }, [id])
-
 
     useEffect(() => {
         fetchBook();
