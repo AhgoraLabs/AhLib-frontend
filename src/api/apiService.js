@@ -5,7 +5,7 @@ axios.defaults.headers.get['auth'] = window.localStorage.getItem('@App:token');
 axios.defaults.headers.common['Authorization'] = window.localStorage.getItem('@App:token');
 
 export const createBook = async ({ title, subtitle, description, isbn, author, publishDate, publisher, pages, image, language }) => {
-    const data = await axios.post('http://localhost:5000/books/create', {
+    const data = await axios.post('http://localhost:5000/books/', {
         title,
         isbn,
         author,
