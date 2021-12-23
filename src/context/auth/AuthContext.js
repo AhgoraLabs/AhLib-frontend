@@ -3,9 +3,10 @@ import { authUser } from '../../api/apiService';
 
 const AuthContext = createContext({});
 
+
 export const AuthProvider = ({ children }) => {
 
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({});
 
   async function Login(email, senha) {
 
@@ -29,9 +30,10 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const storagedUser = localStorage.getItem('@App:user');
     const storagedToken = localStorage.getItem('@App:token');
+    const storagedId = localStorage.getItem('@App:id');
 
     if (storagedToken && storagedUser) {
-      setUser(JSON.parse(storagedUser));
+      setUser({ id:JSON.parse(storagedId), name: JSON.parse(storagedUser) });
     }
   }, []);
 

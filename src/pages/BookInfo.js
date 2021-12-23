@@ -23,7 +23,6 @@ const BookInfo = () => {
             setBook(bookInformation[0]);
         }, [id])
 
-    console.log(book);
 
     useEffect(() => {
         fetchBook();
