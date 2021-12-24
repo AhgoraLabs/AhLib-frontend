@@ -2,6 +2,7 @@
 import {
 	BrowserRouter as Routes,
 	Route,
+	Switch
 } from "react-router-dom";
 import { NavRoute } from "./routes/NavRoute";
 import Reports from './pages/Reports';
@@ -19,14 +20,16 @@ const App = () => {
 	return (
 		<div >
 			<Routes>
-				<Route exact path='/' component={Login}></Route>
-				<NavRoute exact path='/home' header={<Navbar />} component={Home}></NavRoute>
-				<NavRoute exact path='/relatorios' header={<Navbar />} component={Reports}></NavRoute>
-				<NavRoute exact path='/livros' header={<Navbar />} component={Books}></NavRoute>
-				<NavRoute exact path='/livros/:id' header={<Navbar />} component={BookInfo}></NavRoute>
-				<NavRoute exact path='/livros/cadastrar' header={<Navbar />} component={BookRegister}></NavRoute>
-				<NavRoute exact path='/relatorios/avaliacoes' header={<Navbar />} component={ReportPage}></NavRoute>
-				<NavRoute exact path='/sugestoes/' header={<Navbar />} component={Suggestions}></NavRoute>
+				<Switch>
+					<Route exact path='/' component={Login}></Route>
+					<NavRoute exact path='/home' header={<Navbar />} component={Home}></NavRoute>
+					<NavRoute exact path='/relatorios' header={<Navbar />} component={Reports}></NavRoute>
+					<NavRoute exact path='/livros' header={<Navbar />} component={Books}></NavRoute>
+					<NavRoute exact path='/livros/cadastrar' header={<Navbar />} component={BookRegister}></NavRoute>
+					<NavRoute exact path='/livros/:id' header={<Navbar />} component={BookInfo}></NavRoute>
+					<NavRoute exact path='/relatorios/avaliacoes' header={<Navbar />} component={ReportPage}></NavRoute>
+					<NavRoute exact path='/sugestoes/' header={<Navbar />} component={Suggestions}></NavRoute>
+				</Switch>
 			</Routes>
 		</div>
 	);
