@@ -11,10 +11,11 @@ export const AuthProvider = ({ children }) => {
   async function Login(email, senha) {
 
     const { data } = await authUser(email, senha);
-    setUser({ id: data.user._id , name: data.user.name});
+    setUser({ id: data.user._id , name: data.user.name, email});
 
     localStorage.setItem('@App:user',JSON.stringify(data.user.name));
     localStorage.setItem('@App:id',JSON.stringify(data.user._id));
+    localStorage.setItem('@App:email',  JSON.stringify(data.user.email))
     localStorage.setItem('@App:token', data.token);
 
   }
@@ -31,9 +32,10 @@ export const AuthProvider = ({ children }) => {
     const storagedUser = localStorage.getItem('@App:user');
     const storagedToken = localStorage.getItem('@App:token');
     const storagedId = localStorage.getItem('@App:id');
+    const storagedEmail = localStorage.getItem('@App:email')
 
     if (storagedToken && storagedUser) {
-      setUser({ id:JSON.parse(storagedId), name: JSON.parse(storagedUser) });
+      setUser({ id:JSON.parse(storagedId), name: JSON.parse(storagedUser), email: storagedEmail });
     }
   }, []);
 

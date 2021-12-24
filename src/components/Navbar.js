@@ -6,6 +6,8 @@ import { SideBarData } from './SidebarData';
 import { IconContext } from 'react-icons';
 import AuthContext from '../context/auth/AuthContext';
 
+import Button from '../components/Button';
+
 function Navbar() {
     const [sidebar, setSidebar] = useState(false);
     const { user } = useContext(AuthContext);
@@ -19,10 +21,12 @@ function Navbar() {
                     <Link to='#' className='m-8 text-3xl bg-none'>
                         <FaIcons.FaBars onClick={showSidebar} />
                     </Link>
-                    <span className="text-primary">{user.name}</span>
+                    <div className='mt-8'>
+                        <Button  width="w-18" height="h-8" fontSize="text-base">Perfil</Button>
+                    </div>
                 </div>
 
-                <nav className={sidebar ?  `${navMenu} ${navMenuActive}` : `${navMenu} left-full`  }>
+                <nav className={sidebar ? `${navMenu} ${navMenuActive}` : `${navMenu} left-full`}>
                     <ul className='w-full' onClick={showSidebar}>
                         <li className='bg-primary w-full h-20 flex justify-start items-center'>
                             <Link to='#' className='m-8 text-3xl bg-none'>

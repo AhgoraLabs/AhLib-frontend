@@ -12,6 +12,7 @@ import BookInfo from "../pages/BookInfo";
 import BookRegister from "../pages/BookRegister";
 import Home from "../pages/Home";
 import Suggestions from '../pages/Suggestions';
+import Profile from   '../pages/Profile';
 
 const LibraryRouter = () => {
     return (
@@ -23,6 +24,7 @@ const LibraryRouter = () => {
 				<NavRoute exact path='/livros' header={<Navbar />} component={Books}></NavRoute>
 				<NavRoute exact path='/livros/info/:id' header={<Navbar />} component={BookInfo}></NavRoute>
 				<NavRoute exact path='/livros/cadastrar' header={<Navbar />} component={BookRegister}></NavRoute>
+				<NavRoute exact path='/perfil' header={<Navbar />} component={Profile}></NavRoute>
                 <NavRoute exact path='/livros/edit/:id' header={<Navbar />} component={BookRegister}></NavRoute>
 				<NavRoute exact path='/relatorios/avaliacoes' header={<Navbar />} component={ReportPage}></NavRoute>
 				<NavRoute exact path='/sugestoes/' header={<Navbar />} component={Suggestions}></NavRoute>
