@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { totalStars } from '../utils/totalStar';
 import Rating from '@mui/material/Rating';
 import { Button as ButtonMui } from '@mui/material';
@@ -19,9 +19,9 @@ const BookInfo = () => {
     const { id } = useParams();
 
     const fetchBook = useCallback(async function () {
-            let bookInformation = await getBook(id);
-            setBook(bookInformation);
-        }, [id])
+        let bookInformation = await getBook(id);
+        setBook(bookInformation);
+    }, [id])
 
     useEffect(() => {
         fetchBook();
@@ -52,7 +52,9 @@ const BookInfo = () => {
                         {alugado && <Button width="w-18" height="h-8" fontSize="text-base">Alugar</Button>}
                         {isUser('admin') &&
                             <>
-                                <Button width="w-18" height="h-8" fontSize="text-base">Editar</Button>
+                                <Link to={`/livros/edit/${id}`}>
+                                    <Button width="w-18" height="h-8" fontSize="text-base">Editar</Button>
+                                </Link>
                                 <Button width="w-18" height="h-8" fontSize="text-base">Excluir</Button>
                             </>
                         }

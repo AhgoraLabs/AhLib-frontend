@@ -1,3 +1,5 @@
+import LibraryRouter from '../src/routes/LibraryRoutes';
+
 
 import {
 	BrowserRouter as Routes,
@@ -15,22 +17,13 @@ import BookRegister from "./pages/BookRegister";
 import Home from "./pages/Home";
 import Suggestions from './pages/Suggestions';
 
+
 const App = () => {
 
 	return (
 		<div >
-			<Routes>
-				<Switch>
-					<Route exact path='/' component={Login}></Route>
-					<NavRoute exact path='/home' header={<Navbar />} component={Home}></NavRoute>
-					<NavRoute exact path='/relatorios' header={<Navbar />} component={Reports}></NavRoute>
-					<NavRoute exact path='/livros' header={<Navbar />} component={Books}></NavRoute>
-					<NavRoute exact path='/livros/cadastrar' header={<Navbar />} component={BookRegister}></NavRoute>
-					<NavRoute exact path='/livros/:id' header={<Navbar />} component={BookInfo}></NavRoute>
-					<NavRoute exact path='/relatorios/avaliacoes' header={<Navbar />} component={ReportPage}></NavRoute>
-					<NavRoute exact path='/sugestoes/' header={<Navbar />} component={Suggestions}></NavRoute>
-				</Switch>
-			</Routes>
+
+			<LibraryRouter />			
 		</div>
 	);
 }

@@ -53,7 +53,7 @@ const Books = () => {
                 </section>
                 <section className='w-8/12 h-large flex justify-center flex-row flex-wrap'>
                     {books.length > 0 ? books.map(({ _id, title, author, image, coments, active }) => (
-                        <Link key={_id} to={`/livros/${_id}`}>
+                        <Link key={_id} to={`/livros/info/${_id}`}>
                             <Box key={_id} title={title} authors={author} star={5} image={image} coments={coments} alugado={!active} />
                         </Link>
                     )) : ''}
