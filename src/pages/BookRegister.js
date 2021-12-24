@@ -1,10 +1,12 @@
-import React, { useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useForm } from "react-hook-form";
 import { Button } from '@mui/material';
-import { createBook } from '../api/apiService';
+import { createBook, getBook, editBook } from '../api/apiService';
 import { normalizeBookData } from '../utils/normalize';
 import axios from 'axios';
-const BookRegister = () => {
+import { useHistory } from 'react-router-dom';
+
+const BookRegister = ({ match }) => {
 
     const InitialValue = {
         isbn: '',
@@ -19,27 +21,54 @@ const BookRegister = () => {
         publisher: '',
 
     };
+    const [valueForm, setValueForm] = useState(InitialValue)
+
+    const { register, handleSubmit, setValue } = useForm();
+
+    const history = useHistory();
+
+    let isEdit = useMemo(() => !!match.params?.id, [match.params.id]);
 
     const styleInput = `h-16 px-4 outline-none border-2 border-gray-400 rounded-xl focus:border-blue-700 font-sans`;
 
-    const [valueForm, setValueForm] = useState(InitialValue)
+    const fetchBookById = async (id) => {
+        const book = await getBook(id);
+        console.log('book', book);
+        setValueForm(book);
+        for (const key in book) {
+            setValue(key, book[key]);
+        }
+    }
 
-    const { register, handleSubmit } = useForm();
+    useEffect(() => {
+        if (isEdit) {
+            fetchBookById(match.params?.id)
+        }
+    }, [isEdit, match.params?.id]);
 
     const onSubmit = async (dataForm) => {
-        const response = dataForm.ISBN ? await createBook(valueForm) : await createBook(dataForm)
+        let response = '';
+        if (isEdit) {
+            response = await editBook({ _id: match.params?.id, ...dataForm });
+        } else {
+            response = dataForm.ISBN ? await createBook(valueForm) : await createBook(dataForm);
+        }
         const { data } = response;
 
-        data.message === 'Livro cadastrado com sucesso.' ? setValueForm(InitialValue) : alert('Erro ao salvar livro');
+        !data.error ? setValue('') : alert('Erro ao salvar livro');
+
+        if(isEdit){
+            history.push(`/livros/info/${match.params?.id}`)
+        }
     };
 
     const fetchBook = async (value) => {
         if (value !== '') {
-           const { data: { volumeInfo } } = await axios.get(`http://localhost:5000/books/isbn/${value}`)
-           console.log(volumeInfo)
-           return setValueForm(volumeInfo ?  normalizeBookData(volumeInfo) : {});
+            const { data: { volumeInfo } } = await axios.get(`http://localhost:5000/books/isbn/${value}`)
+ 
+            return setValueForm(volumeInfo ? normalizeBookData(volumeInfo) : {});
         }
-     
+
         return {}
     };
 
@@ -50,21 +79,22 @@ const BookRegister = () => {
                 <input
                     className={styleInput}
                     placeholder={'ISBN'}
-                    {...register('ISBN')}
+                    {...register('isbn')}
                     defaultValue={valueForm?.isbn}
                     required
-                    onBlur={(e) => fetchBook(e.target.value)}
+                    onBlur={(e) => isEdit ? '' : fetchBook(e.target.value)}
                 />
                 <input
                     className={styleInput}
                     placeholder={'Título'}
-                    {...register('Title')}
-                    required defaultValue={valueForm?.title}
+                    {...register('title')}
+                    required 
+                    defaultValue={valueForm?.title}
                 />
                 <input
                     className={styleInput}
                     placeholder={'Subtitulo'}
-                    {...register('Subtitle')}
+                    {...register('subtitle')}
                     defaultValue={valueForm?.subtitle}
                 />
                 <input
