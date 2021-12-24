@@ -19,7 +19,6 @@ const BookRegister = ({ match }) => {
         description: '',
         subtitle: '',
         publisher: '',
-
     };
     const [valueForm, setValueForm] = useState(InitialValue)
 
@@ -65,7 +64,7 @@ const BookRegister = ({ match }) => {
     const fetchBook = async (value) => {
         if (value !== '') {
             const { data: { volumeInfo } } = await axios.get(`http://localhost:5000/books/isbn/${value}`)
- 
+
             return setValueForm(volumeInfo ? normalizeBookData(volumeInfo) : {});
         }
 
@@ -88,7 +87,7 @@ const BookRegister = ({ match }) => {
                     className={styleInput}
                     placeholder={'Título'}
                     {...register('title')}
-                    required 
+                    required
                     defaultValue={valueForm?.title}
                 />
                 <input
