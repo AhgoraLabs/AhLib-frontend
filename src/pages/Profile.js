@@ -9,6 +9,7 @@ const styleInput = `h-16 px-4 mt-5 outline-none border-2 border-gray-400 rounded
 
 const ProfilePage = () => {
     const { user } = useContext(AuthContext);
+    console.log(user)
 
 
     const initialValue = {
@@ -32,7 +33,7 @@ const ProfilePage = () => {
                 <input
                     className={styleInput}
                     placeholder={'Nome de Usuário'}
-                    value={'Pedro Penha Verani'}
+                    value={user.name}
                     disabled={true}
                 />
 
