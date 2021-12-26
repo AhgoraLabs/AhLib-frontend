@@ -46,13 +46,10 @@ const BookRegister = ({ match }) => {
     }, [isEdit, match.params?.id]);
 
     const onSubmit = async (dataForm) => {
-        debugger;
         let response = '';
-        if (isEdit) {
-            response = await editBook({ _id: match.params?.id, ...dataForm });
-        } else {
-            response = dataForm.ISBN ? await createBook(valueForm) : await createBook(dataForm);
-        }
+        if (isEdit) response = await editBook({ _id: match.params?.id, ...dataForm });
+        else response = dataForm.isbn ? await createBook(valueForm) : await createBook(dataForm);
+        
         const { data } = response;
 
         !data.error ? setValue('') : alert('Erro ao salvar livro');
