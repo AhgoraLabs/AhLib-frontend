@@ -18,9 +18,9 @@ const MenuProps = {
     },
 };
 
-export default function MultipleSelectCheckmarks({ users }) {
-    const usersToShow = users.map(({ name }) => name);
+export default function MultipleSelectCheckmarks({ users, setUser }) {
 
+    const usersToShow = users.map(({ name, email }) => { return { email, name } });
     const [personName, setPersonName] = React.useState([]);
 
     const handleChange = (event) => {
@@ -33,6 +33,8 @@ export default function MultipleSelectCheckmarks({ users }) {
         );
     };
 
+    setUser(personName.toString());
+
     return (
         <div>
             <FormControl sx={{ m: 1, width: 420 }}>
@@ -40,17 +42,16 @@ export default function MultipleSelectCheckmarks({ users }) {
                 <Select
                     labelId="demo-multiple-checkbox-label"
                     id="demo-multiple-checkbox"
-                    multiple
                     value={personName}
                     onChange={handleChange}
                     input={<OutlinedInput label="Selecionar usuários" />}
                     renderValue={(selected) => selected.join(', ')}
                     MenuProps={MenuProps}
                 >
-                    {usersToShow.map((name) => (
-                        <MenuItem key={name} value={name}>
-                            <Checkbox checked={personName.indexOf(name) > -1} />
-                            <ListItemText primary={name} />
+                    {usersToShow.map(({name, email }) => (
+                        <MenuItem key={email} value={email}>
+                            <Checkbox checked={personName.indexOf(email) > -1} />
+                            <ListItemText primary={email} />
                         </MenuItem>
                     ))}
                 </Select>

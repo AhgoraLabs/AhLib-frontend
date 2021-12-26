@@ -9,21 +9,29 @@ import { RiPagesLine } from 'react-icons/ri';
 import { AiOutlineArrowRight } from 'react-icons/ai';
 import BoxInfoBook from '../components/BoxInfoBook';
 import Button from '../components/Button';
-import { getBook, removeBook } from '../api/apiService';
-import { isUser } from '../utils/validationProfile';
+import { getBook, removeBook, getLoanByBookId } from '../api/apiService';
+import { isAdminOrSuper } from '../utils/validationProfile';
 import Modal from '../components/Modal';
-import { redirectWithMsg } from '../utils/helpers';
+import Toast from '../components/Toasts';
+import { redirectWithMsg, showFlashDataMsg, isNotAvailableForLoan } from '../utils/helpers';
 
 const BookInfo = () => {
 
     const [isOpen, setIsOpen] = useState(!true)
     const [book, setBook] = useState({});
     const [openModal, setOpenModal] = useState(false);
+    const [toastData, setToastData] = useState({});
+    const [loan, setLoan ] = useState({});
     const { id } = useParams();
 
     const openModalBookDeletion = () => {
         setOpenModal(!openModal)
     }
+
+    const fetchLoan = useCallback(async function () {
+        let loanInformation = await getLoanByBookId(id);
+        setLoan(loanInformation[loanInformation.length - 1]);
+    }, [id])
 
     const fetchBook = useCallback(async function () {
         let bookInformation = await getBook(id);
@@ -32,13 +40,19 @@ const BookInfo = () => {
 
     const handleBookRemoval = async () => {
         const response = await removeBook(id);
-        console.log('response', response);
         if (response.status === 200) redirectWithMsg('/livros', 'success', 'O livro foi removido com sucesso');
     }
+    useEffect(() => {
+        fetchLoan();
+    }, [fetchLoan])
 
     useEffect(() => {
         fetchBook();
+        const data = showFlashDataMsg();
+        setToastData(data);
     }, [fetchBook])
+
+    console.log(loan)
 
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
@@ -66,14 +80,23 @@ const BookInfo = () => {
                         <div style={{ backgroundImage: `url(${image})` }} className="h-96 bg-no-repeat bg-48 bg-center"></div>
                         <div className="flex justify-around">
                             {alugado && <Button width="w-18" height="h-8" fontSize="text-base">Alugar</Button>}
-                            {isUser('admin') &&
-                                <>
-                                    <Link to={`/livros/edit/${id}`}>
-                                        <Button width="w-18" height="h-8" fontSize="text-base">Editar</Button>
+                            <div className="flex items-center flex-col">
+                                {isAdminOrSuper() &&
+                                    <div className="flex justify-between w-48 mb-4">
+                                        <Link to={`/livros/edit/${id}`}>
+                                            <Button width="w-18" height="h-8" fontSize="text-base">Editar</Button>
+                                        </Link>
+                                        <Button onClick={openModalBookDeletion} width="w-18" height="h-8" fontSize="text-base">Excluir</Button>
+                                    </div>
+                                }
+                                {!isNotAvailableForLoan(loan) && <div>
+                                    <Link to={`/livros/loan/${id}`}>
+                                        <Button width="w-26" height="h-12">Empréstimo</Button>
                                     </Link>
-                                    <Button onClick={openModalBookDeletion} width="w-18" height="h-8" fontSize="text-base">Excluir</Button>
-                                </>
-                            }
+                                </div>
+                                }
+                            </div>
+
                         </div>
                     </div>
                     <div className="ml-4 w-full flex justify-start flex-col ">
@@ -104,7 +127,7 @@ const BookInfo = () => {
                         </div>
                     </div>
 
-
+                    {toastData.msg && <Toast type={toastData.type} msg={toastData.msg} open={true} setToastData={setToastData} />}
                 </section>
             </div>
         </>

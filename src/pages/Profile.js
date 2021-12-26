@@ -1,7 +1,7 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { Button } from '@mui/material';
 import { useForm } from "react-hook-form";
-import axios from 'axios';
+// import axios from 'axios';
 import AuthContext from '../context/auth/AuthContext';
 
 
@@ -9,20 +9,18 @@ const styleInput = `h-16 px-4 mt-5 outline-none border-2 border-gray-400 rounded
 
 const ProfilePage = () => {
     const { user } = useContext(AuthContext);
-    console.log(user)
-
 
     const initialValue = {
         password: null
     }
 
 
-    const [valueForm, setValueForm] = useState(initialValue)
+    const [valueForm] = useState(initialValue)
 
-    const { register, handleSubmit, setValue } = useForm();
+    const { register, handleSubmit } = useForm();
 
     const onSubmit = async (dataForm) => {
-        const response = axios.post('http://localhost:5000/books/isbn/${value}')
+        // const response = axios.post('http://localhost:5000/books/isbn/${value}')
 
     };
 

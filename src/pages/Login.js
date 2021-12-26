@@ -37,7 +37,7 @@ const Login = () => {
                 <Button variant='contained' type='submit'>Login</Button>
             </form>
             <div className='bg-white w-1/2 flex flex-row justify-evenly items-center h-10'>
-                <Link to='/' className='text-blue-200'>Cadastrar</Link>
+                <Link to='/register' className='text-blue-200'>Cadastrar</Link>
                 <Link to='#' className='text-blue-200'>Esqueci a senha</Link>
             </div>
         </div>

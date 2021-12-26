@@ -1,16 +1,14 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { SideBarData } from './SidebarData';
 import { IconContext } from 'react-icons';
-import AuthContext from '../context/auth/AuthContext';
 
 import Button from '../components/Button';
 
 function Navbar() {
     const [sidebar, setSidebar] = useState(false);
-    const { user } = useContext(AuthContext);
     const showSidebar = () => setSidebar(!sidebar);
     const navMenu = `bg-primary w-64 h-screen flex justify-center fixed top-0 delay-700`;
     const navMenuActive = `active:left-0 duration-300 ease-in-out active:delay-200 duration-300`

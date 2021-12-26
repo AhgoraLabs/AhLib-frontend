@@ -4,7 +4,7 @@ import axios from 'axios';
 
 const Report = () => {
     const [users, setUsers] = useState([]);
-    const [reportData, setReportData] = useState([]);
+    // const [reportData, setReportData] = useState([]);
 
     useEffect(() => {
         (async () => {

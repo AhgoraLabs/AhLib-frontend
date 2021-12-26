@@ -1,7 +1,21 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Rating from '@mui/material/Rating';
+import { getLoanByBookId } from '../api/apiService';
+import { isNotAvailableForLoan } from '../utils/helpers';
 
-const Box = ({title, star, image, alugado}) => {
+const Box = ({title, star, image, bookId}) => {
+
+    const [loan, setLoan ] = useState({});
+
+    const fetchLoan = async () => {
+        let loanInformation = await getLoanByBookId(bookId);
+        setLoan(loanInformation[loanInformation.length - 1]);
+    }
+
+    useEffect(() => {
+        fetchLoan();
+    },[]);
+
     return (
         <div className="h-80 w-56 mx-10 border border-gray-100 rounded-3xl shadow-input-box-shadow">
             <div style={{backgroundImage: `url(${image})`}} className="h-52 mt-4 bg-no-repeat bg-contain bg-center "></div>
@@ -9,7 +23,7 @@ const Box = ({title, star, image, alugado}) => {
                 <label>{title.split(':')[0]}</label>
                 <Rating name="half-rating-read" defaultValue={star} precision={0.5} readOnly />
             </div>
-            <div className={`${alugado ? ' text-danger' : ''} text-center `}>{alugado ? 'Alugado' : 'Livre'}</div>
+            <div className={`${isNotAvailableForLoan(loan) ? 'text-danger' : ''} text-center `}>{isNotAvailableForLoan(loan) ? 'alugado' : 'Livre'}</div>
         </div>
     )
 }

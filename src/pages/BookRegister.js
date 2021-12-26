@@ -4,7 +4,7 @@ import { Button } from '@mui/material';
 import { createBook, getBook, editBook } from '../api/apiService';
 import { normalizeBookData } from '../utils/normalize';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
+import { redirectWithMsg } from '../utils/helpers';
 
 const BookRegister = ({ match }) => {
 
@@ -22,9 +22,8 @@ const BookRegister = ({ match }) => {
     };
     const [valueForm, setValueForm] = useState(InitialValue)
 
+    const data = axios.get('');
     const { register, handleSubmit, setValue } = useForm();
-
-    const history = useHistory();
 
     let isEdit = useMemo(() => !!match.params?.id, [match.params.id]);
 
@@ -32,7 +31,6 @@ const BookRegister = ({ match }) => {
 
     const fetchBookById = async (id) => {
         const book = await getBook(id);
-        console.log('book', book);
         setValueForm(book);
         for (const key in book) {
             setValue(key, book[key]);
@@ -49,23 +47,15 @@ const BookRegister = ({ match }) => {
         let response = '';
         if (isEdit) response = await editBook({ _id: match.params?.id, ...dataForm });
         else response = dataForm.isbn ? await createBook(valueForm) : await createBook(dataForm);
-        
-        const { data } = response;
-
-        !data.error ? setValue('') : alert('Erro ao salvar livro');
-
-        if (isEdit) {
-            history.push(`/livros/info/${match.params?.id}`)
-        }
+        if (response.status === 200) redirectWithMsg(`${isEdit ? `/livros/info/${match.params?.id}` : '/livros'}`, 'success', `O livro foi ${isEdit ? 'Editado' : 'Cadastrado'} com sucesso`);
     };
+
 
     const fetchBook = async (value) => {
         if (value !== '') {
             const { data: { volumeInfo } } = await axios.get(`http://localhost:5000/books/isbn/${value}`)
-
             return setValueForm(volumeInfo ? normalizeBookData(volumeInfo) : {});
         }
-
         return {}
     };
 

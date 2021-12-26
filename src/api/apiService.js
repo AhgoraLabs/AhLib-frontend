@@ -12,7 +12,6 @@ export const createBook = async (book) => {
 }
 
 export const editBook = async (book) => {
-    console.log(book);
     const data = await axios.patch('http://localhost:5000/books/', book);
     return data;
 }
@@ -37,3 +36,32 @@ export const authUser = async (email, password) => {
     return data;
 }
 
+export const createUser = async (email, name) => {
+    const { data } = await axios.post('http://localhost:5000/users/create',{ email, name });
+    return data;
+}
+
+export const getUser = async (email) => {
+    const { data } = await axios.get(`http://localhost:5000/users/user?email=${email}`);
+    return data;
+}
+
+export const getUsers = async () => {
+    const { data: { data } } = await axios.get('http://localhost:5000/users');
+    return data;
+};
+
+export const createLoan = async ({ bookId, person, loanEnd }) => {
+    const data = await axios.post('http://localhost:5000/loan',{ bookId, person, loanEnd });
+    return data;
+};
+
+export const getLoanByBookId = async (id) => {
+    const { data: { data } } = await axios.get(`http://localhost:5000/loan/book/${id}`)
+    return data;
+}
+
+export const getAllLoan = async (id) => {
+    const { data: { data } } = await axios.get(`http://localhost:5000/loan`)
+    return data;
+}

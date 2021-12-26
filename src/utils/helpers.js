@@ -1,6 +1,5 @@
 module.exports = {
     redirectWithMsg: (url, type, msg) => {
-        console.log('bateu no redirect');
         window.localStorage.removeItem('flashData');
 
 
@@ -20,8 +19,16 @@ module.exports = {
             }
         }
         return {};
-
+    },
+    isNotAvailableForLoan: (loan) => {
+    
+        let dateNow = new Date();
+        let haveLoanEndHasBeenExtended = !!loan?.loanEndHasBeenExtended ? dateNow > new Date(loan?.loanEndHasBeenExtended) : false;
+        let haveNewLoandEnd = !!loan?.newLoandEnd ? dateNow > new Date(loan?.newLoandEnd) : false ;
+        return new Date(loan?.loanEnd) > dateNow || haveLoanEndHasBeenExtended || haveNewLoandEnd;
+        
     }
+   
 }
 
 

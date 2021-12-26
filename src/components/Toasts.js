@@ -10,7 +10,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 export default function CustomizedSnackbars({ type, msg, open, setToastData }) {
     setTimeout(() => {
         setToastData({})
-    }, 6000);
+    }, 3000);
 
     const msgType = (type) => ({
         [type === 'error']: <Alert severity="error">{msg}</Alert>,
@@ -21,10 +21,12 @@ export default function CustomizedSnackbars({ type, msg, open, setToastData }) {
 
 
     return (
-        <Stack spacing={2} sx={{ width: '100%' }}>
-            <Snackbar open={open} autoHideDuration={6000}>
-                {msgType(type)}
-            </Snackbar>
-        </Stack>
+        <div>
+            <Stack spacing={2} sx={{ width: '100%' }}>
+                <Snackbar open={open} autoHideDuration={6000}>
+                    {msgType(type)}
+                </Snackbar>
+            </Stack>
+        </div>
     );
 }

@@ -9,20 +9,24 @@ import Navbar from '../components/Navbar';
 import Books from '../pages/Books';
 import ReportPage from '../pages/GenerateReport';
 import BookInfo from "../pages/BookInfo";
+import BookLoan from "../pages/BookLoan";
 import BookRegister from "../pages/BookRegister";
 import Home from "../pages/Home";
 import Suggestions from '../pages/Suggestions';
 import Profile from   '../pages/Profile';
+import UserRegister from '../pages/UserRegister';
 
 const LibraryRouter = () => {
     return (
 		<div >
 			<Routes>
 				<Route exact path='/' component={Login}></Route>
+				<Route exact path='/register' component={UserRegister}></Route>
 				<NavRoute exact path='/home' header={<Navbar />} component={Home}></NavRoute>
 				<NavRoute exact path='/relatorios' header={<Navbar />} component={Reports}></NavRoute>
 				<NavRoute exact path='/livros' header={<Navbar />} component={Books}></NavRoute>
 				<NavRoute exact path='/livros/info/:id' header={<Navbar />} component={BookInfo}></NavRoute>
+				<NavRoute exact path='/livros/loan/:id' header={<Navbar />} component={BookLoan}></NavRoute>
 				<NavRoute exact path='/livros/cadastrar' header={<Navbar />} component={BookRegister}></NavRoute>
 				<NavRoute exact path='/perfil' header={<Navbar />} component={Profile}></NavRoute>
                 <NavRoute exact path='/livros/edit/:id' header={<Navbar />} component={BookRegister}></NavRoute>

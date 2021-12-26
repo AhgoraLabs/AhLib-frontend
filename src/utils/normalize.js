@@ -1,6 +1,5 @@
 export const normalizeBookData = (data = {}) => {
 
-    console.log(data);
         return {
             isbn: data?.industryIdentifiers[0]?.identifier,
             title: data.title,

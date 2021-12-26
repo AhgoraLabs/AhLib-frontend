@@ -32,7 +32,7 @@ export const AuthProvider = ({ children }) => {
     const storagedUser = localStorage.getItem('@App:user');
     const storagedToken = localStorage.getItem('@App:token');
     const storagedId = localStorage.getItem('@App:id');
-    const storagedEmail = localStorage.getItem('@App:email')
+    const storagedEmail = localStorage.getItem('@App:email');
 
     if (storagedToken && storagedUser) {
       setUser({ id:JSON.parse(storagedId), name: JSON.parse(storagedUser), email: storagedEmail });
