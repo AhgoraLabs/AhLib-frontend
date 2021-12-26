@@ -7,6 +7,8 @@ import { BiBookAdd } from "react-icons/bi";
 import { IconContext } from 'react-icons';
 import { listBooks, getBook } from '../api/apiService';
 import { isUser } from '../utils/validationProfile';
+import { showFlashDataMsg } from '../utils/helpers';
+import Toast from '../components/Toasts';
 // import { totalStars } from '../utils/totalStar';
 // import { normalizeBookData } from '../utils/normalize';
 
@@ -21,8 +23,10 @@ const buttonsValues = [
 const Books = () => {
 
     const [books, setBooks] = useState([])
+    const [toastData, setToastData] = useState({});
+
     const fetchBooks = async () => {
-        const {data:{ data } } = await listBooks();
+        const { data: { data } } = await listBooks();
         setBooks(data)
     };
 
@@ -38,6 +42,8 @@ const Books = () => {
 
     useEffect(() => {
         fetchBooks();
+        const data = showFlashDataMsg();
+        setToastData(data);
     }, [])
 
     return (
@@ -60,7 +66,7 @@ const Books = () => {
                 </section>
                 <aside className='w-56 h-large flex flex-col items-end'>
                     <IconContext.Provider value={{ color: '#fff' }}>
-                        {isUser('admin') ?  buttonsValues.map(({ name, icon, path }) => (
+                        {isUser('admin') ? buttonsValues.map(({ name, icon, path }) => (
                             <Link to={path}>
                                 <Button>
                                     {icon}
@@ -69,10 +75,12 @@ const Books = () => {
                                     </label>
                                 </Button>
                             </Link>
-                        )): ''}
+                        )) : ''}
                     </IconContext.Provider>
                 </aside>
             </main>
+            {toastData.msg && <Toast type={toastData.type} msg={toastData.msg} open={true} setToastData={setToastData} />}
+
         </div>
     )
 }

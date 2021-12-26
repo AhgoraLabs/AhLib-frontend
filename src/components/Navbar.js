@@ -22,7 +22,7 @@ function Navbar() {
                         <FaIcons.FaBars onClick={showSidebar} />
                     </Link>
                     <div className='mt-8'>
-                        <Link to='perfil'>
+                        <Link to='/perfil'>
                             <Button width="w-18" height="h-8" fontSize="text-base">Perfil</Button>
                         </Link>
                     </div>

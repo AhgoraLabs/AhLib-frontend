@@ -9,19 +9,32 @@ import { RiPagesLine } from 'react-icons/ri';
 import { AiOutlineArrowRight } from 'react-icons/ai';
 import BoxInfoBook from '../components/BoxInfoBook';
 import Button from '../components/Button';
-import { getBook } from '../api/apiService';
+import { getBook, removeBook } from '../api/apiService';
 import { isUser } from '../utils/validationProfile';
+import Modal from '../components/Modal';
+import { redirectWithMsg } from '../utils/helpers';
 
 const BookInfo = () => {
 
     const [isOpen, setIsOpen] = useState(!true)
     const [book, setBook] = useState({});
+    const [openModal, setOpenModal] = useState(false);
     const { id } = useParams();
+
+    const openModalBookDeletion = () => {
+        setOpenModal(!openModal)
+    }
 
     const fetchBook = useCallback(async function () {
         let bookInformation = await getBook(id);
         setBook(bookInformation);
     }, [id])
+
+    const handleBookRemoval = async () => {
+        const response = await removeBook(id);
+        console.log('response', response);
+        if (response.status === 200) redirectWithMsg('/livros', 'success', 'O livro foi removido com sucesso');
+    }
 
     useEffect(() => {
         fetchBook();
@@ -44,51 +57,60 @@ const BookInfo = () => {
 
 
     return (
-        <div className="flex h-screen justify-center items-center">
-            <section className="flex w-bookInfo h-bookInfo">
-                <div className="w-96 h-full">
-                    <div style={{ backgroundImage: `url(${image})` }} className="h-96 bg-no-repeat bg-48 bg-center"></div>
-                    <div className="flex justify-around">
-                        {alugado && <Button width="w-18" height="h-8" fontSize="text-base">Alugar</Button>}
-                        {isUser('admin') &&
-                            <>
-                                <Link to={`/livros/edit/${id}`}>
-                                    <Button width="w-18" height="h-8" fontSize="text-base">Editar</Button>
-                                </Link>
-                                <Button width="w-18" height="h-8" fontSize="text-base">Excluir</Button>
-                            </>
-                        }
-                    </div>
-                </div>
-                <div className="ml-4 w-full flex justify-start flex-col ">
-                    <div className="w-bookTitle h-16 mt-14 flex items-center justify-start font-sans mx-10">
-                        <h1 className="text-3xl">{title.toUpperCase()}</h1>
-                    </div>
-                    <div className="h-7 mx-10">
-                        <h2>Autor : {author.toString()}</h2>
-                    </div>
-                    <div className="h-8 w-48 mt-4 mx-10 flex items-center justify-between">
-                        <Rating name="half-rating-read" defaultValue={totalStars(star)} precision={0.5} readOnly />
-                        <label>Votos : {star.length}</label>
-                    </div>
-                    <div className={`mx-10 overflow-hidden flex flex-col ${isOpen ? '' : 'h-24'}`}>
-                        <h3 className="font-sans ">Descrição</h3>
-                        {description}
-                    </div>
-                    <ButtonMui onClick={() => setIsOpen(!isOpen)}>Ler {isOpen ? 'menos' : 'mais'}</ButtonMui>
-                    <div className="h-1/4 flex items-center justify-around">
-                        <BoxInfoBook title={'publicado'} icon={<BsCalendarDate />} value={publicado} />
-                        <BoxInfoBook title={'Editora'} value={publisher} />
-                        <BoxInfoBook title={'Idioma'} icon={<GrLanguage />} value={language} />
-                        <BoxInfoBook title={'Total de páginas'} icon={<RiPagesLine />} value={pages} />
-                    </div>
-                    <div className="mx-10">
-                        <Button height="h-12">{'Comentários'}{<AiOutlineArrowRight />}</Button>
-                    </div>
-                </div>
+        <>
+            <Modal open={openModal} setOpen={setOpenModal} removeBook={handleBookRemoval} />
+            <div className="flex h-screen justify-center items-center">
 
-            </section>
-        </div>
+                <section className="flex w-bookInfo h-bookInfo">
+                    <div className="w-96 h-full">
+                        <div style={{ backgroundImage: `url(${image})` }} className="h-96 bg-no-repeat bg-48 bg-center"></div>
+                        <div className="flex justify-around">
+                            {alugado && <Button width="w-18" height="h-8" fontSize="text-base">Alugar</Button>}
+                            {isUser('admin') &&
+                                <>
+                                    <Link to={`/livros/edit/${id}`}>
+                                        <Button width="w-18" height="h-8" fontSize="text-base">Editar</Button>
+                                    </Link>
+                                    <Button onClick={openModalBookDeletion} width="w-18" height="h-8" fontSize="text-base">Excluir</Button>
+                                </>
+                            }
+                        </div>
+                    </div>
+                    <div className="ml-4 w-full flex justify-start flex-col ">
+
+                        <div className="w-bookTitle h-16 mt-14 flex items-center justify-start font-sans mx-10">
+                            <h1 className="text-3xl">{title.toUpperCase()}</h1>
+                        </div>
+                        <div className="h-7 mx-10">
+                            <h2>Autor : {author.toString()}</h2>
+                        </div>
+                        <div className="h-8 w-48 mt-4 mx-10 flex items-center justify-between">
+                            <Rating name="half-rating-read" defaultValue={totalStars(star)} precision={0.5} readOnly />
+                            <label>Votos : {star.length}</label>
+                        </div>
+                        <div className={`mx-10 overflow-hidden flex flex-col ${isOpen ? '' : 'h-24'}`}>
+                            <h3 className="font-sans ">Descrição</h3>
+                            {description}
+                        </div>
+                        <ButtonMui onClick={() => setIsOpen(!isOpen)}>Ler {isOpen ? 'menos' : 'mais'}</ButtonMui>
+                        <div className="h-1/4 flex items-center justify-around">
+                            <BoxInfoBook title={'publicado'} icon={<BsCalendarDate />} value={publicado} />
+                            <BoxInfoBook title={'Editora'} value={publisher} />
+                            <BoxInfoBook title={'Idioma'} icon={<GrLanguage />} value={language} />
+                            <BoxInfoBook title={'Total de páginas'} icon={<RiPagesLine />} value={pages} />
+                        </div>
+                        <div className="mx-10">
+                            <Button height="h-12">{'Comentários'}{<AiOutlineArrowRight />}</Button>
+                        </div>
+                    </div>
+
+
+                </section>
+            </div>
+        </>
+
+
+
     )
 }
 
