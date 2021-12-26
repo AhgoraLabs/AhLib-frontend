@@ -12,8 +12,8 @@ function UserRegister() {
     let history = useHistory();
 
     const onSubmit = async ({email, name }) => {
-       const data =  await createUser(email, name);
-        if(!data.error) history.push('/home');
+       const data =  await createUser(email, name); 
+       console.log(data);
     }
 
     return (

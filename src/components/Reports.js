@@ -1,14 +1,14 @@
 import React from 'react';
 import MultiSelect from '../components/Multiselect';
 
-const Report = ({users}) => {
+const Report = ({users, setUser}) => {
     return (
         <div className='container mx-auto px-4'>
             <h1 className='text-3xl'> Relatório de Avaliações</h1>
             <div className='border-2 border-solid border-black w-5/5'>
                 <h2> Filtros </h2>
                 <div id='filtros' className='flex justify-evenly'>
-                    <MultiSelect users={users} />
+                    <MultiSelect users={users} setUser={setUser} />
 
                 </div>
                 <div className='flex justify-end'>

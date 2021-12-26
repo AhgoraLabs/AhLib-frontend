@@ -4,6 +4,7 @@ import axios from 'axios';
 
 const Report = () => {
     const [users, setUsers] = useState([]);
+    const [user, setUser ] = useState([])
     // const [reportData, setReportData] = useState([]);
 
     useEffect(() => {
@@ -15,7 +16,7 @@ const Report = () => {
 
     return (
         <>
-            { <ReportOptions users={users} />}
+            { <ReportOptions users={users} setUser={setUser}/>}
 
         </>
     )
