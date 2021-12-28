@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect, useCallback, useContext } from 'react'
 import { useParams, Link } from 'react-router-dom';
 import { totalStars } from '../utils/totalStar';
 import Rating from '@mui/material/Rating';
@@ -13,15 +13,19 @@ import { getBook, removeBook, getLoanByBookId } from '../api/apiService';
 import { isAdminOrSuper } from '../utils/validationProfile';
 import Modal from '../components/Modal';
 import Toast from '../components/Toasts';
-import { redirectWithMsg, showFlashDataMsg, isNotAvailableForLoan } from '../utils/helpers';
+import AuthContext from '../context/auth/AuthContext';
+import { redirectWithMsg, showFlashDataMsg, isNotAvailableForLoan, checkIfUserCanExtendLoan } from '../utils/helpers';
 
 const BookInfo = () => {
 
     const [isOpen, setIsOpen] = useState(!true)
+    const { user: { email } } = useContext(AuthContext);
+    console.log('email', email);
+
     const [book, setBook] = useState({});
     const [openModal, setOpenModal] = useState(false);
     const [toastData, setToastData] = useState({});
-    const [loan, setLoan ] = useState({});
+    const [loan, setLoan] = useState({});
     const { id } = useParams();
 
     const openModalBookDeletion = () => {
@@ -52,7 +56,7 @@ const BookInfo = () => {
         setToastData(data);
     }, [fetchBook])
 
-    console.log(loan)
+    console.log('loan', loan)
 
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
@@ -92,6 +96,12 @@ const BookInfo = () => {
                                 {!isNotAvailableForLoan(loan) && <div>
                                     <Link to={`/livros/loan/${id}`}>
                                         <Button width="w-26" height="h-12">Empréstimo</Button>
+                                    </Link>
+                                </div>
+                                }
+                                {checkIfUserCanExtendLoan(loan, email) && <div>
+                                    <Link to={`/livros/loan/${id}`}>
+                                        <Button width="w-26" height="h-12">Extender empréstimo</Button>
                                     </Link>
                                 </div>
                                 }

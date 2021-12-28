@@ -1,3 +1,5 @@
+const moment = require('moment');
+
 module.exports = {
     redirectWithMsg: (url, type, msg) => {
         window.localStorage.removeItem('flashData');
@@ -21,14 +23,23 @@ module.exports = {
         return {};
     },
     isNotAvailableForLoan: (loan) => {
+        if(!loan) return false;
 
-        let dateNow = new Date();
-        let haveLoanEndHasBeenExtended = !!loan?.loanEndHasBeenExtended ? dateNow > new Date(loan?.loanEndHasBeenExtended) : false;
-        let haveNewLoandEnd = !!loan?.newLoandEnd ? dateNow > new Date(loan?.newLoandEnd) : false ;
-        return new Date(loan?.loanEnd) > dateNow || haveLoanEndHasBeenExtended || haveNewLoandEnd;
+        const momentNow  = moment(new Date());
+        const loanEnd = moment(loan.newLoandEnd || loan.loanEnd).utc().hours(3);
+
+        const hasActiveLoan = loanEnd.isSameOrAfter(momentNow);
+        return hasActiveLoan;
+    },
+    checkIfUserCanExtendLoan: (loan, user) => {
+        if (!loan || loan.person !== user) return false;
+
+        const dateNow = moment(new Date());
+        const loanFinalDate = moment(loan.newLoandEnd || loan.loanEnd).utc().hours(3);
+
+        return dateNow.isSameOrBefore(loanFinalDate);
 
     }
-
 }
 
 

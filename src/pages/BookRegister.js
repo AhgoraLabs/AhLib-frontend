@@ -44,9 +44,15 @@ const BookRegister = ({ match }) => {
     }, [isEdit, match.params?.id]);
 
     const onSubmit = async (dataForm) => {
+        debugger;
         let response = '';
-        if (isEdit) response = await editBook({ _id: match.params?.id, ...dataForm });
-        else response = dataForm.isbn ? await createBook(valueForm) : await createBook(dataForm);
+        if (isEdit) {
+            response = await editBook({ _id: match.params?.id, ...dataForm });
+        }
+        else {
+            response = dataForm.isbn ? await createBook(valueForm) : await createBook(dataForm);
+        }
+
         if (response.status === 200) redirectWithMsg(`${isEdit ? `/livros/info/${match.params?.id}` : '/livros'}`, 'success', `O livro foi ${isEdit ? 'Editado' : 'Cadastrado'} com sucesso`);
     };
 
@@ -54,7 +60,7 @@ const BookRegister = ({ match }) => {
     const fetchBook = async (value) => {
         if (value !== '') {
             const { data: { volumeInfo } } = await axios.get(`http://localhost:5000/books/isbn/${value}`)
-            return setValueForm(volumeInfo ? normalizeBookData(volumeInfo) : {});
+            return setValueForm(volumeInfo ? normalizeBookData(volumeInfo, value) : {});
         }
         return {}
     };
