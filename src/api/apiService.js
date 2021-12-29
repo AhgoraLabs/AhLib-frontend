@@ -65,3 +65,13 @@ export const getAllLoan = async (id) => {
     const { data: { data } } = await axios.get(`http://localhost:5000/loan`)
     return data;
 }
+
+export const getCommentsById = async (bookId) => {
+    const { data: { data } } = await axios.get(`http://localhost:5000/comments/?idBook=${bookId}`)
+    return data;
+};
+
+export const createComment = async (comment) => {
+    const { data: { data } } = await axios.post(`http://localhost:5000/comments/create`, comment)
+    return data;
+};

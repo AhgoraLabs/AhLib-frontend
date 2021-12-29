@@ -8,7 +8,7 @@ const Button = ({ children, background, color, width, height, fontSize, onClick 
         ${color ? color : 'text-primary'}
         ${height ? height : 'h-16'}
         ${fontSize ? fontSize : 'text-xl'}
-        font-sans font-bold rounded flex items-center px-4 hover:bg-blue
+        font-sans font-bold rounded flex items-center justify-center px-4 text-center hover:bg-blue
         `;
 
     return (

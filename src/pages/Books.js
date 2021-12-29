@@ -31,8 +31,6 @@ const Books = () => {
         setBooks(data)
     };
 
-    
-
     const fetchBookForInput = async (value) => {
         let data = '';
         if (value === '') {

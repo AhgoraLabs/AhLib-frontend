@@ -9,9 +9,10 @@ import { RiPagesLine } from 'react-icons/ri';
 import { AiOutlineArrowRight } from 'react-icons/ai';
 import BoxInfoBook from '../components/BoxInfoBook';
 import Button from '../components/Button';
-import { getBook, removeBook, getLoanByBookId } from '../api/apiService';
+import { getBook, removeBook, getLoanByBookId, getCommentsById } from '../api/apiService';
 import { isAdminOrSuper } from '../utils/validationProfile';
 import Modal from '../components/Modal';
+import ModalComments from '../components/ModalComments';
 import Toast from '../components/Toasts';
 import AuthContext from '../context/auth/AuthContext';
 import { redirectWithMsg, showFlashDataMsg, isNotAvailableForLoan, checkIfUserCanExtendLoan } from '../utils/helpers';
@@ -20,17 +21,28 @@ const BookInfo = () => {
 
     const [isOpen, setIsOpen] = useState(!true)
     const { user: { email } } = useContext(AuthContext);
-    console.log('email', email);
 
     const [book, setBook] = useState({});
     const [openModal, setOpenModal] = useState(false);
+    const [openModalComments, setOpenModalComments] = useState(false);
     const [toastData, setToastData] = useState({});
+    const [votes, setVotes] = useState([])
     const [loan, setLoan] = useState({});
     const { id } = useParams();
 
     const openModalBookDeletion = () => {
         setOpenModal(!openModal)
-    }
+    };
+
+    const getTotalRating = async () => {
+        const response = await getCommentsById(id);
+        const data = response.map(({ stars }) => stars);
+        setVotes(data);
+
+    };
+    const openModalBookComments = () => {
+        setOpenModalComments(!openModalComments)
+    };
 
     const fetchLoan = useCallback(async function () {
         let loanInformation = await getLoanByBookId(id);
@@ -48,6 +60,7 @@ const BookInfo = () => {
     }
     useEffect(() => {
         fetchLoan();
+        getTotalRating();
     }, [fetchLoan])
 
     useEffect(() => {
@@ -56,7 +69,6 @@ const BookInfo = () => {
         setToastData(data);
     }, [fetchBook])
 
-    console.log('loan', loan)
 
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
@@ -65,7 +77,6 @@ const BookInfo = () => {
         title = '',
         alugado = false,
         author = [],
-        star = [5],
         description = [],
         publicado = new Date().toLocaleDateString('pt-BR', options),
         publisher = '',
@@ -77,6 +88,7 @@ const BookInfo = () => {
     return (
         <>
             <Modal open={openModal} setOpen={setOpenModal} removeBook={handleBookRemoval} />
+            <ModalComments open={openModalComments} setOpen={setOpenModalComments} bookId={id} />
             <div className="flex h-screen justify-center items-center">
 
                 <section className="flex w-bookInfo h-bookInfo">
@@ -118,8 +130,12 @@ const BookInfo = () => {
                             <h2>Autor : {author.toString()}</h2>
                         </div>
                         <div className="h-8 w-48 mt-4 mx-10 flex items-center justify-between">
-                            <Rating name="half-rating-read" defaultValue={totalStars(star)} precision={0.5} readOnly />
-                            <label>Votos : {star.length}</label>
+                            {votes.length > 0 &&
+                                <>
+                                    <Rating name="half-rating-read" defaultValue={totalStars(votes)} precision={0.5} readOnly />
+                                    <label>Votos : {votes.length}</label>
+                                </>
+                            }
                         </div>
                         <div className={`mx-10 overflow-hidden flex flex-col ${isOpen ? '' : 'h-24'}`}>
                             <h3 className="font-sans ">Descrição</h3>
@@ -133,7 +149,7 @@ const BookInfo = () => {
                             <BoxInfoBook title={'Total de páginas'} icon={<RiPagesLine />} value={pages} />
                         </div>
                         <div className="mx-10">
-                            <Button height="h-12">{'Comentários'}{<AiOutlineArrowRight />}</Button>
+                            <Button height="h-12" onClick={openModalBookComments}>{'Comentários'}{<AiOutlineArrowRight />}</Button>
                         </div>
                     </div>
 

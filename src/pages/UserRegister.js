@@ -6,14 +6,12 @@ import { createUser } from '../api/apiService';
 
 function UserRegister() {
 
-
     const { register, handleSubmit } = useForm();
 
     let history = useHistory();
 
     const onSubmit = async ({email, name }) => {
        const data =  await createUser(email, name); 
-       console.log(data);
     }
 
     return (
