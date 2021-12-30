@@ -11,7 +11,7 @@ const Box = ({title, image, bookId}) => {
 
     const fetchLoan = async () => {
         let loanInformation = await getLoanByBookId(bookId);
-        setLoan(loanInformation[loanInformation.length - 1]);
+        setLoan(loanInformation);
     }
 
     const getTotalRating = async () => {

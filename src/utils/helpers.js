@@ -32,12 +32,13 @@ module.exports = {
         return hasActiveLoan;
     },
     checkIfUserCanExtendLoan: (loan, user) => {
+
         if (!loan || loan.person !== user) return false;
 
         const dateNow = moment(new Date());
         const loanFinalDate = moment(loan.newLoandEnd || loan.loanEnd).utc().hours(3);
 
-        return dateNow.isSameOrBefore(loanFinalDate);
+        return dateNow.isSameOrBefore(loanFinalDate, 'day');
 
     }
 }

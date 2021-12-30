@@ -9,7 +9,7 @@ import { RiPagesLine } from 'react-icons/ri';
 import { AiOutlineArrowRight } from 'react-icons/ai';
 import BoxInfoBook from '../components/BoxInfoBook';
 import Button from '../components/Button';
-import { getBook, removeBook, getLoanByBookId, getCommentsById } from '../api/apiService';
+import { getBookById, removeBook, getLoanByBookId, getCommentsById } from '../api/apiService';
 import { isAdminOrSuper } from '../utils/validationProfile';
 import Modal from '../components/Modal';
 import ModalComments from '../components/ModalComments';
@@ -28,6 +28,8 @@ const BookInfo = () => {
     const [toastData, setToastData] = useState({});
     const [votes, setVotes] = useState([])
     const [loan, setLoan] = useState({});
+    const [profile, setProfile] = useState(false);
+
     const { id } = useParams();
 
     const openModalBookDeletion = () => {
@@ -46,11 +48,13 @@ const BookInfo = () => {
 
     const fetchLoan = useCallback(async function () {
         let loanInformation = await getLoanByBookId(id);
-        setLoan(loanInformation[loanInformation.length - 1]);
+        console.log('loan', loanInformation);
+        setLoan(loanInformation);
     }, [id])
 
     const fetchBook = useCallback(async function () {
-        let bookInformation = await getBook(id);
+        let bookInformation = await getBookById(id);
+        console.log('bookInformation', bookInformation);
         setBook(bookInformation);
     }, [id])
 
@@ -63,9 +67,11 @@ const BookInfo = () => {
         getTotalRating();
     }, [fetchLoan])
 
-    useEffect(() => {
+    useEffect(async () => {
         fetchBook();
         const data = showFlashDataMsg();
+        const userProfile = await isAdminOrSuper();
+        setProfile(userProfile);
         setToastData(data);
     }, [fetchBook])
 
@@ -105,11 +111,15 @@ const BookInfo = () => {
                                         <Button onClick={openModalBookDeletion} width="w-18" height="h-8" fontSize="text-base">Excluir</Button>
                                     </div>
                                 }
-                                {!isNotAvailableForLoan(loan) && <div>
+
+                                {!loan && profile ? <div>
                                     <Link to={`/livros/loan/${id}`}>
                                         <Button width="w-26" height="h-12">Empréstimo</Button>
                                     </Link>
                                 </div>
+                                    : <div>
+                                        <Button onClick={openModalBookDeletion} width="w-26" height="h-12">Terminar Empréstimo</Button>
+                                    </div>
                                 }
                                 {checkIfUserCanExtendLoan(loan, email) && <div>
                                     <Link to={`/livros/loan/${id}`}>

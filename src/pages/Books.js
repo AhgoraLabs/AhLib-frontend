@@ -5,7 +5,7 @@ import Button from '../components/Button';
 import Box from '../components/Box';
 import { BiBookAdd } from "react-icons/bi";
 import { IconContext } from 'react-icons';
-import { listBooks, getBook } from '../api/apiService';
+import { listBooks, getBookByTitle, getBookById } from '../api/apiService';
 import { isAdminOrSuper } from '../utils/validationProfile';
 import { isAvailableForLoan, showFlashDataMsg } from '../utils/helpers';
 import Toast from '../components/Toasts';
@@ -25,7 +25,7 @@ const Books = () => {
     const [books, setBooks] = useState([])
     const [toastData, setToastData] = useState({});
     const [loan, setLoan ] = useState({});
-    const [profile, setProfile] =useState(null);
+    const [profile, setProfile] = useState(null);
 
 
 
@@ -35,14 +35,13 @@ const Books = () => {
     };
 
 
-
     const fetchBookForInput = async (value) => {
         let data = '';
         if (value === '') {
             return fetchBooks();
         }
 
-        data = await getBook(value)
+        data = await getBookByTitle(value)
         return setBooks(data)
     }
 

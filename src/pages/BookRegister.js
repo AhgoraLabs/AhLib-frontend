@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { useForm } from "react-hook-form";
 import { Button } from '@mui/material';
-import { createBook, getBook, editBook } from '../api/apiService';
+import { createBook, getBookById, editBook } from '../api/apiService';
 import { normalizeBookData } from '../utils/normalize';
 import axios from 'axios';
 import { redirectWithMsg } from '../utils/helpers';
@@ -30,7 +30,7 @@ const BookRegister = ({ match }) => {
     const styleInput = `h-16 px-4 outline-none border-2 border-gray-400 rounded-xl focus:border-blue-700 font-sans`;
 
     const fetchBookById = async (id) => {
-        const book = await getBook(id);
+        const book = await getBookById(id);
         setValueForm(book);
         for (const key in book) {
             setValue(key, book[key]);
