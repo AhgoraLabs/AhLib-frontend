@@ -33,7 +33,7 @@ const Box = ({title, image, bookId}) => {
                 <label>{title.split(':')[0]}</label>
                 {votes.length > 0 && <Rating name="half-rating-read" defaultValue={totalStars(votes)} precision={0.5} readOnly />}
             </div>
-            <div className={`${(loan) ? 'text-danger' : ''} text-center `}>{loan ? 'alugado' : 'Livre'}</div>
+            <div className={`${(loan.length) ? 'text-danger' : ''} text-center `}>{loan.length ? 'alugado' : 'Livre'}</div>
         </div>
     )
 }

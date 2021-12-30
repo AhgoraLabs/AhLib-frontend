@@ -35,7 +35,7 @@ const style = {
 };
 
 
-export default function ModalUnstyledDemo({ open, setOpen, removeBook }) {
+export default function Modal({ open, setOpen, action, title, text }) {
   const closeModal = () => {
     setOpen(false)
   }
@@ -63,10 +63,10 @@ export default function ModalUnstyledDemo({ open, setOpen, removeBook }) {
         BackdropComponent={Backdrop}
       >
         <Box sx={style}>
-          <h1 className='text-lg bold'>Exclusão de livro</h1>
-          <p>Tem certeza que deseja excluir o registro? Essa ação não poderá ser desfeita</p>
+          <h1 className='text-lg bold'>{title}</h1>
+          <p>{text}</p>
           <div className='flex justify-evenly mt-5'>
-            <Button onClick={removeBook} width="w-18" height="h-8" fontSize="text-base">Sim</Button>
+            <Button onClick={action} width="w-18" height="h-8" fontSize="text-base">Sim</Button>
             <Button onClick={closeModal} width="w-18" height="h-8" fontSize="text-base">Cancelar</Button>
           </div>
 

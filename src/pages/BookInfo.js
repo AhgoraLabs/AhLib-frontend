@@ -24,6 +24,7 @@ const BookInfo = () => {
 
     const [book, setBook] = useState({});
     const [openModal, setOpenModal] = useState(false);
+    const [openModalLoan, setOpenModalLoan] = useState(false);
     const [openModalComments, setOpenModalComments] = useState(false);
     const [toastData, setToastData] = useState({});
     const [votes, setVotes] = useState([])
@@ -36,6 +37,9 @@ const BookInfo = () => {
         setOpenModal(!openModal)
     };
 
+    const openModalBookEdit = () => {
+        setOpenModalLoan(!openModalLoan)
+    };
     const getTotalRating = async () => {
         const response = await getCommentsById(id);
         const data = response.map(({ stars }) => stars);
@@ -61,7 +65,8 @@ const BookInfo = () => {
     const handleBookRemoval = async () => {
         const response = await removeBook(id);
         if (response.status === 200) redirectWithMsg('/livros', 'success', 'O livro foi removido com sucesso');
-    }
+    };
+    
     useEffect(() => {
         fetchLoan();
         getTotalRating();
@@ -93,7 +98,20 @@ const BookInfo = () => {
 
     return (
         <>
-            <Modal open={openModal} setOpen={setOpenModal} removeBook={handleBookRemoval} />
+            <Modal
+                open={openModal}
+                setOpen={setOpenModal}
+                action={handleBookRemoval}
+                title={'Exclusão de livro'}
+                text={'Tem certeza que deseja excluir o registro? Essa ação não poderá ser desfeita'}
+            />
+            <Modal
+                open={openModalLoan}
+                setOpen={setOpenModalLoan}
+                action={handleBookRemoval}
+                title={'Terminar empŕestimo'}
+                text={'Tem certeza que deseja executar essa ação? Essa ação não poderá ser desfeita'}
+            />
             <ModalComments open={openModalComments} setOpen={setOpenModalComments} bookId={id} />
             <div className="flex h-screen justify-center items-center">
 
@@ -118,7 +136,7 @@ const BookInfo = () => {
                                     </Link>
                                 </div>
                                     : <div>
-                                        <Button onClick={openModalBookDeletion} width="w-26" height="h-12">Terminar Empréstimo</Button>
+                                        <Button onClick={openModalBookEdit} width="w-26" height="h-12">Terminar Empréstimo</Button>
                                     </div>
                                 }
                                 {checkIfUserCanExtendLoan(loan, email) && <div>
