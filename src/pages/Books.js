@@ -25,11 +25,16 @@ const Books = () => {
     const [books, setBooks] = useState([])
     const [toastData, setToastData] = useState({});
     const [loan, setLoan ] = useState({});
+    const [profile, setProfile] =useState(null);
+
+
 
     const fetchBooks = async () => {
         const { data: { data } } = await listBooks();
         setBooks(data)
     };
+
+
 
     const fetchBookForInput = async (value) => {
         let data = '';
@@ -41,8 +46,10 @@ const Books = () => {
         return setBooks(data)
     }
 
-    useEffect(() => {
+    useEffect(async() => {
         fetchBooks();
+        const userProfile = await isAdminOrSuper();
+        setProfile(userProfile);
         const data = showFlashDataMsg();
         setToastData(data);
     }, [])
@@ -67,7 +74,7 @@ const Books = () => {
                 </section>
                 <aside className='w-56 h-large flex flex-col items-end'>
                     <IconContext.Provider value={{ color: '#fff' }}>
-                        {isAdminOrSuper() ? buttonsValues.map(({ name, icon, path }) => (
+                        {profile && buttonsValues.map(({ name, icon, path }) => (
                             <Link to={path}>
                                 <Button>
                                     {icon}
@@ -76,7 +83,7 @@ const Books = () => {
                                     </label>
                                 </Button>
                             </Link>
-                        )) : ''}
+                        ))}
                     </IconContext.Provider>
                 </aside>
             </main>
