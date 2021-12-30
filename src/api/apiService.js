@@ -43,7 +43,7 @@ export const authUser = async (email, password) => {
 }
 
 export const createUser = async (email, name) => {
-    const { data } = await axios.post('http://localhost:5000/users/create',{ email, name });
+    const { data } = await axios.post('http://localhost:5000/users/create', { email, name });
     return data;
 }
 
@@ -58,7 +58,7 @@ export const getUsers = async () => {
 };
 
 export const createLoan = async ({ bookId, person, loanEnd }) => {
-    const data = await axios.post('http://localhost:5000/loan',{ bookId, person, loanEnd });
+    const data = await axios.post('http://localhost:5000/loan', { bookId, person, loanEnd });
     return data;
 };
 
@@ -73,8 +73,9 @@ export const getAllLoan = async (id) => {
 }
 
 export const endLoan = async (id) => {
-    const { data: { data } } = await axios.patch(`http://localhost:5000/loan/`)
-    return  data;
+    debugger;
+    const data = await axios.patch(`http://localhost:5000/loan/${id}`, { endLoan: true })
+    return data;
 }
 
 export const getCommentsById = async (bookId) => {

@@ -9,7 +9,7 @@ import { RiPagesLine } from 'react-icons/ri';
 import { AiOutlineArrowRight } from 'react-icons/ai';
 import BoxInfoBook from '../components/BoxInfoBook';
 import Button from '../components/Button';
-import { getBookById, removeBook, getLoanByBookId, getCommentsById } from '../api/apiService';
+import { getBookById, removeBook, getLoanByBookId, getCommentsById, endLoan } from '../api/apiService';
 import { isAdminOrSuper } from '../utils/validationProfile';
 import Modal from '../components/Modal';
 import ModalComments from '../components/ModalComments';
@@ -29,6 +29,7 @@ const BookInfo = () => {
     const [toastData, setToastData] = useState({});
     const [votes, setVotes] = useState([])
     const [loan, setLoan] = useState({});
+    console.log('loan', loan);
     const [profile, setProfile] = useState(false);
 
     const { id } = useParams();
@@ -66,7 +67,13 @@ const BookInfo = () => {
         const response = await removeBook(id);
         if (response.status === 200) redirectWithMsg('/livros', 'success', 'O livro foi removido com sucesso');
     };
-    
+
+    const handleLoanEnding = async () => {
+        const response = await endLoan(loan._id);
+        debugger;
+        if(response.status === 200) redirectWithMsg('/livros', 'success', 'O empréstimo foi encerrado com sucesso')
+    }
+
     useEffect(() => {
         fetchLoan();
         getTotalRating();
@@ -108,7 +115,7 @@ const BookInfo = () => {
             <Modal
                 open={openModalLoan}
                 setOpen={setOpenModalLoan}
-                action={handleBookRemoval}
+                action={handleLoanEnding}
                 title={'Terminar empŕestimo'}
                 text={'Tem certeza que deseja executar essa ação? Essa ação não poderá ser desfeita'}
             />
@@ -130,7 +137,7 @@ const BookInfo = () => {
                                     </div>
                                 }
 
-                                {!loan.length && profile ? <div>
+                                {!loan && profile ? <div>
                                     <Link to={`/livros/loan/${id}`}>
                                         <Button width="w-26" height="h-12">Empréstimo</Button>
                                     </Link>
