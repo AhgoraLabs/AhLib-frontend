@@ -112,7 +112,7 @@ const BookInfo = () => {
                                     </div>
                                 }
 
-                                {!loan && profile ? <div>
+                                {!loan.length && profile ? <div>
                                     <Link to={`/livros/loan/${id}`}>
                                         <Button width="w-26" height="h-12">Empréstimo</Button>
                                     </Link>
