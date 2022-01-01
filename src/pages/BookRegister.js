@@ -44,7 +44,6 @@ const BookRegister = ({ match }) => {
     }, [isEdit, match.params?.id]);
 
     const onSubmit = async (dataForm) => {
-        debugger;
         let response = '';
         if (isEdit) {
             response = await editBook({ _id: match.params?.id, ...dataForm });
@@ -59,8 +58,8 @@ const BookRegister = ({ match }) => {
 
     const fetchBook = async (value) => {
         if (value !== '') {
-            const { data: { volumeInfo } } = await axios.get(`http://localhost:5000/books/isbn/${value}`)
-            return setValueForm(volumeInfo ? normalizeBookData(volumeInfo, value) : {});
+            const {data: data} = await axios.get(`http://localhost:5000/books/isbn/${value}`)
+            return setValueForm(data ? normalizeBookData(data, value) : {});
         }
         return {}
     };
