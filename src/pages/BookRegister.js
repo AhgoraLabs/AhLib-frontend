@@ -1,3 +1,4 @@
+// eslint-disable-next-line react-hooks/exhaustive-deps
 import React, { useEffect, useMemo, useState } from 'react'
 import { useForm } from "react-hook-form";
 import { Button } from '@mui/material';
@@ -34,13 +35,14 @@ const BookRegister = ({ match }) => {
         for (const key in book) {
             setValue(key, book[key]);
         }
+
     }
 
     useEffect(() => {
         if (isEdit) {
             fetchBookById(match.params?.id)
         }
-    }, [fetchBookById, isEdit, match.params?.id]);
+    },  [isEdit, match.params?.id]);
 
     const onSubmit = async (dataForm) => {
         let response = '';
@@ -57,7 +59,7 @@ const BookRegister = ({ match }) => {
 
     const fetchBook = async (value) => {
         if (value !== '') {
-            const { data: { data }} = await axios.get(`http://localhost:5000/books/isbn/${value}`)
+            const { data } = await axios.get(`http://localhost:5000/books/isbn/${value}`)
             return setValueForm(data ? normalizeBookData(data, value) : {});
         }
         return {}
