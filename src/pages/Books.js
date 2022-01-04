@@ -1,16 +1,15 @@
-import React, { useCallback, useEffect, useState } from 'react'
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import Input from '../components/Input'
 import Button from '../components/Button';
 import Box from '../components/Box';
 import { BiBookAdd } from "react-icons/bi";
 import { IconContext } from 'react-icons';
-import { listBooks, getBookByTitle, getBookById } from '../api/apiService';
+import { listBooks, getBookByTitle } from '../api/apiService';
 import { isAdminOrSuper } from '../utils/validationProfile';
-import { isAvailableForLoan, showFlashDataMsg } from '../utils/helpers';
+import {showFlashDataMsg } from '../utils/helpers';
 import Toast from '../components/Toasts';
-// import { totalStars } from '../utils/totalStar';
-// import { normalizeBookData } from '../utils/normalize';
 
 const buttonsValues = [
     {
@@ -24,7 +23,6 @@ const Books = () => {
 
     const [books, setBooks] = useState([])
     const [toastData, setToastData] = useState({});
-    const [loan, setLoan ] = useState({});
     const [profile, setProfile] = useState(null);
 
 
@@ -65,7 +63,7 @@ const Books = () => {
                 <section className='w-56 h-large'>
                 </section>
                 <section className='w-8/12 h-large flex justify-center flex-row flex-wrap'>
-                    {books.length > 0 ? books.map(({ _id, title, author, image, coments, active }) => (
+                    {books.length > 0 ? books.map(({ _id, title, author, image, coments }) => (
                         <Link key={_id} to={`/livros/info/${_id}`}>
                             <Box key={_id} title={title} authors={author} star={5} image={image} coments={coments} bookId={_id}/>
                         </Link>

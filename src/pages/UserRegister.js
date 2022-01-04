@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button, TextField } from '@mui/material';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { createUser } from '../api/apiService';
 
@@ -11,7 +11,11 @@ function UserRegister() {
     let history = useHistory();
 
     const onSubmit = async ({email, name }) => {
-       const data =  await createUser(email, name); 
+       const response =  await createUser(email, name); 
+
+       if(response.status === 200){
+           history.go('/');
+       }
     }
 
     return (

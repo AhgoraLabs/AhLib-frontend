@@ -13,7 +13,7 @@ module.exports = {
 
         const flashData = JSON.parse(window.localStorage.getItem('flashData'));
         const pathUrl = window.location.pathname + '' + window.location.search
-        if (flashData?.url == pathUrl) {
+        if (flashData?.url === pathUrl) {
             window.localStorage.removeItem('flashData')
             return {
                 type: flashData.type,

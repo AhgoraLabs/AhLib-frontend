@@ -11,8 +11,9 @@ const Report = () => {
         (async () => {
             const { data: { data } } = await axios.get('http://localhost:5000/users');
             setUsers(data);
+            console.log(user);
         })()
-    }, [])
+    }, [user])
 
     return (
         <>

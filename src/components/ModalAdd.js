@@ -1,10 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { styled, Box } from '@mui/system';
 import ModalUnstyled from '@mui/base/ModalUnstyled';
 import { useForm, Controller } from 'react-hook-form';
 import { TextField, Button, Rating } from '@mui/material';
 import { createComment } from '../api/apiService';
-import { redirectWithMsg } from '../utils/helpers';
 
 const StyledModal = styled(ModalUnstyled)`
   position: fixed;

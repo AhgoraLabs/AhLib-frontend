@@ -21,14 +21,13 @@ const BookRegister = ({ match }) => {
         publisher: '',
     };
     const [valueForm, setValueForm] = useState(InitialValue)
-
-    const data = axios.get('');
     const { register, handleSubmit, setValue } = useForm();
 
     let isEdit = useMemo(() => !!match.params?.id, [match.params.id]);
 
     const styleInput = `h-16 px-4 outline-none border-2 border-gray-400 rounded-xl focus:border-blue-700 font-sans`;
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const fetchBookById = async (id) => {
         const book = await getBookById(id);
         setValueForm(book);
@@ -41,7 +40,7 @@ const BookRegister = ({ match }) => {
         if (isEdit) {
             fetchBookById(match.params?.id)
         }
-    }, [isEdit, match.params?.id]);
+    }, [fetchBookById, isEdit, match.params?.id]);
 
     const onSubmit = async (dataForm) => {
         let response = '';
@@ -58,7 +57,7 @@ const BookRegister = ({ match }) => {
 
     const fetchBook = async (value) => {
         if (value !== '') {
-            const {data: data} = await axios.get(`http://localhost:5000/books/isbn/${value}`)
+            const { data: { data }} = await axios.get(`http://localhost:5000/books/isbn/${value}`)
             return setValueForm(data ? normalizeBookData(data, value) : {});
         }
         return {}
