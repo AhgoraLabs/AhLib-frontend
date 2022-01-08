@@ -72,7 +72,7 @@ const BookInfo = () => {
     const handleLoanEnding = async () => {
         const response = await endLoan(loan._id);
         debugger;
-        if(response.status === 200) redirectWithMsg('/livros', 'success', 'O empréstimo foi encerrado com sucesso')
+        if (response.status === 200) redirectWithMsg('/livros', 'success', 'O empréstimo foi encerrado com sucesso')
     }
 
     useEffect(() => {
@@ -148,7 +148,7 @@ const BookInfo = () => {
                                     </div>
                                 }
                                 {checkIfUserCanExtendLoan(loan, email) && <div>
-                                    <Link to={`/livros/loan/${id}`}>
+                                    <Link to={`/livros/loan/${id}?extend=true`}>
                                         <Button width="w-26" height="h-12">Extender empréstimo</Button>
                                     </Link>
                                 </div>

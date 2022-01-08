@@ -73,8 +73,13 @@ export const getAllLoan = async (id) => {
 }
 
 export const endLoan = async (id) => {
+    const data = await axios.patch(`http://localhost:5000/loan/${id}`, { bookHasReturned: true })
+    return data;
+}
+
+export const extendLoan = async (id, newDate) => {
     debugger;
-    const data = await axios.patch(`http://localhost:5000/loan/${id}`, { endLoan: true })
+    const data = await axios.patch(`http://localhost:5000/loan/${id}`, {newLoanEnd: newDate, loanEndHasBeenExtended: true})
     return data;
 }
 

@@ -32,8 +32,9 @@ module.exports = {
         return hasActiveLoan;
     },
     checkIfUserCanExtendLoan: (loan, user) => {
+        debugger;
 
-        if (!loan || loan.person !== user) return false;
+        if (!loan || loan.person !== user || loan.loanEndHasBeenExtended) return false;
 
         const dateNow = moment(new Date());
         const loanFinalDate = moment(loan.newLoandEnd || loan.loanEnd).utc().hours(3);
