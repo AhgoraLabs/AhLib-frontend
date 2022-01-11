@@ -7,14 +7,28 @@ module.exports = {
       'primary': '#060b26',
       'secondary': '#f5f5f5',
       'blue': '#1a83ff',
+      'login':'#557085;',
+      'input':'#f5f5f5',
+      'input-submit':'#677eff',
+      'input-signup':'#e73e49',
+      'register':'#ad6232'
+    
     }),
+      letterSpacing: {
+        large: '1px',
+      },
+
     textColor: {
       'primary': '#f5f5f5',
       'secondary': '#ffed4a',
       'danger': '#e3342f',
+      'login':'#555',
+      'white':'#fff',
+      'link':'#577eff',
     },
     fontFamily: {
-      'sans': ['Roboto', 'ui-sans-serif', 'system-ui']
+      'sans': ['Roboto', 'ui-sans-serif', 'system-ui'],
+      'poppins': ['Poppins', 'ui-sans-serif', 'system-ui']
     },
     backgroundSize: {
       'auto': 'auto',
@@ -24,6 +38,7 @@ module.exports = {
     },
       boxShadow: {
         'input-box-shadow': '0px 8px 4px rgba(0, 0, 0, 0.25)',
+        'login':'0 15px 50px rgba(0,0,0,0.1)'
       },
       extend: {
         width: {
@@ -31,10 +46,13 @@ module.exports = {
           'large': '1030px',
           'bookInfo': '80%',
           'bookTitle':'784px',
+          'login':'800px',
+          'image-login':'400px'
         },
         height: {
           'large': '730px',
           'bookInfo': '790px',
+          'image-login':'500px'
         }
       },
     },
@@ -42,6 +60,9 @@ module.exports = {
       extend: {
         backgroundColor: ['active'],
         transitionDelay: ['hover', 'focus'],
+        spacing:{
+          'negative-full': '-100%'
+        }
       },
     },
     plugins: [],
