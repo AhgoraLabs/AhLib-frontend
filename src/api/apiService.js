@@ -57,6 +57,11 @@ export const getUsers = async () => {
     return data;
 };
 
+export const createSuggestion = async (suggestionData) => {
+    const data = await axios.post('http://localhost:5000/suggestions', suggestionData);
+    return  data;
+}
+
 export const createLoan = async ({ bookId, person, loanEnd }) => {
     const data = await axios.post('http://localhost:5000/loan', { bookId, person, loanEnd });
     return data;
