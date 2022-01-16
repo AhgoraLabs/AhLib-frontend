@@ -8,8 +8,9 @@ import { BiBookAdd } from "react-icons/bi";
 import { IconContext } from 'react-icons';
 import { listBooks, getBookByTitle } from '../api/apiService';
 import { isAdminOrSuper } from '../utils/validationProfile';
-import {showFlashDataMsg } from '../utils/helpers';
+import { showFlashDataMsg } from '../utils/helpers';
 import Toast from '../components/Toasts';
+
 
 const buttonsValues = [
     {
@@ -20,6 +21,8 @@ const buttonsValues = [
 ]
 
 const Books = () => {
+    let typingTime;
+    const TIMEOUT_TYPING_TIME = 500;
 
     const [books, setBooks] = useState([])
     const [toastData, setToastData] = useState({});
@@ -32,18 +35,33 @@ const Books = () => {
         setBooks(data)
     };
 
+    // const onSearchChangeHandler = async (searchText) => {
+
+    //     typingTiming = setTimeout(() => {
+    //         if (!filters.employeeFilter) {
+    //             filters.employeeFilter = {};
+    //         }
+    //         filters.employeeFilter.busca = searchText;
+    //         setFilters({ ...filters });
+    //         fetchExtraHoursHandler();
+    //     }, TIMEOUT_TYPING_TIME);
+    // };
 
     const fetchBookForInput = async (value) => {
-        let data = '';
         if (value === '') {
             return fetchBooks();
-        }
+        } else {
 
-        data = await getBookByTitle(value)
-        return setBooks(data)
+            clearTimeout(typingTime);
+            let data = '';
+            typingTime = setTimeout(async () => {
+                data = await getBookByTitle(value)
+                return setBooks(data)
+            }, TIMEOUT_TYPING_TIME)
+        }
     }
 
-    useEffect(async() => {
+    useEffect(async () => {
         fetchBooks();
         const userProfile = await isAdminOrSuper();
         setProfile(userProfile);
@@ -65,7 +83,7 @@ const Books = () => {
                 <section className='w-8/12 h-large flex justify-center flex-row flex-wrap'>
                     {books.length > 0 ? books.map(({ _id, title, author, image, coments }) => (
                         <Link key={_id} to={`/livros/info/${_id}`}>
-                            <Box key={_id} title={title} authors={author} star={5} image={image} coments={coments} bookId={_id}/>
+                            <Box key={_id} title={title} authors={author} star={5} image={image} coments={coments} bookId={_id} />
                         </Link>
                     )) : ''}
                 </section>

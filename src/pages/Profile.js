@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { Button } from '@mui/material';
 import { useForm } from "react-hook-form";
-// import axios from 'axios';
+import axios from 'axios';
 import AuthContext from '../context/auth/AuthContext';
 
 
@@ -20,8 +20,7 @@ const ProfilePage = () => {
     const { register, handleSubmit } = useForm();
 
     const onSubmit = async (dataForm) => {
-        // const response = axios.post('http://localhost:5000/books/isbn/${value}')
-
+        const response = await axios.patch('http://localhost:5000/users', dataForm);
     };
 
     return (
