@@ -35,17 +35,6 @@ const Books = () => {
         setBooks(data)
     };
 
-    // const onSearchChangeHandler = async (searchText) => {
-
-    //     typingTiming = setTimeout(() => {
-    //         if (!filters.employeeFilter) {
-    //             filters.employeeFilter = {};
-    //         }
-    //         filters.employeeFilter.busca = searchText;
-    //         setFilters({ ...filters });
-    //         fetchExtraHoursHandler();
-    //     }, TIMEOUT_TYPING_TIME);
-    // };
 
     const fetchBookForInput = async (value) => {
         if (value === '') {
