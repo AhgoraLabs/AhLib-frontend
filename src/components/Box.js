@@ -3,12 +3,13 @@ import React, { useEffect, useState } from 'react'
 import Rating from '@mui/material/Rating';
 import { getCommentsById, getLoanByBookId } from '../api/apiService';
 import { totalStars } from '../utils/totalStar';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const Box = ({title, image, bookId}) => {
 
     const [loan, setLoan ] = useState({});
     const [votes, setVotes ] = useState([])
-
+    const [isLoading , setLoading ] = useState(true);
     const fetchLoan = async () => {
         let loanInformation = await getLoanByBookId(bookId);
         setLoan(loanInformation);
@@ -20,6 +21,10 @@ const Box = ({title, image, bookId}) => {
         setVotes(data);
 
     };
+
+    setTimeout(() => {
+        setLoading(false)
+    }, 600);
 
     useEffect(() => {
         getTotalRating();
@@ -33,7 +38,7 @@ const Box = ({title, image, bookId}) => {
                 <label>{title.split(':')[0]}</label>
                 {votes.length > 0 && <Rating name="half-rating-read" defaultValue={totalStars(votes)} precision={0.5} readOnly />}
             </div>
-            <div className={`${(loan) ? 'text-danger' : ''} text-center `}>{loan ? 'alugado' : 'Livre'}</div>
+            {isLoading ? <div className='flex items-center justify-center'><CircularProgress size={20}/></div> : <div className={`${(loan) ? 'text-danger' : ''} text-center `}>{loan ? 'alugado' : 'Livre'}</div>}
         </div>
     )
 }

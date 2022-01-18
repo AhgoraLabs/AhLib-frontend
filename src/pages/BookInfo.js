@@ -17,6 +17,7 @@ import ModalComments from '../components/ModalComments';
 import Toast from '../components/Toasts';
 import AuthContext from '../context/auth/AuthContext';
 import { redirectWithMsg, showFlashDataMsg, checkIfUserCanExtendLoan } from '../utils/helpers';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const BookInfo = () => {
 
@@ -30,8 +31,8 @@ const BookInfo = () => {
     const [toastData, setToastData] = useState({});
     const [votes, setVotes] = useState([])
     const [loan, setLoan] = useState({});
-    console.log('loan', loan);
     const [profile, setProfile] = useState(false);
+    const [isLoading, setLoading] = useState(true);
 
     const { id } = useParams();
 
@@ -63,6 +64,11 @@ const BookInfo = () => {
         console.log('bookInformation', bookInformation);
         setBook(bookInformation);
     }, [id])
+
+
+    setTimeout(() => {
+        setLoading(false)
+    }, 600);
 
     const handleBookRemoval = async () => {
         const response = await removeBook(id);
@@ -122,75 +128,75 @@ const BookInfo = () => {
             />
             <ModalComments open={openModalComments} setOpen={setOpenModalComments} bookId={id} />
             <div className="flex h-screen justify-center items-center">
-
-                <section className="flex w-bookInfo h-bookInfo">
-                    <div className="w-96 h-full">
-                        <div style={{ backgroundImage: `url(${!!image ? image : 'https://www.biotecdermo.com.br/wp-content/uploads/2016/10/sem-imagem-10.jpg'})` }} className="h-96 bg-no-repeat bg-48 bg-center"></div>
-                        <div className="flex justify-around">
-                            {alugado && <Button width="w-18" height="h-8" fontSize="text-base">Alugar</Button>}
-                            <div className="flex items-center flex-col">
-                                {isAdminOrSuper() &&
-                                    <div className="flex justify-between w-48 mb-4">
-                                        <Link to={`/livros/edit/${id}`}>
-                                            <Button width="w-18" height="h-8" fontSize="text-base">Editar</Button>
+                {isLoading ? <CircularProgress size={200}/> :
+                    <section className="flex w-bookInfo h-bookInfo">
+                        <div className="w-96 h-full">
+                            <div style={{ backgroundImage: `url(${!!image ? image : 'https://www.biotecdermo.com.br/wp-content/uploads/2016/10/sem-imagem-10.jpg'})` }} className="h-96 bg-no-repeat bg-48 bg-center"></div>
+                            <div className="flex justify-around">
+                                {alugado && <Button width="w-18" height="h-8" fontSize="text-base">Alugar</Button>}
+                                <div className="flex items-center flex-col">
+                                    {isAdminOrSuper() &&
+                                        <div className="flex justify-between w-48 mb-4">
+                                            <Link to={`/livros/edit/${id}`}>
+                                                <Button width="w-18" height="h-8" fontSize="text-base">Editar</Button>
+                                            </Link>
+                                            <Button onClick={openModalBookDeletion} width="w-18" height="h-8" fontSize="text-base">Excluir</Button>
+                                        </div>
+                                    }
+                                    {!loan && profile ? <div>
+                                        <Link to={`/livros/loan/${id}`}>
+                                            <Button width="w-26" height="h-12">Empréstimo</Button>
                                         </Link>
-                                        <Button onClick={openModalBookDeletion} width="w-18" height="h-8" fontSize="text-base">Excluir</Button>
                                     </div>
-                                }
+                                        : <div>
+                                            <Button onClick={openModalBookEdit} width="w-26" height="h-12">Terminar Empréstimo</Button>
+                                        </div>
+                                    }
+                                    {checkIfUserCanExtendLoan(loan, email) && <div>
+                                        <Link to={`/livros/loan/${id}?extend=true`}>
+                                            <Button width="w-26" height="h-12">Extender empréstimo</Button>
+                                        </Link>
+                                    </div>
+                                    }
+                                </div>
 
-                                {!loan && profile ? <div>
-                                    <Link to={`/livros/loan/${id}`}>
-                                        <Button width="w-26" height="h-12">Empréstimo</Button>
-                                    </Link>
-                                </div>
-                                    : <div>
-                                        <Button onClick={openModalBookEdit} width="w-26" height="h-12">Terminar Empréstimo</Button>
-                                    </div>
-                                }
-                                {checkIfUserCanExtendLoan(loan, email) && <div>
-                                    <Link to={`/livros/loan/${id}?extend=true`}>
-                                        <Button width="w-26" height="h-12">Extender empréstimo</Button>
-                                    </Link>
-                                </div>
+                            </div>
+                        </div>
+                        <div className="ml-4 w-full flex justify-start flex-col ">
+
+                            <div className="w-bookTitle h-16 mt-14 flex items-center justify-start font-sans mx-10">
+                                <h1 className="text-3xl">{title.toUpperCase()}</h1>
+                            </div>
+                            <div className="h-7 mx-10">
+                                <h2>Autor : {author.toString()}</h2>
+                            </div>
+                            <div className="h-8 w-48 mt-4 mx-10 flex items-center justify-between">
+                                {votes.length > 0 &&
+                                    <>
+                                        <Rating name="half-rating-read" defaultValue={totalStars(votes)} precision={0.5} readOnly />
+                                        <label>Votos : {votes.length}</label>
+                                    </>
                                 }
                             </div>
+                            <div className={`mx-10 overflow-hidden flex flex-col ${isOpen ? '' : 'h-24'}`}>
+                                <h3 className="font-sans ">Descrição</h3>
+                                {description}
+                            </div>
+                            <ButtonMui onClick={() => setIsOpen(!isOpen)}>Ler {isOpen ? 'menos' : 'mais'}</ButtonMui>
+                            <div className="h-1/4 flex items-center justify-around">
+                                <BoxInfoBook title={'publicado'} icon={<BsCalendarDate />} value={publicado} />
+                                <BoxInfoBook title={'Editora'} value={publisher} />
+                                <BoxInfoBook title={'Idioma'} icon={<GrLanguage />} value={language} />
+                                <BoxInfoBook title={'Total de páginas'} icon={<RiPagesLine />} value={pages} />
+                            </div>
+                            <div className="mx-10">
+                                <Button height="h-12" onClick={openModalBookComments}>{'Comentários'}{<AiOutlineArrowRight />}</Button>
+                            </div>
+                        </div>
 
-                        </div>
-                    </div>
-                    <div className="ml-4 w-full flex justify-start flex-col ">
-
-                        <div className="w-bookTitle h-16 mt-14 flex items-center justify-start font-sans mx-10">
-                            <h1 className="text-3xl">{title.toUpperCase()}</h1>
-                        </div>
-                        <div className="h-7 mx-10">
-                            <h2>Autor : {author.toString()}</h2>
-                        </div>
-                        <div className="h-8 w-48 mt-4 mx-10 flex items-center justify-between">
-                            {votes.length > 0 &&
-                                <>
-                                    <Rating name="half-rating-read" defaultValue={totalStars(votes)} precision={0.5} readOnly />
-                                    <label>Votos : {votes.length}</label>
-                                </>
-                            }
-                        </div>
-                        <div className={`mx-10 overflow-hidden flex flex-col ${isOpen ? '' : 'h-24'}`}>
-                            <h3 className="font-sans ">Descrição</h3>
-                            {description}
-                        </div>
-                        <ButtonMui onClick={() => setIsOpen(!isOpen)}>Ler {isOpen ? 'menos' : 'mais'}</ButtonMui>
-                        <div className="h-1/4 flex items-center justify-around">
-                            <BoxInfoBook title={'publicado'} icon={<BsCalendarDate />} value={publicado} />
-                            <BoxInfoBook title={'Editora'} value={publisher} />
-                            <BoxInfoBook title={'Idioma'} icon={<GrLanguage />} value={language} />
-                            <BoxInfoBook title={'Total de páginas'} icon={<RiPagesLine />} value={pages} />
-                        </div>
-                        <div className="mx-10">
-                            <Button height="h-12" onClick={openModalBookComments}>{'Comentários'}{<AiOutlineArrowRight />}</Button>
-                        </div>
-                    </div>
-
-                    {toastData.msg && <Toast type={toastData.type} msg={toastData.msg} open={true} setToastData={setToastData} />}
-                </section>
+                        {toastData.msg && <Toast type={toastData.type} msg={toastData.msg} open={true} setToastData={setToastData} />}
+                    </section>
+                }
             </div>
         </>
 

@@ -10,7 +10,7 @@ import { listBooks, getBookByTitle } from '../api/apiService';
 import { isAdminOrSuper } from '../utils/validationProfile';
 import { showFlashDataMsg } from '../utils/helpers';
 import Toast from '../components/Toasts';
-
+import Pagination from "@mui/material/Pagination";
 
 const buttonsValues = [
     {
@@ -29,12 +29,15 @@ const Books = () => {
     const [profile, setProfile] = useState(null);
 
 
+    const handleChange = async (event, value) => {
+        const { data: { data } } = await listBooks(8, value - 1);
+        setBooks(data)
+    }
 
-    const fetchBooks = async () => {
-        const { data: { data } } = await listBooks();
+    const fetchBooks = async (limit = 8, page) => {
+        const { data: { data } } = await listBooks(8, page);
         setBooks(data)
     };
-
 
     const fetchBookForInput = async (value) => {
         if (value === '') {
@@ -51,12 +54,13 @@ const Books = () => {
     }
 
     useEffect(async () => {
-        fetchBooks();
+        fetchBooks( 8 , 0);
         const userProfile = await isAdminOrSuper();
         setProfile(userProfile);
         const data = showFlashDataMsg();
         setToastData(data);
     }, [])
+
 
     return (
         <div>
@@ -70,11 +74,20 @@ const Books = () => {
                 <section className='w-56 h-large'>
                 </section>
                 <section className='w-8/12 h-large flex justify-center flex-row flex-wrap'>
-                    {books.length > 0 ? books.map(({ _id, title, author, image, coments }) => (
+                    {books || books?.length > 0 ? books.map(({ _id, title, author, image, coments }) => (
                         <Link key={_id} to={`/livros/info/${_id}`}>
                             <Box key={_id} title={title} authors={author} star={5} image={image} coments={coments} bookId={_id} />
                         </Link>
-                    )) : ''}
+                    )) : 'Não Foi encontrado nenhum livro'}
+                    <div className='absolute bottom-0'>
+                        <Pagination 
+                        count={10}
+                        color="primary" 
+                        size="large"
+                        onChange={handleChange}
+                        />
+                    </div>
+
                 </section>
                 <aside className='w-56 h-large flex flex-col items-end'>
                     <IconContext.Provider value={{ color: '#fff' }}>
