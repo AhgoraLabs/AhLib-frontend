@@ -10,7 +10,8 @@ import { listBooks, getBookByTitle } from '../api/apiService';
 import { isAdminOrSuper } from '../utils/validationProfile';
 import { showFlashDataMsg } from '../utils/helpers';
 import Toast from '../components/Toasts';
-import Pagination from "@mui/material/Pagination";
+import TablePagination from '@mui/material/TablePagination';
+
 
 const buttonsValues = [
     {
@@ -27,15 +28,19 @@ const Books = () => {
     const [books, setBooks] = useState([])
     const [toastData, setToastData] = useState({});
     const [profile, setProfile] = useState(null);
+    const [count, setCount] = useState(0);
+    const [booksPerPage, setBooksPerPage] = useState(10);
+    const [page, setPage] = useState(0);
 
 
-    const handleChange = async (event, value) => {
-        const { data: { data } } = await listBooks(8, value - 1);
+    const handleChange = async (value) => {
+        const { data: { data } } = await listBooks(8, value);
         setBooks(data)
     }
 
     const fetchBooks = async (limit = 8, page) => {
-        const { data: { data } } = await listBooks(8, page);
+        const { data: { data, count } } = await listBooks(limit, page);
+        setCount(count);
         setBooks(data)
     };
 
@@ -53,8 +58,18 @@ const Books = () => {
         }
     }
 
+    const handleChangePage = async(event, newPage) => {
+        handleChange(newPage)
+        setPage(newPage);
+    };
+
+    const handleChangeRowsPerPage = (event) => {
+        setBooksPerPage(parseInt(event.target.value, 10));
+        setPage(0);
+      };
+
     useEffect(async () => {
-        fetchBooks( 8 , 0);
+        await fetchBooks(8, 0);
         const userProfile = await isAdminOrSuper();
         setProfile(userProfile);
         const data = showFlashDataMsg();
@@ -79,12 +94,15 @@ const Books = () => {
                             <Box key={_id} title={title} authors={author} star={5} image={image} coments={coments} bookId={_id} />
                         </Link>
                     )) : 'Não Foi encontrado nenhum livro'}
-                    <div className='absolute bottom-0'>
-                        <Pagination 
-                        count={10}
-                        color="primary" 
-                        size="large"
-                        onChange={handleChange}
+                    <div className='fixed bottom-0'>
+                        <TablePagination
+                            count={count}
+                            page={page}
+                            rowsPerPage={booksPerPage}
+                            onPageChange={handleChangePage}
+                            onRowsPerPageChange={handleChangeRowsPerPage}
+                            color="primary"
+                            size="large"
                         />
                     </div>
 

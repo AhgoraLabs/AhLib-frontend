@@ -22,7 +22,7 @@ export const removeBook = async (id) => {
 
 
 export const listBooks = async (limit , offset) => {
-    const data = await axios.get(`http://localhost:5000/books/${limit}/${offset}`);
+    const data = await axios.get(`http://localhost:5000/books?limit=${limit}&offset=${offset}`);
     return data;
 }
 
