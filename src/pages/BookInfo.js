@@ -10,6 +10,7 @@ import { RiPagesLine } from 'react-icons/ri';
 import { AiOutlineArrowRight } from 'react-icons/ai';
 import BoxInfoBook from '../components/BoxInfoBook';
 import Button from '../components/Button';
+import moment from 'moment';
 import { getBookById, removeBook, getLoanByBookId, getCommentsById, endLoan } from '../api/apiService';
 import { isAdminOrSuper } from '../utils/validationProfile';
 import Modal from '../components/Modal';
@@ -77,7 +78,7 @@ const BookInfo = () => {
 
     const handleLoanEnding = async () => {
         const response = await endLoan(loan._id);
-        debugger;
+
         if (response.status === 200) redirectWithMsg('/livros', 'success', 'O empréstimo foi encerrado com sucesso')
     }
 
@@ -155,9 +156,20 @@ const BookInfo = () => {
                                             </div> : ''
                                     }
                                     {loan && (
-                                        <div >
-                                            <p className='text-center'>Este livro está com o usuário {loan.person} </p>
-                                        </div>
+                                        <>
+                                            <div >
+                                                <p className='text-center'>Este livro está com o usuário {loan.person} </p>
+                                            </div>
+
+                                            <div >
+                                                <br></br>
+                                                <p
+                                                    className='text-center'
+                                                >
+                                                    Devolução estimada:  {moment(loan.newLoanEnd || loan.loanEnd, 'YYYY-MM-DD').format('DD-MM-YYYY')}
+                                                </p>
+                                            </div>
+                                        </>
                                     )}
                                     {checkIfUserCanExtendLoan(loan, email) && <div>
                                         <Link to={`/livros/loan/${id}?extend=true`}>
@@ -191,7 +203,7 @@ const BookInfo = () => {
                             </div>
                             <ButtonMui onClick={() => setIsOpen(!isOpen)}>Ler {isOpen ? 'menos' : 'mais'}</ButtonMui>
                             <div className="h-1/4 flex items-center justify-around">
-                                <BoxInfoBook title={'publicado'} icon={<BsCalendarDate />} value={publicado} />
+                                <BoxInfoBook title={'Número de empréstimos'}  value={0} />
                                 <BoxInfoBook title={'Editora'} value={publisher} />
                                 <BoxInfoBook title={'Idioma'} icon={<GrLanguage />} value={language} />
                                 <BoxInfoBook title={'Total de páginas'} icon={<RiPagesLine />} value={pages} />

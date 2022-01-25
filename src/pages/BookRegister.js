@@ -13,7 +13,6 @@ const BookRegister = ({ match }) => {
         isbn: '',
         title: '',
         author: '',
-        publishDate: '',
         pages: '',
         image: '',
         language: '',
@@ -101,13 +100,6 @@ const BookRegister = ({ match }) => {
                     placeholder={'Editora'}
                     {...register('publisher')}
                     defaultValue={valueForm?.publisher}
-                />
-                <input
-                    className={styleInput}
-                    type="date"
-                    placeholder={'Publicação'}
-                    {...register('publishDate')}
-                    defaultValue={valueForm?.publishDate}
                 />
                 <input
                     className={styleInput}

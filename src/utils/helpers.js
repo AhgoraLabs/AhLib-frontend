@@ -23,17 +23,15 @@ module.exports = {
         return {};
     },
     isNotAvailableForLoan: (loan) => {
-        if(!loan) return false;
+        if (!loan) return false;
 
-        const momentNow  = moment(new Date());
+        const momentNow = moment(new Date());
         const loanEnd = moment(loan.newLoandEnd || loan.loanEnd).utc().hours(3);
 
         const hasActiveLoan = loanEnd.isSameOrAfter(momentNow);
         return hasActiveLoan;
     },
     checkIfUserCanExtendLoan: (loan, user) => {
-        debugger;
-
         if (!loan || loan.person !== user || loan.loanEndHasBeenExtended) return false;
 
         const dateNow = moment(new Date());

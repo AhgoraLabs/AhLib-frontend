@@ -4,7 +4,6 @@ export const normalizeBookData = (data = {}, isbn) => {
         isbn,
         title: data.title,
         author: data.author?.toString(),
-        publishDate: data.publishDate?.toString(),
         pages: data.pages,
         image: data.image,
         subtitle: data.subtitle,
