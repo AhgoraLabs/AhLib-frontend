@@ -20,8 +20,8 @@ const Login = () => {
     }
 
     const registerUser = async ({email, name }) => {
-        const response =  await createUser(email, name); 
- 
+        const response =  await createUser(email, name);
+
         if(response.status === 200){
             history.go('/');
         }
@@ -35,7 +35,7 @@ const Login = () => {
                     </div>
                     <div className={`relative w-6/12 h-full bg-white flex justify-center items-start flex-col p-10 duration-300 absolute z-50 ${active ? 'top-full' : 'top-0'}`}>
                         <form onSubmit={handleSubmit(onSubmit)}>
-                            <h2 className='text-l font-bold uppercase tracking-large text-center w-full mb-2.5 text-login'>Sign In</h2>
+                            <h2 className='text-l font-bold uppercase tracking-large text-center w-full mb-2.5 text-login'>Login</h2>
                             <input
                                 className='z-index-1 w-full p-2.5 bg-input text-login border-none outline-none shadow-none text-sm my-2 tracking-wider font-light'
                                 name='login'
@@ -46,20 +46,20 @@ const Login = () => {
                             <input
                                 className='w-full p-2.5 bg-input text-login border-none outline-none shadow-none text-sm my-2 tracking-wider font-light'
                                 name='senha'
-                                placeholder='Password'
+                                placeholder='Senha'
                                 type='password'
                                 {...register('password')}
                             />
                             <input className='bg-input-submit text-white text-l tracking-wider font-medium my-4 h-12 w-24 cursor-pointer' type='submit' value='Login'></input>
                         </form>
-                        <p className='relative mt-5 text-sm tracking-large text-login font-light'>DON'T HAVE AN ACCOUNT?<span onClick={() => setActive(!active)} className='font-semibold text-link cursor-pointer'>SIGN UP. </span></p>
+                        <p className='relative mt-5 text-sm tracking-large text-login font-light'>Não tem uma conta?<span onClick={() => setActive(!active)} className='font-semibold text-link cursor-pointer'>Criar conta. </span></p>
                         {/* <Link to='#' className='text-blue-200'>Esqueci a senha</Link> */}
                     </div>
                 </div>
                 <div className='absolute top-0 left-0 w-full h-full flex'>
                     <div className={`relative w-6/12 h-full bg-white flex justify-center items-start flex-col p-10 duration-300 ${active ? 'top-0' : 'top-full'}`}>
                         <form onSubmit={handleSubmit(registerUser)}>
-                            <h2 className='text-l font-bold uppercase tracking-large text-center w-full mb-2.5 text-login'>CREATE AN ACCOUNT</h2>
+                            <h2 className='text-l font-bold uppercase tracking-large text-center w-full mb-2.5 text-login'>CRIE UMA CONTA</h2>
                             <input
                                 className='w-full p-2.5 bg-input text-login border-none outline-none shadow-none text-sm my-2 tracking-wider font-light'
                                 name='email'
@@ -70,13 +70,13 @@ const Login = () => {
                             <input
                                 className='w-full p-2.5 bg-input text-login border-none outline-none shadow-none text-sm my-2 tracking-wider font-light'
                                 name='name'
-                                placeholder='Name'
+                                placeholder='NOME'
                                 type='text'
                                 {...register('name')}
                             />
                             <input className='bg-input-signup text-white text-l tracking-wider font-medium my-4 h-12 w-24 cursor-pointer' type='submit' value='Sign up'></input>
                         </form>
-                        <p className='relative mt-5 text-sm tracking-large text-login font-light'>ALREADY HAVE AN ACCOUNT?<span onClick={() => setActive(!active)} className='font-semibold text-link cursor-pointer'>SIGN IN.</span></p>
+                        <p className='relative mt-5 text-sm tracking-large text-login font-light'>JÁ POSSUI UMA  CONTA?<span onClick={() => setActive(!active)} className='font-semibold text-link cursor-pointer'>ENTRE.</span></p>
                         {/* <Link to='#' className='text-blue-200'>Esqueci a senha</Link> */}
                     </div>
                     <div className={`relative w-6/12 h-full flex duration-300 ${active ? 'top-0' : '-top-full'}`}>

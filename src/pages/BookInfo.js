@@ -128,7 +128,7 @@ const BookInfo = () => {
             />
             <ModalComments open={openModalComments} setOpen={setOpenModalComments} bookId={id} />
             <div className="flex h-screen justify-center items-center">
-                {isLoading ? <CircularProgress size={200}/> :
+                {isLoading ? <CircularProgress size={200} /> :
                     <section className="flex w-bookInfo h-bookInfo">
                         <div className="w-96 h-full">
                             <div style={{ backgroundImage: `url(${!!image ? image : 'https://www.biotecdermo.com.br/wp-content/uploads/2016/10/sem-imagem-10.jpg'})` }} className="h-96 bg-no-repeat bg-48 bg-center"></div>
@@ -147,10 +147,12 @@ const BookInfo = () => {
                                         <Link to={`/livros/loan/${id}`}>
                                             <Button width="w-26" height="h-12">Empréstimo</Button>
                                         </Link>
+
                                     </div>
-                                        : <div>
-                                            <Button onClick={openModalBookEdit} width="w-26" height="h-12">Terminar Empréstimo</Button>
-                                        </div>
+                                        : loan && profile ?
+                                            <div>
+                                                <Button onClick={openModalBookEdit} width="w-26" height="h-12">Terminar Empréstimo</Button>
+                                            </div> : ''
                                     }
                                     {checkIfUserCanExtendLoan(loan, email) && <div>
                                         <Link to={`/livros/loan/${id}?extend=true`}>
