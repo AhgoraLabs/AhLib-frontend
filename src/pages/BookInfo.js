@@ -23,7 +23,6 @@ const BookInfo = () => {
 
     const [isOpen, setIsOpen] = useState(!true)
     const { user: { email } } = useContext(AuthContext);
-
     const [book, setBook] = useState({});
     const [openModal, setOpenModal] = useState(false);
     const [openModalLoan, setOpenModalLoan] = useState(false);
@@ -31,6 +30,7 @@ const BookInfo = () => {
     const [toastData, setToastData] = useState({});
     const [votes, setVotes] = useState([])
     const [loan, setLoan] = useState({});
+    console.log(loan, 'loan');
     const [profile, setProfile] = useState(false);
     const [isLoading, setLoading] = useState(true);
 
@@ -154,6 +154,11 @@ const BookInfo = () => {
                                                 <Button onClick={openModalBookEdit} width="w-26" height="h-12">Terminar Empréstimo</Button>
                                             </div> : ''
                                     }
+                                    {loan && (
+                                        <div >
+                                            <p className='text-center'>Este livro está com o usuário {loan.person} </p>
+                                        </div>
+                                    )}
                                     {checkIfUserCanExtendLoan(loan, email) && <div>
                                         <Link to={`/livros/loan/${id}?extend=true`}>
                                             <Button width="w-26" height="h-12">Extender empréstimo</Button>
