@@ -10,7 +10,7 @@ import Button from '../components/Button';
 function Navbar() {
     const [sidebar, setSidebar] = useState(false);
     const showSidebar = () => setSidebar(!sidebar);
-    const navMenu = `bg-primary w-64 h-screen flex justify-center fixed top-0 delay-700`;
+    const navMenu = `z-10 bg-primary w-64 h-screen flex justify-center fixed top-0 delay-700`;
     const navMenuActive = `active:left-0 duration-300 ease-in-out active:delay-200 duration-300`
     return (
         <>

@@ -1,3 +1,4 @@
+const { colors } = require('tailwindcss/defaultTheme')
 module.exports = {
   purge: [],
   darkMode: false, // or 'media' or 'class'
@@ -25,6 +26,7 @@ module.exports = {
       'login':'#555',
       'white':'#fff',
       'link':'#577eff',
+      ...colors
     },
     fontFamily: {
       'sans': ['Roboto', 'ui-sans-serif', 'system-ui'],
