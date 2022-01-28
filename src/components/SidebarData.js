@@ -26,8 +26,8 @@ export const SideBarData = [
         cName: `flex justify-start items-center py-2 pl-4 list-none h-14 hover:bg-blue`
     },
     {
-        title: 'Equipe',
-        path: '/Home',
+        title: 'Recomendações',
+        path: '/recomendacao',
         icon: <IoIcons.IoMdPeople />,
         cName: `flex justify-start items-center py-2 pl-4 list-none h-14 hover:bg-blue`
     },

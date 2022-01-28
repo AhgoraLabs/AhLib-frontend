@@ -14,10 +14,10 @@ const moment = require('moment');
         const startdate2 = moment().subtract(2, 'months').format('MMM-YYYY');
         return [ startdate, startdate1, startdate2 ]
     }
-    
+
 function Home() {
 
-    
+
     const startdate = ano();
     const mouth1 = startdate[0].replace('-', '/');
     const mouth2 = startdate[1].replace('-', '/');
@@ -32,7 +32,7 @@ function Home() {
       ['Livros Livres', 70],
       ['Livros Alugados', 30]
     ]);
-    
+
 
     const data2 = [
         [
@@ -50,7 +50,7 @@ function Home() {
         [mouth2, 10.49, "green", null],
         [mouth1, 19.3, "gold", null],
       ];
-      
+
       const options2 = {
         title: "Emprestimos por Periodo",
         width: 600,
@@ -63,11 +63,11 @@ function Home() {
 
     return (
         <div className='container mx-auto'>
-            <header className='ml-20 h-12'> 
+            <header className='ml-20 h-12'>
                 <h2 class='my-4 text-purple-600 text-2xl '> Painel - AhLib </h2>
             </header>
           <div className=' flex justify-end' style={{display: "flex", position: 'absolute'}}>
-             
+
             <Chart
                 fontSize={'100'}
                 width={'500px'}
@@ -91,16 +91,16 @@ function Home() {
     </div>
           </div>
 
-          
+
       </div>
     );
   }
 
-      
+
 export default Home
 
 
 
 
-  
-  
+
+
