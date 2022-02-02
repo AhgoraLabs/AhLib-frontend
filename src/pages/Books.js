@@ -11,6 +11,7 @@ import { isAdminOrSuper } from '../utils/validationProfile';
 import { showFlashDataMsg } from '../utils/helpers';
 import Toast from '../components/Toasts';
 import TablePagination from '@mui/material/TablePagination';
+import Pagination from '../components/Pagination';
 
 
 const buttonsValues = [
@@ -29,14 +30,11 @@ const Books = () => {
     const [toastData, setToastData] = useState({});
     const [profile, setProfile] = useState(null);
     const [count, setCount] = useState(0);
-    const [booksPerPage, setBooksPerPage] = useState(10);
+    const [booksPerPage, setBooksPerPage] = useState(5);
     const [page, setPage] = useState(0);
 
 
-    const handleChange = async (value) => {
-        const { data: { data } } = await listBooks(8, value);
-        setBooks(data)
-    }
+
 
     const fetchBooks = async (limit = 8, page) => {
         const { data: { data, count } } = await listBooks(limit, page);
@@ -58,15 +56,15 @@ const Books = () => {
         }
     }
 
-    const handleChangePage = async(event, newPage) => {
-        handleChange(newPage)
-        setPage(newPage);
+    const handleChangePage = async (operation) => {
+        if (operation === 'subtract' && page > 0) setPage(page - 1);
+        else if (operation === 'add') setPage(page + 1)
     };
 
     const handleChangeRowsPerPage = (event) => {
         setBooksPerPage(parseInt(event.target.value, 10));
         setPage(0);
-      };
+    };
 
     useEffect(async () => {
         await fetchBooks(8, 0);
@@ -90,19 +88,18 @@ const Books = () => {
                 </section>
                 <section className='w-8/12 h-large flex justify-center flex-row flex-wrap'>
                     {books || books?.length > 0 ? books.map(({ _id, title, author, image, coments }) => (
-                        <Link key={_id} to={`/livros/info/${_id}`}>
-                            <Box key={_id} title={title} authors={author} star={5} image={image} coments={coments} bookId={_id} />
-                        </Link>
+                        <Box key={_id} title={title} authors={author} star={5} image={image} coments={coments} bookId={_id} />
+
                     )) : 'Não Foi encontrado nenhum livro'}
                     <div className='fixed bottom-0'>
-                        <TablePagination
-                            count={count}
+                        <Pagination
+                            options={[5, 10, 15, 20]}
+                            label={"Livros por página"}
+                            handleChangePage={handleChangePage}
                             page={page}
-                            rowsPerPage={booksPerPage}
-                            onPageChange={handleChangePage}
-                            onRowsPerPageChange={handleChangeRowsPerPage}
-                            color="primary"
-                            size="large"
+                            handleChangeRowsPerPage={handleChangeRowsPerPage}
+                            booksPerPage={booksPerPage}
+                            total={count}
                         />
                     </div>
 
