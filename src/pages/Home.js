@@ -9,21 +9,13 @@ import _ from 'lodash';
 import qrCode from '../images/qrCodeApp.png';
 import { height } from '@mui/system';
 
-const getChartSize = (windowSize) => ({
-   [windowSize < 1000]: [10, 5], 
-   [windowSize > 1000 && windowSize < 1700]: [800, 500] 
-}).true || [1500, 1000]
+
 
 function Home() {
+    
   const month1 = moment().format('MMM/YYYY')
   const month2 = moment().subtract(1, 'months').format('MMM/YYYY');
   const month3 = moment().subtract(2, 'months').format('MMM/YYYY');
-
-
-  // const month1 = startdate[0].replace('-', '/');
-  // const month2 = startdate[1].replace('-', '/');
-  // const month3 = startdate[2].replace('-', '/');
-  // const valueFake = 100
 
   const [options, setOptions] = useState({})
   const [data, setData] = useState([
@@ -92,14 +84,6 @@ function Home() {
     setTotalbooks(count);
   }
   useEffect(() => {
-    window.addEventListener('resize', ()=>{
-        const {innerWidth} = window;
-        setwindowSize(innerWidth)
-        const [width, height] = getChartSize(innerWidth)
-        setChartWidth(width)
-        setChartHeight(height)
-        console.log('teste')
-    }) 
      
     var b = data.map(([a, b]) => {
       if (a == 'Livros Livres') b = totalBooks - totalLoans;
@@ -107,11 +91,6 @@ function Home() {
       return [a, b]
     })
     setOptions({ title: `Total de Livros ${totalBooks}`})
-    const {innerWidth} = window;
-    setwindowSize(innerWidth)
-    const [width, height] = getChartSize(innerWidth)
-    setChartWidth(width)
-    setChartHeight(height)
     setData(b)
     books()
     loans()
@@ -127,45 +106,47 @@ function Home() {
     legend: { position: "none" },
   };
 
+  const teste = chartWidth+((chartWidth*10)/100);
+  console.log(teste)
 
 
   return (
 
-      <div className='h-12'>
+    <div className='h-12'>
         <div>
-      <header className='ml-20'>
-        <h2 class='my-4 text-purple-600 text-2xl '> Painel - AhLib </h2>
-      </header>
-  </div>
+            <header className='ml-20'>
+                <h2 class='my-4 text-purple-600 text-2xl '> Painel - AhLib </h2>
+            </header>
+        </div>
 
-      <div className='justify-center flex'>
+ 
         <div className='justify-center flex'>
-      <div className='mr-10'>
-        <Chart
-          bg-current
-          fontSize={'100'}
-          width={chartWidth}
-          height={chartHeight}
-          chartType="PieChart"
-          graphID="ScatterChart"
-          loader={<div>Carregando Painel</div>}
-          data={data}
-          options={options}
-          />
-          </div>
-          <div>
-        <Chart
-          chartType="BarChart"
-          width="100%"
-          height="100%"
-          data={option2}
-          options={options2}
-        />
-          </div>
-          
-          </div>
-      </div>
-    <div className='justify-center flex flex-nowrap' >
+            <div className='justify-evenly mr-10 flex'>
+                <Chart
+                bg-current
+                fontSize={'100'}
+                width={'50vw'}
+                height={'50vh'}
+                chartType="PieChart"
+                graphID="ScatterChart1"
+                loader={<div>Carregando Painel</div>}
+                data={data}
+                options={options}
+                />
+                <Chart
+                bg-current
+                chartType="BarChart"
+                width={'50vw'}
+                height={'50vh'}
+                graphID="ScatterChart"
+                fontSize={'100'}
+                data={option2}
+                options={options2}
+                />
+            </div>
+        </div>
+   
+<div className='justify-center flex flex-nowrap' >
       <div className='justify-center text-center text-lg'>
       <h1 className='h-10'>Acesse pelo App</h1> 
       <img alt='qrCode' src={qrCode} width={'250px'}/>
