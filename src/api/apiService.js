@@ -99,6 +99,6 @@ export const getCommentsById = async (bookId) => {
 };
 
 export const createComment = async (comment) => {
-    const { data: { data } } = await axios.post(`http://localhost:5000/`, comment)
+    const { data: { data } } = await axios.post(`http://localhost:5000/comments`, comment)
     return data;
 };
