@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { Link } from 'react-router-dom';
 import Input from '../components/Input'
 import Button from '../components/Button';
@@ -12,6 +12,7 @@ import { showFlashDataMsg } from '../utils/helpers';
 import Toast from '../components/Toasts';
 import TablePagination from '@mui/material/TablePagination';
 import Pagination from '../components/Pagination';
+import _ from 'lodash';
 
 
 const buttonsValues = [
@@ -30,11 +31,12 @@ const Books = () => {
     const [toastData, setToastData] = useState({});
     const [profile, setProfile] = useState(null);
     const [count, setCount] = useState(0);
-    const [booksPerPage, setBooksPerPage] = useState(5);
+    const [booksPerPage, setBooksPerPage] = useState(8);
+    console.log(booksPerPage, 'booksPerPage');
+    console.log(count, 'count');
+
     const [page, setPage] = useState(0);
-
-
-
+    console.log(page, 'page');
 
     const fetchBooks = async (limit = 8, page) => {
         const { data: { data, count } } = await listBooks(limit, page);
@@ -57,8 +59,11 @@ const Books = () => {
     }
 
     const handleChangePage = async (operation) => {
+        const miniMum = booksPerPage * page;
+        const maxiMum = booksPerPage * (page + 1);
+
         if (operation === 'subtract' && page > 0) setPage(page - 1);
-        else if (operation === 'add') setPage(page + 1)
+        else if (operation === 'add' && !_.inRange(count, miniMum, maxiMum)) setPage(page + 1)
     };
 
     const handleChangeRowsPerPage = (event) => {
@@ -73,6 +78,15 @@ const Books = () => {
         const data = showFlashDataMsg();
         setToastData(data);
     }, [])
+
+    const firstUpdate = useRef(true);
+    useEffect(async () => {
+        if (firstUpdate.current) {
+            firstUpdate.current = false;
+            return;
+        }
+        await fetchBooks(booksPerPage, page);
+    }, [booksPerPage, page])
 
 
     return (
@@ -93,7 +107,7 @@ const Books = () => {
                     )) : 'Não Foi encontrado nenhum livro'}
                     <div className='fixed bottom-0'>
                         <Pagination
-                            options={[5, 10, 15, 20]}
+                            options={[8, 16, 32, 40]}
                             label={"Livros por página"}
                             handleChangePage={handleChangePage}
                             page={page}
