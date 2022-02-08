@@ -39,9 +39,11 @@ const Box = ({ title, image, bookId }) => {
             <div style={{ backgroundImage: `url(${!!image ? image : 'https://www.biotecdermo.com.br/wp-content/uploads/2016/10/sem-imagem-10.jpg'})` }} className="h-52 mt-4 bg-no-repeat bg-contain bg-center "></div>
             <div className={`truncate text-center  m-1 mt-4 flex  flex-col items-center ${title.length > 28 ? 'text-xs capitalize break-normal' : ' capitalize'}`}>
                 <label>{title.split(':')[0]}</label>
+            <div>
+                {isLoading ? <div className='font-thin flex items-center justify-center'><CircularProgress size={20} /></div> : <div className={`${(loan) ? 'text-base font-thin text-danger font-medium' : ' text-base font-thin text-textbook font-medium'} text-center `}>{loan ? 'alugado' : 'Livre'}</div>}
+            </div>
                 {votes.length > 0 && <Rating name="half-rating-read" defaultValue={totalStars(votes)} precision={0.5} readOnly />}
             </div>
-            {isLoading ? <div className='font-thin flex items-center justify-center'><CircularProgress size={20} /></div> : <div className={`${(loan) ? 'text-danger font-medium' : 'text-textbook font-medium'} text-center `}>{loan ? 'alugado' : 'Livre'}</div>}
         </div>
     )
 }
