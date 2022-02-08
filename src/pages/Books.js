@@ -97,7 +97,7 @@ const Books = () => {
                     fetchBookForInput={fetchBookForInput}
                 />
             </header>
-            <main className=' w-full flex justify-between'>
+            <main className=' text-base w-full flex justify-between'>
                 <section className='w-56 h-large'>
                 </section>
                 <section className='w-8/12 h-large flex justify-center flex-row flex-wrap'>
@@ -105,7 +105,8 @@ const Books = () => {
                         <Box key={_id} title={title} authors={author} star={5} image={image} coments={coments} bookId={_id} />
 
                     )) : 'Não Foi encontrado nenhum livro'}
-                    <div className='fixed bottom-0'>
+                    
+                    <div className=' text-rodape h-14 w-full bg-white fixed bottom-0 flex flex-row justify-center items-center'>
                         <Pagination
                             options={[8, 16, 32, 40]}
                             label={"Livros por página"}

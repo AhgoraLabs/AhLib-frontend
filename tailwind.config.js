@@ -20,6 +20,7 @@ module.exports = {
       },
 
     textColor: {
+      'rodape': 'rgb(139, 135, 135)',
       'textbook': '#008000',
       'primary': '#f5f5f5',
       'secondary': '#ffed4a',
