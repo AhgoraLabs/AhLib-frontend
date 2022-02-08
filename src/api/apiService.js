@@ -72,6 +72,11 @@ export const getLoanByBookId = async (id) => {
     return data;
 }
 
+export const getAllLoansByBookId = async (id) => {
+    const { data: { data } } = await axios.get(`http://localhost:5000/loan/count/${id}`)
+    return data
+}
+
 export const getAllLoan = async (id) => {
     const { data: { data } } = await axios.get(`http://localhost:5000/loan`)
     return data;

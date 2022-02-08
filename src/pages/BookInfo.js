@@ -11,7 +11,7 @@ import { AiOutlineArrowRight } from 'react-icons/ai';
 import BoxInfoBook from '../components/BoxInfoBook';
 import Button from '../components/Button';
 import moment from 'moment';
-import { getBookById, removeBook, getLoanByBookId, getCommentsById, endLoan } from '../api/apiService';
+import { getBookById, removeBook, getLoanByBookId, getAllLoansByBookId, getCommentsById, endLoan } from '../api/apiService';
 import { isAdminOrSuper } from '../utils/validationProfile';
 import Modal from '../components/Modal';
 import ModalComments from '../components/ModalComments';
@@ -30,9 +30,9 @@ const BookInfo = () => {
     const [openModalComments, setOpenModalComments] = useState(false);
     const [toastData, setToastData] = useState({});
     const [votes, setVotes] = useState([])
+    const [numberOfLoans, setNumberOfLoans] = useState(0);
+    console.log(numberOfLoans, 'numberOfLoans')
     const [loan, setLoan] = useState({});
-    console.log(loan, 'loan');
-
     const [profile, setProfile] = useState(false);
     const [isLoading, setLoading] = useState(true);
 
@@ -57,7 +57,6 @@ const BookInfo = () => {
 
     const fetchLoan = useCallback(async function () {
         let loanInformation = await getLoanByBookId(id);
-        console.log('loan', loanInformation);
         setLoan(loanInformation);
     }, [id])
 
@@ -77,6 +76,12 @@ const BookInfo = () => {
         if (response.status === 200) redirectWithMsg('/livros', 'success', 'O livro foi removido com sucesso');
     };
 
+    const handleLoansByBookId = async () => {
+        const numberOfLoansFound = await getAllLoansByBookId(id);
+        setNumberOfLoans(numberOfLoansFound);
+
+    }
+
     const handleLoanEnding = async () => {
         const response = await endLoan(loan._id);
 
@@ -86,6 +91,7 @@ const BookInfo = () => {
     useEffect(() => {
         fetchLoan();
         getTotalRating();
+        handleLoansByBookId();
     }, [fetchLoan])
 
     useEffect(async () => {
@@ -205,7 +211,7 @@ const BookInfo = () => {
                             </div>
                             <ButtonMui onClick={() => setIsOpen(!isOpen)}>Ler {isOpen ? 'menos' : 'mais'}</ButtonMui>
                             <div className="h-1/4 flex items-center justify-around">
-                                <BoxInfoBook title={'Número de empréstimos'} value={0} />
+                                <BoxInfoBook title={'Número de empréstimos'} value={numberOfLoans} />
                                 <BoxInfoBook title={'Editora'} value={publisher} />
                                 <BoxInfoBook title={'Idioma'} icon={<GrLanguage />} value={language} />
                                 <BoxInfoBook title={'Total de páginas'} icon={<RiPagesLine />} value={pages} />
