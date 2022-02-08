@@ -99,7 +99,7 @@ const Books = () => {
             <main className=' text-base w-full flex justify-between'>
                 <section className='w-56 h-large'>
                 </section>
-                <section className='w-8/12 h-large flex justify-center flex-row flex-wrap'>
+                <section className='mb-80 w-8/12 h-large flex justify-center flex-row flex-wrap'>
                     {books || books?.length > 0 ? books.map(({ _id, title, author, image, coments }) => (
                         <Box key={_id} title={title} authors={author} star={5} image={image} coments={coments} bookId={_id} />
 
