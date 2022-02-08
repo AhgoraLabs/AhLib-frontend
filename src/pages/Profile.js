@@ -22,6 +22,7 @@ const ProfilePage = () => {
     const onSubmit = async (dataForm) => {
         const response = await axios.patch('http://localhost:5000/users', dataForm);
     };
+    const nomeUsuario = user.name;
 
     return (
         <div className='flex justify-around items-center'>
