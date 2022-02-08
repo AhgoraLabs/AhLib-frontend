@@ -32,11 +32,10 @@ const Books = () => {
     const [profile, setProfile] = useState(null);
     const [count, setCount] = useState(0);
     const [booksPerPage, setBooksPerPage] = useState(8);
-    console.log(booksPerPage, 'booksPerPage');
-    console.log(count, 'count');
+
 
     const [page, setPage] = useState(0);
-    console.log(page, 'page');
+
 
     const fetchBooks = async (limit = 8, page) => {
         const { data: { data, count } } = await listBooks(limit, page);
@@ -105,7 +104,7 @@ const Books = () => {
                         <Box key={_id} title={title} authors={author} star={5} image={image} coments={coments} bookId={_id} />
 
                     )) : 'Não Foi encontrado nenhum livro'}
-                    
+
                     <div className=' text-rodape h-14 w-full bg-white fixed bottom-0 flex flex-row justify-center items-center'>
                         <Pagination
                             options={[8, 16, 32, 40]}

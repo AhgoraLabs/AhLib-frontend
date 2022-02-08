@@ -21,7 +21,7 @@ export const removeBook = async (id) => {
 }
 
 
-export const listBooks = async (limit , offset) => {
+export const listBooks = async (limit, offset) => {
     const data = await axios.get(`http://localhost:5000/books?limit=${limit}&offset=${offset}`);
     return data;
 }
@@ -59,7 +59,7 @@ export const getUsers = async () => {
 
 export const createSuggestion = async (suggestionData) => {
     const data = await axios.post('http://localhost:5000/', suggestionData);
-    return  data;
+    return data;
 }
 
 export const createLoan = async ({ bookId, person, loanEnd }) => {
@@ -89,7 +89,7 @@ export const endLoan = async (id) => {
 
 export const extendLoan = async (id, newDate) => {
 
-    const data = await axios.patch(`http://localhost:5000/loan/${id}`, {newLoanEnd: newDate, loanEndHasBeenExtended: true})
+    const data = await axios.patch(`http://localhost:5000/loan/${id}`, { newLoanEnd: newDate, loanEndHasBeenExtended: true })
     return data;
 }
 
