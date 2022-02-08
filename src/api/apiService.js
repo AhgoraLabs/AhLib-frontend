@@ -58,7 +58,7 @@ export const getUsers = async () => {
 };
 
 export const createSuggestion = async (suggestionData) => {
-    const data = await axios.post('http://localhost:5000/suggestions', suggestionData);
+    const data = await axios.post('http://localhost:5000/', suggestionData);
     return  data;
 }
 
@@ -94,6 +94,6 @@ export const getCommentsById = async (bookId) => {
 };
 
 export const createComment = async (comment) => {
-    const { data: { data } } = await axios.post(`http://localhost:5000/comments/create`, comment)
+    const { data: { data } } = await axios.post(`http://localhost:5000/`, comment)
     return data;
 };
