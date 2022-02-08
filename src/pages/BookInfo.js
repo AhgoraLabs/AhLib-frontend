@@ -32,6 +32,7 @@ const BookInfo = () => {
     const [votes, setVotes] = useState([])
     const [loan, setLoan] = useState({});
     console.log(loan, 'loan');
+
     const [profile, setProfile] = useState(false);
     const [isLoading, setLoading] = useState(true);
 
@@ -163,10 +164,11 @@ const BookInfo = () => {
 
                                             <div >
                                                 <br></br>
-                                                <p
-                                                    className='text-center'
-                                                >
-                                                    Devolução estimada:  {moment(loan.newLoanEnd || loan.loanEnd, 'YYYY-MM-DD').format('DD-MM-YYYY')}
+                                                <p className='text-center'>
+                                                    Término do empréstimo: {moment(loan.newLoanEnd || loan.loanEnd, 'YYYY-MM-DD').format('DD-MM-YYYY')}
+                                                    {new Date(loan.newLoanEnd || loan.loanEnd) < new Date() && (
+                                                        <p className='text-lg text-red-600'> Devolução em atraso </p>
+                                                    )}
                                                 </p>
                                             </div>
                                         </>
@@ -203,7 +205,7 @@ const BookInfo = () => {
                             </div>
                             <ButtonMui onClick={() => setIsOpen(!isOpen)}>Ler {isOpen ? 'menos' : 'mais'}</ButtonMui>
                             <div className="h-1/4 flex items-center justify-around">
-                                <BoxInfoBook title={'Número de empréstimos'}  value={0} />
+                                <BoxInfoBook title={'Número de empréstimos'} value={0} />
                                 <BoxInfoBook title={'Editora'} value={publisher} />
                                 <BoxInfoBook title={'Idioma'} icon={<GrLanguage />} value={language} />
                                 <BoxInfoBook title={'Total de páginas'} icon={<RiPagesLine />} value={pages} />
