@@ -14,6 +14,7 @@ import Profile from "../pages/Profile";
 import UserRegister from "../pages/UserRegister";
 import Season from "../pages/Season";
 import AboutUs from "../pages/AboutUs/index";
+import download from "../pages/Download";
 
 const LibraryRouter = () => {
     return (
@@ -33,6 +34,8 @@ const LibraryRouter = () => {
                 <NavRoute exact path="/relatorios/avaliacoes" header={<Navbar />} component={ReportPage}></NavRoute>
                 <NavRoute exact path="/sugestoes/" header={<Navbar />} component={Suggestions}></NavRoute>
                 <NavRoute exact path="/sobre" header={<Navbar />} component={AboutUs}></NavRoute>
+                <NavRoute exact path="/download" header={<Navbar />} component={download}></NavRoute>
+
             </Routes>
         </div>
     );
