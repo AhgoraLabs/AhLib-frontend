@@ -10,9 +10,14 @@ const Login = () => {
     const { Login } = useContext(AuthContext);
     const [active, setActive] = useState(false);
     const { register, handleSubmit } = useForm();
+    const isLogged = !!localStorage.getItem('@App:token');
 
+   
     let history = useHistory();
 
+    if(isLogged){
+        history.push('/home');
+    }
     const onSubmit = async ({ login, password }) => {
         await Login(login, password);
         history.push('/home');
