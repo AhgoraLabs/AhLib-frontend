@@ -19,7 +19,7 @@ function Navbar() {
                     <Link to='#' className='m-8 text-3xl bg-none'>
                         <FaIcons.FaBars onClick={showSidebar} />
                     </Link>
-                    <div className='mt-8 pb-6'>
+                    <div className='mt-8 pb-7'>
                         <Link to='/perfil'>
                             <Button width="w-18" height="h-8" fontSize="text-base">Perfil</Button>
                         </Link>
