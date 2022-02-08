@@ -183,10 +183,10 @@ const BookInfo = () => {
                         </div>
                         <div className="ml-4 w-full flex justify-start flex-col ">
 
-                            <div className="w-bookTitle h-16 mt-14 flex items-center justify-start font-sans mx-10">
+                            <div className="w-bookTitle break-all h-16 mt-14 flex items-center justify-start font-sans mx-10">
                                 <h1 className="text-3xl">{title.toUpperCase()}</h1>
                             </div>
-                            <div className="h-7 mx-10">
+                            <div className="h-7 mx-10 mt-8">
                                 <h2>Autor : {author.toString()}</h2>
                             </div>
                             <div className="h-8 w-48 mt-4 mx-10 flex items-center justify-between">
