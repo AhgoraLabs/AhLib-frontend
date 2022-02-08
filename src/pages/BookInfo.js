@@ -159,19 +159,19 @@ const BookInfo = () => {
                                     </div>
                                         : loan && profile ?
                                             <div>
-                                                <Button onClick={openModalBookEdit} width="w-26" height="h-12">Terminar Empréstimo</Button>
+                                                <Button onClick={openModalBookEdit} fontSize={'28px'} width="w-26" height="h-12">Terminar Empréstimo</Button>
                                             </div> : ''
                                     }
                                     {loan && (
                                         <>
                                             <div >
-                                                <p className='text-center'>Este livro está com o usuário {loan.person} </p>
+                                                <p className='text-center'>Este livro está emprestado para o usuário: {loan.person} </p>
                                             </div>
 
                                             <div >
-                                                <br></br>
+                                                <br></br>Término do empréstimo:
                                                 <p className='text-center'>
-                                                    Término do empréstimo: {moment(loan.newLoanEnd || loan.loanEnd, 'YYYY-MM-DD').format('DD-MM-YYYY')}
+                                                     {moment(loan.newLoanEnd || loan.loanEnd, 'YYYY-MM-DD').format('DD-MM-YYYY')}
                                                     {new Date(loan.newLoanEnd || loan.loanEnd) < new Date() && (
                                                         <p className='text-lg text-red-600'> Devolução em atraso </p>
                                                     )}
@@ -181,7 +181,7 @@ const BookInfo = () => {
                                     )}
                                     {checkIfUserCanExtendLoan(loan, email) && <div>
                                         <Link to={`/livros/loan/${id}?extend=true`}>
-                                            <Button width="w-26" height="h-12">Extender empréstimo</Button>
+                                            <Button fontSize={'28px'} width="w-26" height="h-12">Extender empréstimo</Button>
                                         </Link>
                                     </div>
                                     }
