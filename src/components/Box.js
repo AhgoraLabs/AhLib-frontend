@@ -36,12 +36,12 @@ const Box = ({ title, image, bookId }) => {
 
     return (
         <div onClick={() => window.location = `/livros/info/${bookId}`} className="h-80 w-56 m-4 mx-10 cursor-pointer border border-gray-100 rounded-3xl shadow-input-box-shadow">
-            <div style={{ backgroundImage: `url(${!!image ? image : 'https://www.biotecdermo.com.br/wp-content/uploads/2016/10/sem-imagem-10.jpg'})` }} className="h-52 mt-4 bg-no-repeat bg-contain bg-center "></div>
+            <div style={{ backgroundImage: `url(${!!image ? image : 'https://www.biotecdermo.com.br/wp-content/uploads/2016/10/sem-imagem-10.jpg'})` }} className="pb-4 h-52 mt-4 bg-no-repeat bg-contain bg-center "></div>
             <div className={`text-center truncate m-4 mt-4 flex  flex-col items-center ${title.length > 28 ? 'text-xs' : ''}`}>
                 <label>{title.split(':')[0]}</label>
                 {votes.length > 0 && <Rating name="half-rating-read" defaultValue={totalStars(votes)} precision={0.5} readOnly />}
             </div>
-            {isLoading ? <div className='flex items-center justify-center'><CircularProgress size={20} /></div> : <div className={`${(loan) ? 'text-danger' : ''} text-center `}>{loan ? 'alugado' : 'Livre'}</div>}
+            {isLoading ? <div className='font-thin flex items-center justify-center'><CircularProgress size={20} /></div> : <div className={`${(loan) ? 'text-danger font-medium' : 'text-teste font-medium'} text-center `}>{loan ? 'alugado' : 'Livre'}</div>}
         </div>
     )
 }
