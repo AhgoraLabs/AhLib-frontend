@@ -9,7 +9,7 @@ const Pagination = ({ label, options, total, handleChangePage, page, handleChang
                     return <option>{option}</option>
                 })}
             </select>
-            <label>{'\u00A0>'} {booksPerPage * page} - {booksPerPage * (page + 1)} de {total}{'\u00A0'}</label>
+            <label>{'\u00A0'} {booksPerPage * page} - {booksPerPage * (page + 1)} de {total}{'\u00A0'}</label>
             <label className='cursor-pointer' onClick={() => handleChangePage('subtract')}>{'\u00A0<\u00A0'}  </label>
             <label className='cursor-pointer' onClick={() => handleChangePage('add')}>{'\u00A0>'}</label>
         </>
