@@ -7,32 +7,29 @@ import { createUser, listBooks } from '../api/apiService';
 import moment from 'moment';
 import _ from 'lodash';
 import qrCode from '../images/qrCodeApp.png';
-import { height } from '@mui/system';
-
+import { fontSize, height, width } from '@mui/system';
 
 
 function Home() {
     
-  const month1 = moment().format('MMM/YYYY')
-  const month2 = moment().subtract(1, 'months').format('MMM/YYYY');
-  const month3 = moment().subtract(2, 'months').format('MMM/YYYY');
+    const largura = window.screen.width;
+    console.log(largura)
+    const month1 = moment().format('MMM/YYYY')
+    const month2 = moment().subtract(1, 'months').format('MMM/YYYY');
+    const month3 = moment().subtract(2, 'months').format('MMM/YYYY');
 
-  const [options, setOptions] = useState({})
-  const [data, setData] = useState([
-    ['Livros', 'Quantidade'],
-    ['Livros Livres', 0],
-    ['Livros Alugados', 0]
-  ]);
+    const [options, setOptions] = useState({})
+    const [data, setData] = useState([
+        ['Livros', 'Quantidade'],
+        ['Livros Livres', 0],
+        ['Livros Alugados', 0]
+    ]);
 
   const [totalBooks, setTotalbooks] = useState(0);
   const [totalLoans, setTotalLoans] = useState(0);
   const [loansGrouped, setloansGrouped] = useState({});
   const [chartHeight, setChartHeight] = useState(0);
   const [chartWidth, setChartWidth] = useState(0);
-  const [windowSize, setwindowSize] = useState(0);
-
-
-
 
   const [option2, setOption2] = useState(
     [
@@ -100,19 +97,13 @@ function Home() {
 
   const options2 = {
     title: "Emprestimos por Periodo",
-    width: 600,
-    height: 250,
     bar: { groupWidth: "95%" },
     legend: { position: "none" },
   };
 
-  const teste = chartWidth+((chartWidth*10)/100);
-  console.log(teste)
-
-
   return (
 
-    <div className='h-12'>
+    <div className='h-12'git >
         <div>
             <header className='ml-20'>
                 <h2 class='my-4 text-purple-600 text-2xl '> Painel - AhLib </h2>
@@ -124,9 +115,8 @@ function Home() {
             <div className='justify-evenly mr-10 flex'>
                 <Chart
                 bg-current
-                fontSize={'100'}
-                width={'50vw'}
-                height={'50vh'}
+                width={'500px'}
+                height={'300px'}
                 chartType="PieChart"
                 graphID="ScatterChart1"
                 loader={<div>Carregando Painel</div>}
@@ -136,8 +126,8 @@ function Home() {
                 <Chart
                 bg-current
                 chartType="BarChart"
-                width={'50vw'}
-                height={'50vh'}
+                width={'600px'}
+                height={'250px'}
                 graphID="ScatterChart"
                 fontSize={'100'}
                 data={option2}
@@ -146,11 +136,11 @@ function Home() {
             </div>
         </div>
    
-<div className='justify-center flex flex-nowrap' >
-      <div className='justify-center text-center text-lg'>
-      <h1 className='h-10'>Acesse pelo App</h1> 
-      <img alt='qrCode' src={qrCode} width={'250px'}/>
-      </div>
+    <div className='justify-center flex flex-nowrap' >
+        <div className='justify-center text-center text-lg'>
+            <h1 className='h-10'>Acesse pelo App</h1> 
+            <img alt='qrCode' src={qrCode} width={'200 vw'} height={'200 vh'}/>
+        </div>
     </div>
 </div>
    
