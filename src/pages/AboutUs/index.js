@@ -15,26 +15,31 @@ function AboutUs() {
             name: "Pedro",
             role: "Desenvolvedor",
             photo: pedro,
+            link: 'https://github.com/pedrosarkis',
         },
         {
             name: "Bruno",
             role: "Desenvolvedor",
             photo: bruno1,
+            link: 'https://github.com/BrunoRodriguesNasc',
         },
         {
             name: "Joarle",
             role: "Implantador",
             photo: joarle,
+            link: 'https://github.com/Joarle',
         },
         {
             name: "Pablo",
             role: "Desenvolvedor",
             photo: pablo,
+            link: 'https://github.com/pablobion',
         },
         {
             name: "Bruno",
             role: "Suporte",
             photo: bruno2,
+            link: 'https://github.com/correaa1',
         },
     ];
 
@@ -58,7 +63,8 @@ function AboutUs() {
                 <div id="modals">
                     {team.map(elem => (
                         <div className="modal">
-                            <img src={elem.photo} />
+                            <a href={elem.link} target="_blank"><img href={elem.link} src={elem.photo}/></a>
+
                             <h1>{elem.name}</h1>
                             <h2>{elem.role}</h2>
                         </div>
