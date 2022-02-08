@@ -20,7 +20,7 @@ module.exports = {
       },
 
     textColor: {
-      'teste': '#008000',
+      'textbook': '#008000',
       'primary': '#f5f5f5',
       'secondary': '#ffed4a',
       'danger': '#e3342f',
