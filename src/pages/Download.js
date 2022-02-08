@@ -4,7 +4,8 @@ import app from '../app/Ahlib.apk';
 function Download() {
 
     useEffect(()=>{
-        document.getElementById('downloadApp').click()
+        document.getElementById('downloadApp').click();
+        setTimeout (window.close(), 5000);
     },[])
 
     return (
