@@ -34,24 +34,24 @@ const Season = () => {
             <div className="w-4/5 h-full">
                 {sugestionDataMock.map(sugestion => {
                     return (
-                        <div className='flex m-4 h-card justify-between shadow-lg rounded-xl border-gray-100'>
-                            <div className='w-1/5 flex justify-center items-center'>
+                        <div className='flex m-4 sm:h-card h-96 justify-between shadow-lg rounded-xl border-gray-100 '>
+                            <div className='w-1/5 flex justify-center items-center lg:flex hidden'>
                                 <img className='h-3/4' src={sugestion.bookImage} />
                             </div>
-                            <div className='w-3/4'>
+                            <div className='lg:w-3/4 w-4/4'>
                                 <div>
-                                    <h2 className='text-left mt-6 tracking-wider text-3xl'>{sugestion.bookTitle}</h2>
+                                    <h2 className='lg:text-left text-center mt-6 tracking-wider text-3xl'>{sugestion.bookTitle}</h2>
                                 </div>
                                 <div>
                                     <span>
-                                        <p className='mt-4 tracking-wider text-ellipsis overflow-hidden'>{sugestion.bookDescription}</p>
+                                        <p className='lg:text-base text-sm mt-4 tracking-wider text-ellipsis overflow-hidden lg:p-0 px-4'>{sugestion.bookDescription}</p>
                                     </span>
                                 </div>
-                                <div className='w-full h-1/4 flex justify-end items-end'>
-                                    <div className='h-full flex flex-col p-0 lg:m-0 m-4 xl:pt-8'>
+                                <div className='w-full sm:h-1/4 sm:mt-4 mt-2 flex sm:justify-end justify-center items-end'>
+                                    <div className='lg:h-full items-end lg:flex-col flex flex-row p-0 lg:m-0 m-4 xl:pt-8'>
                                         <span>{sugestion.author}</span>
-                                        <span className='text-right'>{sugestion.department}</span>
-                                    </div>
+                                        <span className='text-right ml-4'>{sugestion.department}</span>
+                                    </div> 
 
                                 </div>
                             </div>
