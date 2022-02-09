@@ -34,7 +34,7 @@ function Home() {
         ['Livros Livres', 0],
         ['Livros Alugados', 0]
     ]);
-
+    const [booksLate, setLivrosAtrasados] = useState([])
     const [users, setUsers ] = useState([]);
     const [totalBooks, setTotalbooks] = useState(0);
     const [totalLoans, setTotalLoans] = useState(0);
@@ -45,6 +45,7 @@ function Home() {
     console.log(loans2.length)
     console.log('totalLoans', totalLoans);
     console.log('totalBooks', totalBooks)
+    console.log('livrosAtrasados', booksLate);
 
   const [option2, setOption2] = useState(
     [
@@ -86,21 +87,17 @@ function Home() {
       return [a, b, c,  d]
 })
   setOption2(b)
-
-    const booksHasntReturned = data.filter(({ bookHasReturned }) => !bookHasReturned);
-    const booksLate = booksHasntReturned.filter(book =>{
-      const now = new Date()
-      const loanEnd = new Date(book.newloanEnd || book.loanEnd)
-      return loanEnd < now
-    })
-    
-
-
-    setTotalLoans(booksHasntReturned.length)
-    setTotalLoans2(data)
-
+  
+  const booksHasntReturned = data.filter(({ bookHasReturned }) => !bookHasReturned);
+  const booksLate = booksHasntReturned.filter(book =>{
+    const now = new Date()
+    const loanEnd = new Date(book.newloanEnd || book.loanEnd)
+    return loanEnd < now
+  })
+  setLivrosAtrasados(booksLate.length)
+  setTotalLoans(booksHasntReturned.length)
+  setTotalLoans2(data)
   }
-  const livrosAtrasados = booksLate.length
 
   async function books() {
     const { data: { count } } = await listBooks(8, 0);
@@ -190,7 +187,7 @@ function Home() {
                 
                 <h3 className='ml-4 mt-4 flex flex-row items-center'>
                     <img className='mr-2' alt='atraso' src={atraso} width={'20'} height={'20'}/>
-                     Livros em atraso:
+                     Livros em atraso: {booksLate}
                 </h3>
 
                 <h3 className='ml-4 mt-4 flex flex-row items-center'>
