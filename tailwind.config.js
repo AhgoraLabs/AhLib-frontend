@@ -42,7 +42,8 @@ module.exports = {
     },
       boxShadow: {
         'input-box-shadow': '0px 8px 4px rgba(0, 0, 0, 0.25)',
-        'login':'0 15px 50px rgba(0,0,0,0.1)'
+        'login':'0 15px 50px rgba(0,0,0,0.1)',
+        'lg':'rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;'
       },
       extend: {
         width: {
@@ -56,7 +57,8 @@ module.exports = {
         height: {
           'large': '730px',
           'bookInfo': '790px',
-          'image-login':'500px'
+          'image-login':'500px',
+          'card':'250px'
         }
       },
     },
