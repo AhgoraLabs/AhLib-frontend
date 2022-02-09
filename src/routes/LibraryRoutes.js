@@ -20,7 +20,7 @@ const LibraryRouter = () => {
     return (
         <div>
             <Routes>
-                <NavRoute exact path="/" component={Login}></NavRoute>
+                <Route exact path="/" component={Login}></Route>
                 <Route exact path="/register" component={UserRegister}></Route>
                 <NavRoute exact path="/home" header={<Navbar />} component={Home}></NavRoute>
                 <NavRoute exact path="/relatorios" header={<Navbar />} component={Reports}></NavRoute>
