@@ -4,6 +4,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import AuthContext from '../context/auth/AuthContext';
 import { createUser } from '../api/apiService';
+import Swal from 'sweetalert2';
 
 const Login = () => {
 
@@ -21,16 +22,27 @@ const Login = () => {
     const onSubmit = async ({ login, password }) => {
         const response = await Login(login, password);
         if (response) return history.push('/home');
-        alert('senha errada')
+        Swal.fire({
+            icon: 'error',
+            title: 'Erro',
+            text: 'Seus dados de acesso estão incorretos',
+          })
+          
 
 
     }
 
     const registerUser = async ({ email, name }) => {
         const response = await createUser(email, name);
-
+        console.log(response)
         if (response.status === 200) {
             history.go('/');
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Erro',
+                text: 'Seus dados de acesso estão incorretos',
+              })
         }
     }
     return (
