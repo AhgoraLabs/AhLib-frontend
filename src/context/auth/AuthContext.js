@@ -10,13 +10,19 @@ export const AuthProvider = ({ children }) => {
 
   async function Login(email, senha) {
 
-    const { data } = await authUser(email, senha);
+    const {data, error}  = await authUser(email, senha);
+    console.log(data, error, 'destructuring')
+    if(error) {
+      return false;
+    }
+    console.log(data, 'data retornado');
     setUser({ id: data.user._id , name: data.user.name, email});
 
     localStorage.setItem('@App:user',JSON.stringify(data.user.name));
     localStorage.setItem('@App:id',JSON.stringify(data.user._id));
     localStorage.setItem('@App:email',  data.user.email)
     localStorage.setItem('@App:token', data.token);
+    return true;
 
   }
 

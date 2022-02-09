@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+
 axios.defaults.headers.post['auth'] = window.localStorage.getItem('@App:token');
 axios.defaults.headers.get['auth'] = window.localStorage.getItem('@App:token');
 axios.defaults.headers.patch['auth'] = window.localStorage.getItem('@App:token');
@@ -38,8 +39,24 @@ export const getBookById = async (id) => {
 
 
 export const authUser = async (email, password) => {
-    const { data } = await axios.post(`http://localhost:5000/users/auth`, { email, password });
-    return data;
+    try {
+        const settings = {
+            method: 'POST',
+            body: JSON.stringify({ email, password }),
+            headers: {
+                'content-type': 'Application/json'
+            }
+        }
+
+        const response = await fetch('http://localhost:5000/users/auth', settings);
+        const data = await response.json();
+        console.log(data, 'dataapi')
+
+        return data;
+    } catch (error) {
+        console.log(error, 'erro')
+    }
+
 }
 
 export const createUser = async (email, name) => {

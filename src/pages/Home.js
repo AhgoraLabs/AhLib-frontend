@@ -8,10 +8,11 @@ import moment from 'moment';
 import _ from 'lodash';
 import qrCode from '../images/qrCodeApp.png';
 import { fontSize, height, width } from '@mui/system';
+import Swal from 'sweetalert2'
 
 
 function Home() {
-    
+
     const largura = window.screen.width;
     console.log(largura)
     const month1 = moment().format('MMM/YYYY')
@@ -61,12 +62,12 @@ function Home() {
     const teste = Object.entries(_.groupBy(group, 'date')).reduce((acc, [key, value]) => {
       acc[key] = value.length;
       return acc;
-      
+
     }, {})
     console.log('teste', teste)
-    
+
     var b = option2.map(([a,b,c,d]) => {
-      
+
       if(teste[a]) b = teste[a];
       return [a, b, c,  d]
 })
@@ -81,7 +82,7 @@ function Home() {
     setTotalbooks(count);
   }
   useEffect(() => {
-     
+
     var b = data.map(([a, b]) => {
       if (a == 'Livros Livres') b = totalBooks - totalLoans;
       if (a == 'Livros Alugados') b = totalLoans;
@@ -93,7 +94,7 @@ function Home() {
     loans()
   }, [totalBooks, totalLoans]);
 
-  
+
 
   const options2 = {
     title: "Emprestimos por Periodo",
@@ -110,7 +111,7 @@ function Home() {
             </header>
         </div>
 
- 
+
         <div className='justify-center flex'>
             <div className='justify-evenly mr-10 flex'>
                 <Chart
@@ -135,15 +136,15 @@ function Home() {
                 />
             </div>
         </div>
-   
+
     <div className='justify-center flex flex-nowrap' >
         <div className='justify-center text-center text-lg'>
-            <h1 className='h-10'>Acesse pelo App</h1> 
+            <h1 className='h-10'>Acesse pelo App</h1>
             <img alt='qrCode' src={qrCode} width={'200 vw'} height={'200 vh'}/>
         </div>
     </div>
 </div>
-   
+
   );
 }
 

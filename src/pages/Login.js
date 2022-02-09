@@ -12,25 +12,27 @@ const Login = () => {
     const { register, handleSubmit } = useForm();
     const isLogged = !!localStorage.getItem('@App:token');
 
-   
+
     let history = useHistory();
 
-    if(isLogged){
+    if (isLogged) {
         history.push('/home');
     }
     const onSubmit = async ({ login, password }) => {
-        await Login(login, password);
-        history.push('/home');
+        const response = await Login(login, password);
+        if (response) return history.push('/home');
+        alert('senha errada')
+
 
     }
 
-    const registerUser = async ({email, name }) => {
-        const response =  await createUser(email, name);
+    const registerUser = async ({ email, name }) => {
+        const response = await createUser(email, name);
 
-        if(response.status === 200){
+        if (response.status === 200) {
             history.go('/');
         }
-     }
+    }
     return (
         <section className={`relative min-h-screen ${active ? 'bg-register' : 'bg-login'} flex justify-center items-center p-5 font-poppins`}>
             <div className='relative w-login h-image-login bg-white shadow-login overflow-hidden'>
