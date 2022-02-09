@@ -3,7 +3,7 @@ import { Chart } from "react-google-charts";
 import { Button, TextField } from '@mui/material';
 import { useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { createUser, listBooks } from '../api/apiService';
+import { createUser, listBooks, getUsers } from '../api/apiService';
 import moment from 'moment';
 import _ from 'lodash';
 import qrCode from '../images/qrCodeApp.png';
@@ -35,11 +35,16 @@ function Home() {
         ['Livros Alugados', 0]
     ]);
 
-  const [totalBooks, setTotalbooks] = useState(0);
-  const [totalLoans, setTotalLoans] = useState(0);
-  const [loansGrouped, setloansGrouped] = useState({});
-  const [chartHeight, setChartHeight] = useState(0);
-  const [chartWidth, setChartWidth] = useState(0);
+    const [users, setUsers ] = useState([]);
+    const [totalBooks, setTotalbooks] = useState(0);
+    const [totalLoans, setTotalLoans] = useState(0);
+    const [loansGrouped, setloansGrouped] = useState({});
+    const [chartHeight, setChartHeight] = useState(0);
+    const [chartWidth, setChartWidth] = useState(0);
+    const [loans2, setTotalLoans2] = useState(0);
+    console.log(loans2.length)
+    console.log('totalLoans', totalLoans);
+    console.log('totalBooks', totalBooks)
 
   const [option2, setOption2] = useState(
     [
@@ -81,17 +86,30 @@ function Home() {
       return [a, b, c,  d]
 })
   setOption2(b)
+
     const booksHasntReturned = data.filter(({ bookHasReturned }) => !bookHasReturned);
+    const booksLate = booksHasntReturned.filter(book =>{
+      const now = new Date()
+      const loanEnd = new Date(book.newloanEnd || book.loanEnd)
+      return loanEnd < now
+    })
+    
+
+
     setTotalLoans(booksHasntReturned.length)
+    setTotalLoans2(data)
 
   }
+  const livrosAtrasados = booksLate.length
 
   async function books() {
     const { data: { count } } = await listBooks(8, 0);
     setTotalbooks(count);
   }
-  useEffect(() => {
-
+  useEffect(async () => {
+    const allUsers = await getUsers()
+    setUsers(allUsers);
+    console.log(users)
     var b = data.map(([a, b]) => {
       if (a == 'Livros Livres') b = totalBooks - totalLoans;
       if (a == 'Livros Alugados') b = totalLoans;
@@ -118,13 +136,13 @@ function Home() {
       <div className='justify-start items-start flex-col flex'>
 
         <div className='items-start text-bemvindo text-4xl mb-10 flex-col flex ' style={{fontFamily: 'Comic Sans MS, Comic Sans, cursive'}}>
-          <h1>Olá, <b>{usuario}</b> !</h1>
-          <h2 className='text-lg'>Seja bem vindo ao Ahlib</h2>
+          <h1>Olá, {usuario} !</h1>
+          <h2 className='mt-2 text-lg font-sans'>Bem vindo ao Ahlib!</h2>
         </div>
    
 
         <div className='flex-row justify-center flex '>
-            <div className='justify-evenly mr-10 flex' style={{ width: 440, height: 220 }}>
+            <div className=' justify-evenly mr-10 flex' style={{ width: 440, height: 220 }}>
               <Chart
               bg-current
               width={'440px'}
@@ -158,16 +176,16 @@ function Home() {
                 
                 <h3 className='ml-4 mt-4 flex flex-row items-center'>
                     <img className='mr-2' alt='usuarios' src={usuarios} width={'20'} height={'20'}/>
-                    Usuários cadastrados:
+                    Usuários cadastrados: {users.length}
                 </h3>
                 <h3 className='ml-4 mt-4 flex flex-row items-center'>
                     <img className='mr-2' alt='sugestoes' src={sugestoes} width={'20'} height={'20'}/>
-                     Recomendações na semana:
+                     Recomendações:
                 </h3>
 
                 <h3 className='ml-4 mt-4 flex flex-row items-center'>
                     <img className='mr-2' alt='emprestados' src={emprestados} width={'23'} height={'23'}/>
-                     Emprestimos Totais:
+                     Emprestimos Totais: {loans2.length}
                 </h3>
                 
                 <h3 className='ml-4 mt-4 flex flex-row items-center'>
