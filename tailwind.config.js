@@ -20,6 +20,7 @@ module.exports = {
       },
 
     textColor: {
+      'bemvindo': '#374151',
       'rodape': 'rgb(139, 135, 135)',
       'textbook': '#008000',
       'primary': '#f5f5f5',

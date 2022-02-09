@@ -1,6 +1,10 @@
 import { Container } from "./styles";
 import arrows1 from "./assets/arrows_1.png";
 import arrows2 from "./assets/arrows_2.png";
+import arrowLeft from "../../images/arrowLeft.png";
+import arrowRight from "../../images/arrowRight.png";
+
+
 
 //person
 import pedro from "./assets/pedro_photo.png";
@@ -46,7 +50,7 @@ function AboutUs() {
     return (
         <Container>
             <div id="header">
-                <img src={arrows1} />
+                <img src={arrowRight} />
                 <div id="header-container">
                     <h1>
                         O Ahlib é<h1 style={{ marginLeft: 15 }}>Open source</h1>
@@ -56,7 +60,7 @@ function AboutUs() {
                         <button>GITHUB</button>
                     </a>
                 </div>
-                <img src={arrows2} />
+                <img src={arrowLeft} />
             </div>
             <div id="team">
                 <h1>Conheça a família Ahlib</h1>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer } from 'react';
+import React, { useState, useEffect, useReducer, useContext } from 'react';
 import { Chart } from "react-google-charts";
 import { Button, TextField } from '@mui/material';
 import { useHistory } from 'react-router-dom';
@@ -8,10 +8,19 @@ import moment from 'moment';
 import _ from 'lodash';
 import qrCode from '../images/qrCodeApp.png';
 import { fontSize, height, width } from '@mui/system';
-import Swal from 'sweetalert2'
+import sugestoes from '../images/sugestoes.png';
+import usuarios from '../images/usuarios.png';
+import emprestados from '../images/emprestados.png';
+import atraso from '../images/atraso.png';
+import avaliacao from '../images/avaliacao.png';
+import AuthContext from '../context/auth/AuthContext';
 
 
 function Home() {
+
+
+    const { user } = useContext(AuthContext);
+    const usuario = user.name
 
     const largura = window.screen.width;
     console.log(largura)
@@ -104,47 +113,79 @@ function Home() {
 
   return (
 
-    <div className='h-12'git >
-        <div>
-            <header className='ml-20'>
-                <h2 class='my-4 text-purple-600 text-2xl '> Painel - AhLib </h2>
-            </header>
+   
+    <div className='justify-start mt-8 flex-row justify-center flex'>
+      <div className='justify-start items-start flex-col flex'>
+
+        <div className='items-start text-bemvindo text-4xl mb-10 flex-col flex ' style={{fontFamily: 'Comic Sans MS, Comic Sans, cursive'}}>
+          <h1>Olá, <b>{usuario}</b> !</h1>
+          <h2 className='text-lg'>Seja bem vindo ao Ahlib</h2>
         </div>
+   
 
-
-        <div className='justify-center flex'>
-            <div className='justify-evenly mr-10 flex'>
-                <Chart
-                bg-current
-                width={'500px'}
-                height={'300px'}
-                chartType="PieChart"
-                graphID="ScatterChart1"
-                loader={<div>Carregando Painel</div>}
-                data={data}
-                options={options}
-                />
-                <Chart
-                bg-current
-                chartType="BarChart"
-                width={'600px'}
-                height={'250px'}
-                graphID="ScatterChart"
-                fontSize={'100'}
-                data={option2}
-                options={options2}
-                />
+        <div className='flex-row justify-center flex '>
+            <div className='justify-evenly mr-10 flex' style={{ width: 440, height: 220 }}>
+              <Chart
+              bg-current
+              width={'440px'}
+              height={'220px'}
+              chartType="PieChart"
+              graphID="ScatterChart1"
+              loader={<div>Carregando Painel</div>}
+              data={data}
+              options={options}
+              />
+            </div>
+            <div className='shadow-sm' style={{ width: 440, height: 220 }}>
+              <Chart
+              bg-current
+              chartType="BarChart"
+              width={'440px'}
+              height={'220px'}
+              graphID="ScatterChart"
+              fontSize={'100'}
+              data={option2}
+              options={options2}
+            />
             </div>
         </div>
+      </div>
 
-    <div className='justify-center flex flex-nowrap' >
-        <div className='justify-center text-center text-lg'>
-            <h1 className='h-10'>Acesse pelo App</h1>
-            <img alt='qrCode' src={qrCode} width={'200 vw'} height={'200 vh'}/>
+    <div className='ml-10 bg-white w-72 flex-col flex ' style={{ height: 600 }}>
+                <div className=' flex-col items-center flex'>
+                    <h2 className='text-xl flex mb-4 mt-4 '>Indicadores Gerais</h2>
+                </div>
+                
+                <h3 className='ml-4 mt-4 flex flex-row items-center'>
+                    <img className='mr-2' alt='usuarios' src={usuarios} width={'20'} height={'20'}/>
+                    Usuários cadastrados:
+                </h3>
+                <h3 className='ml-4 mt-4 flex flex-row items-center'>
+                    <img className='mr-2' alt='sugestoes' src={sugestoes} width={'20'} height={'20'}/>
+                     Recomendações na semana:
+                </h3>
+
+                <h3 className='ml-4 mt-4 flex flex-row items-center'>
+                    <img className='mr-2' alt='emprestados' src={emprestados} width={'23'} height={'23'}/>
+                     Emprestimos Totais:
+                </h3>
+                
+                <h3 className='ml-4 mt-4 flex flex-row items-center'>
+                    <img className='mr-2' alt='atraso' src={atraso} width={'20'} height={'20'}/>
+                     Livros em atraso:
+                </h3>
+
+                <h3 className='ml-4 mt-4 flex flex-row items-center'>
+                    <img className='mr-2' alt='avaliacao' src={avaliacao} width={'20'} height={'20'}/>
+                     Livros avaliados:
+                </h3>
+            
+                <div className='flex-col items-center flex'>
+                    <h1 className='mt-10 h-10 text-lg'>Acesse pelo App</h1>
+                    <img alt='qrCode' src={qrCode} width={'170'} height={'170'}/>
+                </div>
         </div>
-    </div>
 </div>
-
   );
 }
 
