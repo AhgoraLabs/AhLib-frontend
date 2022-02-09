@@ -26,23 +26,23 @@ const Login = () => {
             icon: 'error',
             title: 'Erro',
             text: 'Seus dados de acesso estão incorretos',
-          })
-          
+        })
+
 
 
     }
 
     const registerUser = async ({ email, name }) => {
         const response = await createUser(email, name);
-        console.log(response)
         if (response.status === 200) {
-            history.go('/');
-        }else{
+            return history.go('/');
+        }
+        if (response.exists) {
             Swal.fire({
                 icon: 'error',
                 title: 'Erro',
-                text: 'Seus dados de acesso estão incorretos',
-              })
+                text: response.message,
+            })
         }
     }
     return (

@@ -11,7 +11,8 @@ function UserRegister() {
     let history = useHistory();
 
     const onSubmit = async ({email, name }) => {
-       const response =  await createUser(email, name); 
+        console.log('chamou a userRegister')
+       const response =  await createUser(email, name);
 
        if(response.status === 200){
            history.go('/');

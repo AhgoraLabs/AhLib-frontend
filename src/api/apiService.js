@@ -60,8 +60,20 @@ export const authUser = async (email, password) => {
 }
 
 export const createUser = async (email, name) => {
-    const { data } = await axios.post('http://localhost:5000/users/create', { email, name });
-    return data;
+    const settings = {
+        method: 'POST',
+        body: JSON.stringify({ email, name }),
+        headers: {
+            'content-type': 'Application/json'
+        }
+    }
+    try {
+        const response = await fetch('http://localhost:5000/users/create', settings);
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        return false;
+    }
 }
 
 export const getUser = async (email) => {
