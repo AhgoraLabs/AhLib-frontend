@@ -43,10 +43,10 @@ export const SideBarData = [
     },
     {
         title: "Sair",
-        onClick: ()=>{
+        onClick: () => {
             window.localStorage.clear();
-            window.location.href = "/"
         },
+        path: "/",
         icon: <IoIcons.IoMdLogOut />,
         cName: `flex justify-start items-center py-2 pl-4 list-none h-14 hover:bg-blue`,
     },
