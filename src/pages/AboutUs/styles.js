@@ -42,6 +42,11 @@ export const Container = styled.div`
             }
         }
     }
+    .arrow {
+        @media(max-width: 800px) {
+            display:none;
+        }
+    }
 
     #team {
         margin-top: 80px;
@@ -58,7 +63,6 @@ export const Container = styled.div`
                 color: #ff3c78;
             }
         }
-
         #modals {
             width: 100%;
             display: flex;
