@@ -33,7 +33,16 @@ const Login = () => {
     }
 
     const registerUser = async ({ email, name }) => {
+        if(!email || !name) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Erro',
+                text: 'Email ou Senha não preenchido',
+            }) 
+            return false
+        }
         const response = await createUser(email, name);
+        
         if (response.status === 200) {
             return history.go('/');
         }
