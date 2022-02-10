@@ -18,7 +18,7 @@ const MenuProps = {
     },
 };
 
-export default function MultipleSelectCheckmarks({ users, setUser }) {
+export default function MultipleSelectCheckmarks({ users, setUser, placeholder }) {
 
     const usersToShow = users.map(({ name, email }) => { return { email, name } });
     const [personName, setPersonName] = React.useState([]);
@@ -38,13 +38,13 @@ export default function MultipleSelectCheckmarks({ users, setUser }) {
     return (
         <div>
             <FormControl sx={{ m: 1, width: 420 }}>
-                <InputLabel id="demo-multiple-checkbox-label">Selecionar usuários</InputLabel>
+                <InputLabel id="demo-multiple-checkbox-label">{placeholder || 'Selecionar usuários'}</InputLabel>
                 <Select
                     labelId="demo-multiple-checkbox-label"
                     id="demo-multiple-checkbox"
                     value={personName}
                     onChange={handleChange}
-                    input={<OutlinedInput label="Selecionar usuários" />}
+                    input={<OutlinedInput label={ placeholder || "Selecionar usuários"} />}
                     renderValue={(selected) => selected.join(', ')}
                     MenuProps={MenuProps}
                 >

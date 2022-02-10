@@ -131,3 +131,13 @@ export const createComment = async (comment) => {
     const { data: { data } } = await axios.post(`http://localhost:5000/comments`, comment)
     return data;
 };
+
+export const getRecommendation = async () => {
+    const { data } = await axios.get(`http://localhost:5000/season`);
+    return data;
+} 
+
+export const createRecommendation = async (recommendation) => {
+    const data = await axios.post(`http://localhost:5000/season` , recommendation)
+    return data;
+}
