@@ -37,6 +37,7 @@ const Login = () => {
         if (response.status === 200) {
             return history.go('/');
         }
+        console.log(response.exists)
         if (response.exists) {
             Swal.fire({
                 icon: 'error',
