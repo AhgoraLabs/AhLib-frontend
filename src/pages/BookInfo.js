@@ -19,6 +19,7 @@ import Toast from "../components/Toasts";
 import AuthContext from "../context/auth/AuthContext";
 import { redirectWithMsg, showFlashDataMsg, checkIfUserCanExtendLoan } from "../utils/helpers";
 import CircularProgress from "@mui/material/CircularProgress";
+import NoImage from "../components/NoImageBook";
 
 const BookInfo = () => {
     const [isOpen, setIsOpen] = useState(!true);
@@ -133,10 +134,9 @@ const BookInfo = () => {
                 ) : (
                     <section className="flex w-bookInfo bg-white rounded-3xl p-6">
                         <div className="w-96 h-full ">
-                            <div
-                                style={{ backgroundImage: `url(${!!image ? image : "https://www.biotecdermo.com.br/wp-content/uploads/2016/10/sem-imagem-10.jpg"})` }}
-                                className="h-96 bg-no-repeat bg-48 bg-center"
-                            ></div>
+                            <div style={{ marginLeft: 55, marginBottom: 20 }}>
+                                <NoImage title={title} />
+                            </div>
                             <div className="flex justify-around">
                                 {alugado && (
                                     <Button width="w-18" height="h-8" fontSize="text-base">
