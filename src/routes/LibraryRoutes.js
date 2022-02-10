@@ -15,6 +15,7 @@ import UserRegister from "../pages/UserRegister";
 import Season from "../pages/Season";
 import AboutUs from "../pages/AboutUs/index";
 import download from "../pages/Download";
+import SeasonRegister from "../pages/SeasonRegister";
 
 const LibraryRouter = () => {
     return (
@@ -26,6 +27,7 @@ const LibraryRouter = () => {
                 <NavRoute exact path="/relatorios" header={<Navbar />} component={Reports}></NavRoute>
                 <NavRoute exact path="/livros" header={<Navbar />} component={Books}></NavRoute>
                 <NavRoute exact path="/recomendacao" header={<Navbar />} component={Season}></NavRoute>
+                <NavRoute exact path="/recomendacao/adicionar" header={<Navbar />} component={SeasonRegister}></NavRoute>
                 <NavRoute exact path="/livros/info/:id" header={<Navbar />} component={BookInfo}></NavRoute>
                 <NavRoute exact path="/livros/loan/:id" header={<Navbar />} component={BookLoan}></NavRoute>
                 <NavRoute exact path="/livros/cadastrar" header={<Navbar />} component={BookRegister}></NavRoute>
