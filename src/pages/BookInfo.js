@@ -238,10 +238,10 @@ const BookInfo = () => {
                                 <BoxInfoBook title={"Idioma"} icon={<GrLanguage />} value={language} />
                                 <BoxInfoBook title={"Total de páginas"} icon={<RiPagesLine />} value={pages} />
                             </div>
-                            <div className="mx-10">
+                            <div className="mx-10 mt-4 ">
                                 <Button height="h-12" onClick={openModalBookComments}>
                                     {"Comentários"}
-                                    {<AiOutlineArrowRight />}
+                                    {<AiOutlineArrowRight style={{ marginLeft: 10 }} />}
                                 </Button>
                             </div>
                         </div>
