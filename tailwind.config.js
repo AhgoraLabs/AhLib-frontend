@@ -20,6 +20,7 @@ module.exports = {
       },
 
     textColor: {
+      'roxo': 'rgb(144, 44, 211)',
       'bemvindo': '#374151',
       'rodape': 'rgb(139, 135, 135)',
       'textbook': '#008000',

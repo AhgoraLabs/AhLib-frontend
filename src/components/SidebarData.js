@@ -6,7 +6,7 @@ import * as ImIcons from "react-icons/im";
 
 export const SideBarData = [
     {
-        title: "Home",
+        title: "Dashboard",
         path: "/Home",
         icon: <AiIcons.AiFillHome />,
         cName: `flex justify-start items-center py-2 pl-4 list-none h-14 hover:bg-blue`,

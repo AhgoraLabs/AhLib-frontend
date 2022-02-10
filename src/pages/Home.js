@@ -146,7 +146,7 @@ function Home() {
 
             <div className="ml-10 bg-white w-72 flex-col flex rounded-xl shadow-md p-4" style={{ height: 600 }}>
                 <div className=" flex-col items-center flex">
-                    <h2 className="text-xl flex mb-4 mt-4 ">Indicadores Gerais</h2>
+                    <h2 className="text-xl flex mb-4 mt-4 "><b>Indicadores Gerais</b></h2>
                 </div>
 
                 <h3 className="ml-4 mt-4 flex flex-row items-center">
