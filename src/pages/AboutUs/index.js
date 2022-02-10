@@ -4,8 +4,6 @@ import arrows2 from "./assets/arrows_2.png";
 import arrowLeft from "../../images/arrowLeft.png";
 import arrowRight from "../../images/arrowRight.png";
 
-
-
 //person
 import pedro from "./assets/pedro_photo.png";
 import pablo from "./assets/pablo_photo.png";
@@ -19,31 +17,31 @@ function AboutUs() {
             name: "Pedro",
             role: "Desenvolvedor",
             photo: pedro,
-            link: 'https://github.com/pedrosarkis',
+            link: "https://github.com/pedrosarkis",
         },
         {
             name: "Bruno",
             role: "Desenvolvedor",
             photo: bruno1,
-            link: 'https://github.com/BrunoRodriguesNasc',
+            link: "https://github.com/BrunoRodriguesNasc",
         },
         {
             name: "Joarle",
             role: "Implantador",
             photo: joarle,
-            link: 'https://github.com/Joarle',
+            link: "https://github.com/Joarle",
         },
         {
             name: "Pablo",
             role: "Desenvolvedor",
             photo: pablo,
-            link: 'https://github.com/pablobion',
+            link: "https://github.com/pablobion",
         },
         {
             name: "Bruno",
             role: "Suporte",
             photo: bruno2,
-            link: 'https://github.com/correaa1',
+            link: "https://github.com/correaa1",
         },
     ];
 
@@ -66,8 +64,10 @@ function AboutUs() {
                 <h1>Conheça a família Ahlib</h1>
                 <div id="modals">
                     {team.map(elem => (
-                        <div className="modal">
-                            <a href={elem.link} target="_blank"><img href={elem.link} src={elem.photo}/></a>
+                        <div className="modal bg-white">
+                            <a href={elem.link} target="_blank">
+                                <img href={elem.link} src={elem.photo} />
+                            </a>
 
                             <h1>{elem.name}</h1>
                             <h2>{elem.role}</h2>
