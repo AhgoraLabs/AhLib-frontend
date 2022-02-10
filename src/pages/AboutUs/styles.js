@@ -66,6 +66,10 @@ export const Container = styled.div`
             justify-content: center;
             padding-top: 40px;
 
+            @media(max-width: 800px) {
+                display:flex;
+                flex-direction: column;
+            }
             .modal {
                 display: flex;
                 align-items: center;
