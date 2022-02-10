@@ -17,7 +17,7 @@ import AuthContext from "../context/auth/AuthContext";
 import sugestionLenght from "../pages/Season";
 import { BiLike, BiUser, BiCommentMinus, BiBookBookmark } from "react-icons/bi";
 import { BsStopwatch } from "react-icons/bs";
-const urlBase = !window.location.host.includes('netlify') ? 'http://localhost:5000' : 'https://sound-aileron-337523.rj.r.appspot.com'
+const urlBase = !window.location.host.includes("netlify") ? "http://localhost:5000" : "https://sound-aileron-337523.rj.r.appspot.com";
 
 function Home() {
     const sugestoes = sugestionLenght();
@@ -143,11 +143,16 @@ function Home() {
                         <Chart bg-current chartType="BarChart" width={"440px"} height={"220px"} graphID="ScatterChart" fontSize={"100"} data={option2} options={options2} />
                     </div>
                 </div>
+                <div className="shadow-sm mt-4" style={{ width: 920, height: 220, display: "flex", backgroundColor: "white", borderRadius: 10 }}>
+                    <h1 style={{ margin: "10px 0px 0px 10px" }}>Últimos livros acessados</h1>
+                </div>
             </div>
 
             <div className="ml-10 bg-white w-72 flex-col flex rounded-xl shadow-md p-4" style={{ height: 600 }}>
                 <div className=" flex-col items-center flex">
-                    <h2 className="text-xl flex mb-4 mt-4 "><b>Indicadores Gerais</b></h2>
+                    <h2 className="text-xl flex mb-4 mt-4 ">
+                        <b>Indicadores Gerais</b>
+                    </h2>
                 </div>
 
                 <h3 className="ml-4 mt-4 flex flex-row items-center">

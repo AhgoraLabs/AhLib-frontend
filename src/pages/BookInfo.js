@@ -134,7 +134,7 @@ const BookInfo = () => {
                 ) : (
                     <section className="flex w-bookInfo bg-white rounded-3xl p-6">
                         <div className="w-96 h-full ">
-                            <div style={{ marginLeft: 55, marginBottom: 20 }}>
+                            <div style={{ marginLeft: 35, marginBottom: 20 }}>
                                 <NoImage title={title} />
                             </div>
                             <div className="flex justify-around">
