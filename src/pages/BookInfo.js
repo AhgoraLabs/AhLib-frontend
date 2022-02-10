@@ -201,7 +201,7 @@ const BookInfo = () => {
                                         </>
                                     )}
                                     {checkIfUserCanExtendLoan(loan, email) && (
-                                        <div style={{ marginTop: 20 }}>
+                                        <div style={{ marginTop: 30 }}>
                                             <Link to={`/livros/loan/${id}?extend=true`}>
                                                 <Button fontSize={"28px"} width="w-26" height="h-12">
                                                     Extender empréstimo
