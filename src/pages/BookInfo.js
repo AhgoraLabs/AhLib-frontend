@@ -134,9 +134,19 @@ const BookInfo = () => {
                 ) : (
                     <section className="flex w-bookInfo bg-white rounded-3xl p-6">
                         <div className="w-96 h-full ">
-                            <div style={{ marginLeft: 35, marginBottom: 20 }}>
-                                <NoImage title={title} />
-                            </div>
+                            {image ? (
+                                <div className="flex justify-center mb-14">
+                                    <div
+                                        style={{ backgroundImage: `url(${!!image ? image : "https://www.biotecdermo.com.br/wp-content/uploads/2016/10/sem-imagem-10.jpg"})` }}
+                                        className="flex justify-center h-48 w-44 mt-4 bg-no-repeat bg-contain bg-center "
+                                    ></div>
+                                </div>
+                            ) : (
+                                <div style={{ marginBottom: 20, display: "flex", justifyContent: "center" }}>
+                                    <NoImage title={title} />
+                                </div>
+                            )}
+
                             <div className="flex justify-around">
                                 {alugado && (
                                     <Button width="w-18" height="h-8" fontSize="text-base">
@@ -165,7 +175,7 @@ const BookInfo = () => {
                                             </Link>
                                         </div>
                                     ) : loan && profile ? (
-                                        <div>
+                                        <div style={{ marginBottom: 20 }}>
                                             <Button onClick={openModalBookEdit} fontSize={"28px"} width="w-26" height="h-12">
                                                 Terminar Empréstimo
                                             </Button>
@@ -191,7 +201,7 @@ const BookInfo = () => {
                                         </>
                                     )}
                                     {checkIfUserCanExtendLoan(loan, email) && (
-                                        <div>
+                                        <div style={{ marginTop: 20 }}>
                                             <Link to={`/livros/loan/${id}?extend=true`}>
                                                 <Button fontSize={"28px"} width="w-26" height="h-12">
                                                     Extender empréstimo
