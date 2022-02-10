@@ -75,6 +75,13 @@ function AboutUs() {
                     ))}
                 </div>
             </div>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginTop: 40 }}>
+                <h1 style={{ fontSize: 50, color: "#494949" }}>Não sabe programas mas quer ajudar?</h1>
+                <h2 style={{ fontSize: 30, color: "#808080" }}>Envie sua sugestão de melhoria através do nosso formulário</h2>
+                <a href="https://forms.gle/mRgZhyzjj8wH3DJ9A" target="_blank">
+                    <button style={{ background: "#335AFF", color: "#fff", fontSize: 20, borderRadius: 5, padding: 15, marginTop: 20, marginBottom: 20 }}>Clique aqui</button>
+                </a>
+            </div>
         </Container>
     );
 }

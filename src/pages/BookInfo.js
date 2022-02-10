@@ -131,7 +131,7 @@ const BookInfo = () => {
                 {isLoading ? (
                     <CircularProgress size={200} />
                 ) : (
-                    <section className="flex w-bookInfo bg-white rounded-3xl">
+                    <section className="flex w-bookInfo bg-white rounded-3xl p-6">
                         <div className="w-96 h-full ">
                             <div
                                 style={{ backgroundImage: `url(${!!image ? image : "https://www.biotecdermo.com.br/wp-content/uploads/2016/10/sem-imagem-10.jpg"})` }}
