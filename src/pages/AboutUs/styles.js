@@ -71,7 +71,7 @@ export const Container = styled.div`
                 align-items: center;
                 justify-content: center;
                 flex-direction: column;
-                box-shadow: 0px 2px 10px 1px rgba(0, 0, 0, 0.35);
+                box-shadow: 0px 2px 5px 1px rgba(0, 0, 0, 0.35);
                 border-radius: 10px;
                 padding: 20px;
                 height: 220px;
