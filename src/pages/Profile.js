@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import axios from 'axios';
 import AuthContext from '../context/auth/AuthContext';
 
-
+const urlBase = !window.location.host.includes('netlify') ? 'http://localhost:5000' : 'https://sound-aileron-337523.rj.r.appspot.com'
 const styleInput = `h-16 px-4 mt-5 outline-none border-2 border-gray-400 rounded-xl focus:border-blue-700 font-sans`;
 
 const ProfilePage = () => {
@@ -20,7 +20,7 @@ const ProfilePage = () => {
     const { register, handleSubmit } = useForm();
 
     const onSubmit = async (dataForm) => {
-        const response = await axios.patch('http://localhost:5000/users', dataForm);
+        const response = await axios.patch(`${urlBase}/users`, dataForm);
     };
     const nomeUsuario = user.name;
 

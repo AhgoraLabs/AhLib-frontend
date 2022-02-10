@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 
-const urlBase = !window.location.host.includes('netlify') ? 'http://localhost:5000' : 'http://sound-aileron-337523.rj.r.appspot.com'
+const urlBase = !window.location.host.includes('netlify') ? 'http://localhost:5000' : 'https://sound-aileron-337523.rj.r.appspot.com'
 
 
 axios.defaults.headers.post['auth'] = window.localStorage.getItem('@App:token');

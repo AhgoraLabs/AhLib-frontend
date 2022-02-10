@@ -7,6 +7,8 @@ import { normalizeBookData } from '../utils/normalize';
 import axios from 'axios';
 import { redirectWithMsg } from '../utils/helpers';
 
+const urlBase = !window.location.host.includes('netlify') ? 'http://localhost:5000' : 'https://sound-aileron-337523.rj.r.appspot.com'
+
 const BookRegister = ({ match }) => {
 
     const InitialValue = {
@@ -58,7 +60,7 @@ const BookRegister = ({ match }) => {
 
     const fetchBook = async (value) => {
         if (value !== '') {
-            const { data } = await axios.get(`http://localhost:5000/books/isbn/${value}`)
+            const { data } = await axios.get(`${urlBase}/books/isbn/${value}`)
             return setValueForm(data ? normalizeBookData(data, value) : {});
         }
         return {}

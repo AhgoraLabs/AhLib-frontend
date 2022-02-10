@@ -17,6 +17,7 @@ import AuthContext from "../context/auth/AuthContext";
 import sugestionLenght from "../pages/Season";
 import { BiLike, BiUser, BiCommentMinus, BiBookBookmark } from "react-icons/bi";
 import { BsStopwatch } from "react-icons/bs";
+const urlBase = !window.location.host.includes('netlify') ? 'http://localhost:5000' : 'https://sound-aileron-337523.rj.r.appspot.com'
 
 function Home() {
     const sugestoes = sugestionLenght();
@@ -69,7 +70,7 @@ function Home() {
     ]);
 
     async function loans() {
-        const response = await fetch("http://localhost:5000/loan");
+        const response = await fetch(`${urlBase}/loan`);
         const { data } = await response.json();
         const group = data.map(loan => ({ date: moment(loan.createdAt, "YYYY-MM-DD").format("MMM/YYYY") }));
         // const loansGroupedBy = _.groupBy(group, 'date')
