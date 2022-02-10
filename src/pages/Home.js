@@ -132,7 +132,7 @@ function Home() {
                     <h2 className="mt-2 text-lg font-sans">Bem vindo ao Ahlib!</h2>
                 </div>
 
-                <div className="flex-row justify-center flex ">
+                <div className="flex-row justify-center flex mb-5">
                     <div
                         className=" justify-evenly mr-10 flex shadow-md"
                         style={{ width: 440, height: 260, display: "flex", alignItems: "center", justifyContent: "center", backgroundColor: "white", borderRadius: 10 }}
