@@ -132,10 +132,13 @@ function Home() {
                 </div>
 
                 <div className="flex-row justify-center flex ">
-                    <div className=" justify-evenly mr-10 flex shadow-md" style={{ width: 440, height: 220 }}>
+                    <div
+                        className=" justify-evenly mr-10 flex shadow-md"
+                        style={{ width: 500, height: 260, display: "flex", alignItems: "center", justifyContent: "center", backgroundColor: "white", borderRadius: 10 }}
+                    >
                         <Chart bg-current width={"440px"} height={"220px"} chartType="PieChart" graphID="ScatterChart1" loader={<div>Carregando Painel</div>} data={data} options={options} />
                     </div>
-                    <div className="shadow-sm" style={{ width: 440, height: 220 }}>
+                    <div className="shadow-sm" style={{ width: 500, height: 260, display: "flex", alignItems: "center", justifyContent: "center", backgroundColor: "white", borderRadius: 10 }}>
                         <Chart bg-current chartType="BarChart" width={"440px"} height={"220px"} graphID="ScatterChart" fontSize={"100"} data={option2} options={options2} />
                     </div>
                 </div>
