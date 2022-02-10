@@ -46,8 +46,8 @@ export const SideBarData = [
         onClick: () => {
             window.localStorage.clear();
         },
-        path: "/sobre",
-        icon: <IoIcons.IoMdHelpCircle />,
+        path: "/",
+        icon: <IoIcons.IoMdLogOut />,
         cName: `flex justify-start items-center py-2 pl-4 list-none h-14 hover:bg-blue`,
     },
 ];
