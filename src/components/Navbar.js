@@ -38,7 +38,7 @@ function Navbar() {
                                 <li key={index} className={item.cName}>
                                     <Link to={item.path} className="list-none text-primary text-lg w-12/13 h-full flex items-center pt-0 pr-4 rounded">
                                         {item.icon}
-                                        <span className="ml-4">{item.title}</span>
+                                        <span onClick={item?.onClick} className="ml-4">{item.title}</span>
                                     </Link>
                                 </li>
                             );
