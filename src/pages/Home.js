@@ -14,10 +14,13 @@ import emprestados from '../images/emprestados.png';
 import atraso from '../images/atraso.png';
 import avaliacao from '../images/avaliacao.png';
 import AuthContext from '../context/auth/AuthContext';
+import sugestionLenght from '../pages/Season';
 
 
 function Home() {
 
+  const sugestoes = sugestionLenght()
+  console.log(sugestoes)
 
     const { user } = useContext(AuthContext);
     const usuario = user.name
