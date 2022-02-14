@@ -66,10 +66,7 @@ function Home() {
         setOption2(b);
 
         const booksHasntReturned = data.filter(({ bookHasReturned }) => !bookHasReturned);
-        const booksLateAtTheMoment = booksHasntReturned.filter(book => {
-            const loanEnd = new Date(book.newloanEnd || book.loanEnd);
-            return loanEnd < new Date();;
-        });
+        const booksLateAtTheMoment = booksHasntReturned.filter(book => new Date(book.newloanEnd || book.loanEnd) < new Date());
 
         setBooksInfo({
             ...booksInfo,
