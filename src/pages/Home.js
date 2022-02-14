@@ -1,33 +1,18 @@
-import React, { useState, useEffect, useReducer, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Chart } from "react-google-charts";
-import { Button, TextField } from "@mui/material";
-import { useHistory } from "react-router-dom";
-import { useForm } from "react-hook-form";
-import { createUser, listBooks, getUsers } from "../api/apiService";
+import { listBooks, getUsers } from "../api/apiService";
 import moment from "moment";
 import _ from "lodash";
 import qrCode from "../images/qrCodeApp.png";
-import { fontSize, height, width } from "@mui/system";
-import sugestoes from "../images/sugestoes.png";
-import usuarios from "../images/usuarios.png";
-import emprestados from "../images/emprestados.png";
-import atraso from "../images/atraso.png";
-import avaliacao from "../images/avaliacao.png";
 import AuthContext from "../context/auth/AuthContext";
-import sugestionLenght from "../pages/Season";
 import { BiLike, BiUser, BiCommentMinus, BiBookBookmark } from "react-icons/bi";
 import { BsStopwatch } from "react-icons/bs";
+
 const urlBase = !window.location.host.includes("netlify") ? "http://localhost:5000" : "https://sound-aileron-337523.rj.r.appspot.com";
 
 function Home() {
-    const sugestoes = sugestionLenght();
-    console.log(sugestoes);
+    const { user: { name: usuario } } = useContext(AuthContext);
 
-    const { user } = useContext(AuthContext);
-    const usuario = user.name;
-
-    const largura = window.screen.width;
-    console.log(largura);
     const month1 = moment().format("MMM/YYYY");
     const month2 = moment().subtract(1, "months").format("MMM/YYYY");
     const month3 = moment().subtract(2, "months").format("MMM/YYYY");
@@ -38,19 +23,13 @@ function Home() {
         ["Livros Livres", 0],
         ["Livros Alugados", 0],
     ]);
-    const [booksLate, setLivrosAtrasados] = useState([]);
-    const [users, setUsers] = useState([]);
-    const [totalBooks, setTotalbooks] = useState(0);
-    const [totalLoans, setTotalLoans] = useState(0);
-    const [loansGrouped, setloansGrouped] = useState({});
-    const [chartHeight, setChartHeight] = useState(0);
-    const [chartWidth, setChartWidth] = useState(0);
-    const [loans2, setTotalLoans2] = useState(0);
-    console.log(loans2.length);
-    console.log("totalLoans", totalLoans);
-    console.log("totalBooks", totalBooks);
-    console.log("livrosAtrasados", booksLate);
 
+    const [users, setUsers] = useState([]);
+    const [booksInfo, setBooksInfo] = useState({ totalBooks: 0, booksLate: 0 });
+    const [totalBooks, setTotalbooks] = useState(0);
+    const [loansInfo, setLoansInfo] = useState({ totalLoans: 0, loans2: 0 });
+
+    //Essas options são keys padrões para modificar valores e visual do google charts
     const [option2, setOption2] = useState([
         [
             "Elemento",
@@ -70,15 +49,15 @@ function Home() {
     ]);
 
     async function loans() {
-        const response = await fetch(`${urlBase}/loan`);
-        const { data } = await response.json();
+        const { data } = await (await fetch(`${urlBase}/loan`)).json();
+
         const group = data.map(loan => ({ date: moment(loan.createdAt, "YYYY-MM-DD").format("MMM/YYYY") }));
-        // const loansGroupedBy = _.groupBy(group, 'date')
+
         const teste = Object.entries(_.groupBy(group, "date")).reduce((acc, [key, value]) => {
             acc[key] = value.length;
             return acc;
         }, {});
-        console.log("teste", teste);
+
 
         var b = option2.map(([a, b, c, d]) => {
             if (teste[a]) b = teste[a];
@@ -87,36 +66,36 @@ function Home() {
         setOption2(b);
 
         const booksHasntReturned = data.filter(({ bookHasReturned }) => !bookHasReturned);
-        const booksLate = booksHasntReturned.filter(book => {
-            const now = new Date();
+        const booksLateAtTheMoment = booksHasntReturned.filter(book => {
             const loanEnd = new Date(book.newloanEnd || book.loanEnd);
-            return loanEnd < now;
+            return loanEnd < new Date();;
         });
-        setLivrosAtrasados(booksLate.length);
-        setTotalLoans(booksHasntReturned.length);
-        setTotalLoans2(data);
+
+        setBooksInfo({
+            ...booksInfo,
+            booksLate: booksLateAtTheMoment.length,
+        })
+
+        setLoansInfo({
+            ...loansInfo,
+            totalLoans: booksHasntReturned.length,
+            loans2: data
+        })
     }
 
-    async function books() {
-        const {
-            data: { count },
-        } = await listBooks(8, 0);
-        setTotalbooks(count);
-    }
     useEffect(async () => {
-        const allUsers = await getUsers();
-        setUsers(allUsers);
-        console.log(users);
+        setUsers(await getUsers());
+
         var b = data.map(([a, b]) => {
-            if (a == "Livros Livres") b = totalBooks - totalLoans;
-            if (a == "Livros Alugados") b = totalLoans;
+            if (a == "Livros Livres") b = totalBooks - loansInfo.totalLoans;
+            if (a == "Livros Alugados") b = loansInfo.totalLoans;
             return [a, b];
         });
         setOptions({ title: `Total de Livros ${totalBooks}` });
         setData(b);
-        books();
+        setTotalbooks((await listBooks(8, 0)).data.count);
         loans();
-    }, [totalBooks, totalLoans]);
+    }, [totalBooks, loansInfo]);
 
     const options2 = {
         title: "Emprestimos por Periodo",
@@ -169,12 +148,12 @@ function Home() {
 
                 <h3 className="ml-4 mt-4 flex flex-row items-center">
                     <BiBookBookmark size={20} color="#494949" style={{ marginRight: 5 }} />
-                    Emprestimos Totais: {loans2.length}
+                    Emprestimos Totais: {loansInfo.loans2.length}
                 </h3>
 
                 <h3 className="ml-4 mt-4 flex flex-row items-center">
                     <BsStopwatch size={20} color="#494949" style={{ marginRight: 5 }} />
-                    Livros em atraso: {booksLate}
+                    Livros em atraso: {booksInfo.booksLate}
                 </h3>
 
                 <h3 className="ml-4 mt-4 flex flex-row items-center">
