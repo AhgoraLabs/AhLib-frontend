@@ -7,29 +7,15 @@ import CircularProgress from "@mui/material/CircularProgress";
 
 import NoImage from "../components/NoImageBook";
 
-const Box = ({ title, image, bookId }) => {
+const Box = ({ title, image, bookId, averageStars, isBookLoaned }) => {
     const [loan, setLoan] = useState({});
     const [votes, setVotes] = useState([]);
     const [isLoading, setLoading] = useState(true);
-    const fetchLoan = async () => {
-        let loanInformation = await getLoanByBookId(bookId);
-        setLoan(loanInformation);
-    };
 
-    const getTotalRating = async () => {
-        const response = await getCommentsById(bookId);
-        const data = response.map(({ stars }) => stars);
-        setVotes(data);
-    };
 
     setTimeout(() => {
         setLoading(false);
     }, 600);
-
-    useEffect(() => {
-        getTotalRating();
-        fetchLoan();
-    }, []);
 
     return (
         <div onClick={() => (window.location = `/livros/info/${bookId}`)} className="h-80 w-56 m-4 mx-10 cursor-pointer bg-white border border-gray-100 rounded-3xl shadow-input-box-shadow">
@@ -44,10 +30,10 @@ const Box = ({ title, image, bookId }) => {
                             <CircularProgress size={20} />
                         </div>
                     ) : (
-                        <div className={`${loan ? "text-base font-thin text-danger font-medium" : " text-base font-thin text-textbook font-medium"} text-center `}>{loan ? "alugado" : "Livre"}</div>
+                        <div className={`${isBookLoaned ? "text-base font-thin text-danger font-medium" : " text-base font-thin text-textbook font-medium"} text-center `}>{isBookLoaned ? "alugado" : "Livre"}</div>
                     )}
                 </div>
-                {votes.length > 0 && <Rating name="half-rating-read" defaultValue={totalStars(votes)} precision={0.5} readOnly />}
+                {averageStars > 0 && <Rating name="half-rating-read" defaultValue={averageStars} precision={0.5} readOnly />}
             </div>
         </div>
     );

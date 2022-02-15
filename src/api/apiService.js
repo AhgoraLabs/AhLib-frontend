@@ -35,6 +35,11 @@ export const getBookByTitle = async (title) => {
     return data;
 }
 
+export const makeBookTable = async (limit, offset) => {
+    const data = await (await fetch(`${urlBase}/books/books/table?limit=${limit}&offset=${offset}`)).json();
+    return data;
+}
+
 export const getBookById = async (id) => {
     const { data: { data } } = await axios.get(`${urlBase}/books/${id}`)
     return data;

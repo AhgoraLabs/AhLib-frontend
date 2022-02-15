@@ -6,11 +6,10 @@ import Button from '../components/Button';
 import Box from '../components/Box';
 import { BiBookAdd } from "react-icons/bi";
 import { IconContext } from 'react-icons';
-import { listBooks, getBookByTitle } from '../api/apiService';
+import { listBooks, getBookByTitle, makeBookTable } from '../api/apiService';
 import { isAdminOrSuper } from '../utils/validationProfile';
 import { showFlashDataMsg } from '../utils/helpers';
 import Toast from '../components/Toasts';
-import TablePagination from '@mui/material/TablePagination';
 import Pagination from '../components/Pagination';
 import _ from 'lodash';
 
@@ -32,13 +31,11 @@ const Books = () => {
     const [profile, setProfile] = useState(null);
     const [count, setCount] = useState(0);
     const [booksPerPage, setBooksPerPage] = useState(8);
-
-
     const [page, setPage] = useState(0);
 
 
     const fetchBooks = async (limit = 8, page) => {
-        const { data: { data, count } } = await listBooks(limit, page);
+        const data = await makeBookTable(limit, page);
         setCount(count);
         setBooks(data)
     };
@@ -100,8 +97,16 @@ const Books = () => {
                 <section className='w-56 h-large'>
                 </section>
                 <section className='mb-80 w-8/12 h-large flex justify-center flex-row flex-wrap'>
-                    {books || books?.length > 0 ? books.map(({ _id, title, author, image, coments }) => (
-                        <Box key={_id} title={title} authors={author} star={5} image={image} coments={coments} bookId={_id} />
+                    {books || books?.length > 0 ? books.map(({ _id, title, author, image, averageStars, isBookLoaned }) => (
+                        <Box
+                            key={_id}
+                            title={title}
+                            authors={author}
+                            star={5}
+                            image={image}
+                            isBookLoaned={isBookLoaned}
+                            averageStars={averageStars}
+                            bookId={_id} />
 
                     )) : 'Não Foi encontrado nenhum livro'}
 
