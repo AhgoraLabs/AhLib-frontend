@@ -1,5 +1,6 @@
 import React, { createContext, useState, useEffect } from 'react';
 import { authUser } from '../../api/apiService';
+import jwt from 'jwt-decode'
 
 const AuthContext = createContext({});
 
@@ -10,16 +11,17 @@ export const AuthProvider = ({ children }) => {
 
   async function Login(email, senha) {
 
-    const {data, error}  = await authUser(email, senha);
+    const { data, error } = await authUser(email, senha);
 
-    if(error) {
+    if (error) {
       return false;
     }
-    setUser({ id: data.user._id , name: data.user.name, email});
 
-    localStorage.setItem('@App:user',JSON.stringify(data.user.name));
-    localStorage.setItem('@App:id',JSON.stringify(data.user._id));
-    localStorage.setItem('@App:email',  data.user.email)
+    setUser({ id: data.user._id, name: data.user.name, email, profile: data.profile });
+
+    localStorage.setItem('@App:user', JSON.stringify(data.user.name));
+    localStorage.setItem('@App:id', JSON.stringify(data.user._id));
+    localStorage.setItem('@App:email', data.user.email)
     localStorage.setItem('@App:token', data.token);
     return true;
   }
@@ -38,8 +40,10 @@ export const AuthProvider = ({ children }) => {
     const storagedId = localStorage.getItem('@App:id');
     const storagedEmail = localStorage.getItem('@App:email');
 
+    const { profile } = jwt(storagedToken);
+
     if (storagedToken && storagedUser) {
-      setUser({ id:JSON.parse(storagedId), name: JSON.parse(storagedUser), email: storagedEmail });
+      setUser({ id: JSON.parse(storagedId), profile, name: JSON.parse(storagedUser), email: storagedEmail });
     }
   }, []);
 

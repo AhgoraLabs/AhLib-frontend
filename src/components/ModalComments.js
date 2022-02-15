@@ -41,8 +41,10 @@ const style = {
     overflow: "auto",
 };
 
-export default function ModalComments({ open, setOpen, bookId }) {
-    const [comments, setComments] = useState({});
+export default function ModalComments({ open, setOpen, bookId, currentComments }) {
+
+    const [comments, setComments] = useState([]);
+
     const [openModal, setOpenModal] = useState(false);
 
     const closeModal = () => {
@@ -61,13 +63,10 @@ export default function ModalComments({ open, setOpen, bookId }) {
     useEffect(() => {
         if (open) blurEverythingElse();
         else unblurEverything();
-    }, [open]);
+        setComments(currentComments);
+    }, [open, currentComments]);
 
-    useEffect(() => {
-        getComments(bookId);
-    }, [bookId]);
-
-    useEffect(() => {});
+    useEffect(() => { });
     const blurEverythingElse = () => {
         document.querySelectorAll(":not(#modal):not(.MuiBox-root css-li7oki):not(html):not(body)").forEach(element => (element.style.filter = "blur(2px)"));
     };

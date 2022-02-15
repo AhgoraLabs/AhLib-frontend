@@ -12,7 +12,7 @@ const BookLoan = ({ match }) => {
     const urlSearchParams = new URLSearchParams(search);
     const params = Object.fromEntries(urlSearchParams.entries());
     const [loan, setLoan] = useState({});
-    console.log(loan, 'loan');
+
 
     const fetchLoan = useCallback(async function () {
         let loanInformation = await getLoanByBookId(match.params?.id);

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useMemo } from "react";
 import { Chart } from "react-google-charts";
 import { listBooks, getUsers } from "../api/apiService";
 import moment from "moment";
@@ -13,6 +13,8 @@ const urlBase = !window.location.host.includes("netlify") ? "http://localhost:50
 function Home() {
     const { user: { name: usuario } } = useContext(AuthContext);
 
+
+
     const month1 = moment().format("MMM/YYYY");
     const month2 = moment().subtract(1, "months").format("MMM/YYYY");
     const month3 = moment().subtract(2, "months").format("MMM/YYYY");
@@ -26,8 +28,9 @@ function Home() {
 
     const [users, setUsers] = useState([]);
     const [booksInfo, setBooksInfo] = useState({ totalBooks: 0, booksLate: 0 });
-    const [totalBooks, setTotalbooks] = useState(0);
     const [loansInfo, setLoansInfo] = useState({ totalLoans: 0, loans2: 0 });
+
+
 
     //Essas options são keys padrões para modificar valores e visual do google charts
     const [option2, setOption2] = useState([
@@ -71,6 +74,7 @@ function Home() {
         setBooksInfo({
             ...booksInfo,
             booksLate: booksLateAtTheMoment.length,
+            totalBooks: (await listBooks(8, 0)).data.count
         })
 
         setLoansInfo({
@@ -84,15 +88,17 @@ function Home() {
         setUsers(await getUsers());
 
         var b = data.map(([a, b]) => {
-            if (a == "Livros Livres") b = totalBooks - loansInfo.totalLoans;
+            if (a == "Livros Livres") b = booksInfo.totalBooks - loansInfo.totalLoans;
             if (a == "Livros Alugados") b = loansInfo.totalLoans;
             return [a, b];
         });
-        setOptions({ title: `Total de Livros ${totalBooks}` });
+        setOptions({ title: `Total de Livros ${booksInfo.totalBooks}` });
         setData(b);
-        setTotalbooks((await listBooks(8, 0)).data.count);
+    }, [booksInfo.totalBooks, loansInfo.totalLoans]);
+
+    useEffect(async () => {
         loans();
-    }, [totalBooks, loansInfo]);
+    }, [])
 
     const options2 = {
         title: "Emprestimos por Periodo",

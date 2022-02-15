@@ -33,7 +33,7 @@ const Season = () => {
         <div className="flex justify-center flex-col items-center h-full w-screen font-poppins">
             <div className="w-4/5 h-full">
                 {recommendations?.map(({ bookRecommended, description, user, seasonEndDate }) => {
-                    console.log(seasonEndDate, 'seasonEnd')
+
                     return (
                         <div className="flex m-4 sm:h-card h-96 justify-between shadow-sm rounded-xl border-gray-100 bg-white">
                             <div className="w-1/5 flex h-full justify-center items-center lg:flex hidden">

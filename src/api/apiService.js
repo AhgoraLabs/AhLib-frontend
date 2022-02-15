@@ -58,7 +58,7 @@ export const authUser = async (email, password) => {
 
         const response = await fetch(`${urlBase}/users/auth`, settings);
         const data = await response.json();
-        console.log(data, 'dataapi')
+        
 
         return data;
     } catch (error) {

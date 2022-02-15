@@ -38,15 +38,15 @@ const Login = () => {
                 icon: 'error',
                 title: 'Erro',
                 text: 'Email ou Senha não preenchido',
-            }) 
+            })
             return false
         }
         const response = await createUser(email, name);
-        
+
         if (response.status === 200) {
             return history.go('/');
         }
-        console.log(response.exists)
+
         if (response.exists) {
             Swal.fire({
                 icon: 'error',

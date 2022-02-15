@@ -4,7 +4,6 @@ import { useParams, Link } from "react-router-dom";
 import { totalStars } from "../utils/totalStar";
 import Rating from "@mui/material/Rating";
 import { Button as ButtonMui } from "@mui/material";
-import { BsCalendarDate } from "react-icons/bs";
 import { GrLanguage } from "react-icons/gr";
 import { RiPagesLine } from "react-icons/ri";
 import { AiOutlineArrowRight } from "react-icons/ai";
@@ -24,18 +23,19 @@ import NoImage from "../components/NoImageBook";
 const BookInfo = () => {
     const [isOpen, setIsOpen] = useState(!true);
     const {
-        user: { email },
+        user: { email, profile },
     } = useContext(AuthContext);
+
+
     const [book, setBook] = useState({});
     const [openModal, setOpenModal] = useState(false);
     const [openModalLoan, setOpenModalLoan] = useState(false);
     const [openModalComments, setOpenModalComments] = useState(false);
+    const [comments, setComments] = useState([]);
     const [toastData, setToastData] = useState({});
     const [votes, setVotes] = useState([]);
     const [numberOfLoans, setNumberOfLoans] = useState(0);
-    console.log(numberOfLoans, "numberOfLoans");
     const [loan, setLoan] = useState({});
-    const [profile, setProfile] = useState(false);
     const [isLoading, setLoading] = useState(true);
 
     const { id } = useParams();
@@ -49,6 +49,7 @@ const BookInfo = () => {
     };
     const getTotalRating = async () => {
         const response = await getCommentsById(id);
+        setComments(response);
         const data = response.map(({ stars }) => stars);
         setVotes(data);
     };
@@ -67,7 +68,6 @@ const BookInfo = () => {
     const fetchBook = useCallback(
         async function () {
             let bookInformation = await getBookById(id);
-            console.log("bookInformation", bookInformation);
             setBook(bookInformation);
         },
         [id]
@@ -97,15 +97,13 @@ const BookInfo = () => {
         fetchLoan();
         getTotalRating();
         handleLoansByBookId();
-    }, [fetchLoan]);
+    }, []);
 
     useEffect(async () => {
         fetchBook();
         const data = showFlashDataMsg();
-        const userProfile = await isAdminOrSuper();
-        setProfile(userProfile);
         setToastData(data);
-    }, [fetchBook]);
+    }, []);
 
     const options = { weekday: "long", year: "numeric", month: "long", day: "numeric" };
 
@@ -127,7 +125,7 @@ const BookInfo = () => {
                 title={"Terminar empréstimo"}
                 text={"Tem certeza que deseja executar essa ação? Essa ação não poderá ser desfeita"}
             />
-            <ModalComments open={openModalComments} setOpen={setOpenModalComments} bookId={id} />
+            <ModalComments open={openModalComments} currentComments={comments} setOpen={setOpenModalComments} bookId={id} />
             <div className="flex h-screen justify-center items-center">
                 {isLoading ? (
                     <CircularProgress size={200} />
@@ -154,7 +152,7 @@ const BookInfo = () => {
                                     </Button>
                                 )}
                                 <div className="flex items-center flex-col">
-                                    {isAdminOrSuper() && (
+                                    {profile === 'admin' || profile === 'super' && (
                                         <div className="flex justify-between w-48 mb-4">
                                             <Link to={`/livros/edit/${id}`}>
                                                 <Button width="w-18" height="h-8" fontSize="text-base">
@@ -166,7 +164,7 @@ const BookInfo = () => {
                                             </Button>
                                         </div>
                                     )}
-                                    {!loan && profile ? (
+                                    {!loan && (profile === 'admin' || profile === 'super') ? (
                                         <div>
                                             <Link to={`/livros/loan/${id}`}>
                                                 <Button width="w-26" height="h-12">
@@ -174,7 +172,7 @@ const BookInfo = () => {
                                                 </Button>
                                             </Link>
                                         </div>
-                                    ) : loan && profile ? (
+                                    ) : loan && (profile === 'admin' || profile === 'super') ? (
                                         <div style={{ marginBottom: 20 }}>
                                             <Button onClick={openModalBookEdit} fontSize={"28px"} width="w-26" height="h-12">
                                                 Terminar Empréstimo
