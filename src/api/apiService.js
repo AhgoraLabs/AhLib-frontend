@@ -35,8 +35,8 @@ export const getBookByTitle = async (title) => {
     return data;
 }
 
-export const makeBookTable = async (limit, offset) => {
-    const data = await (await fetch(`${urlBase}/books/books/table?limit=${limit}&offset=${offset}`)).json();
+export const makeBookTable = async (limit = 8, offset = 0, title = '') => {
+    const data = await (await fetch(`${urlBase}/books/books/table?limit=${limit}&offset=${offset}&title=${title}`)).json();
     return data;
 }
 

@@ -34,22 +34,21 @@ const Books = () => {
     const [page, setPage] = useState(0);
 
 
-    const fetchBooks = async (limit = 8, page) => {
-        const data = await makeBookTable(limit, page);
+    const fetchBooks = async (limit = 8, page = 0, value = '') => {
+        const { data, count } = await makeBookTable(limit, page, value);
         setCount(count);
         setBooks(data)
     };
 
     const fetchBookForInput = async (value) => {
         if (value === '') {
-            return fetchBooks();
+            return makeBookTable();
         } else {
 
             clearTimeout(typingTime);
             let data = '';
             typingTime = setTimeout(async () => {
-                data = await getBookByTitle(value)
-                return setBooks(data)
+                 await fetchBooks(booksPerPage, page, value);
             }, TIMEOUT_TYPING_TIME)
         }
     }
@@ -68,7 +67,7 @@ const Books = () => {
     };
 
     useEffect(async () => {
-        await fetchBooks(8, 0);
+        fetchBooks();
         const userProfile = await isAdminOrSuper();
         setProfile(userProfile);
         const data = showFlashDataMsg();
