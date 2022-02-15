@@ -14,7 +14,6 @@ function Home() {
     const { user: { name: usuario } } = useContext(AuthContext);
 
 
-
     const month1 = moment().format("MMM/YYYY");
     const month2 = moment().subtract(1, "months").format("MMM/YYYY");
     const month3 = moment().subtract(2, "months").format("MMM/YYYY");
@@ -85,8 +84,6 @@ function Home() {
     }
 
     useEffect(async () => {
-        setUsers(await getUsers());
-
         var b = data.map(([a, b]) => {
             if (a == "Livros Livres") b = booksInfo.totalBooks - loansInfo.totalLoans;
             if (a == "Livros Alugados") b = loansInfo.totalLoans;
@@ -97,6 +94,7 @@ function Home() {
     }, [booksInfo.totalBooks, loansInfo.totalLoans]);
 
     useEffect(async () => {
+        setUsers(await getUsers());
         loans();
     }, [])
 

@@ -41,16 +41,14 @@ const Books = () => {
     };
 
     const fetchBookForInput = async (value) => {
-        if (value === '') {
-            return makeBookTable();
-        } else {
 
-            clearTimeout(typingTime);
-            let data = '';
-            typingTime = setTimeout(async () => {
-                 await fetchBooks(booksPerPage, page, value);
-            }, TIMEOUT_TYPING_TIME)
-        }
+        clearTimeout(typingTime);
+        let data = '';
+        typingTime = setTimeout(async () => {
+            setPage(0);
+            await fetchBooks(booksPerPage, 0, value);
+        }, TIMEOUT_TYPING_TIME)
+
     }
 
     const handleChangePage = async (operation) => {
