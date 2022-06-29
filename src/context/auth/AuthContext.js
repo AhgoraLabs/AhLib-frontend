@@ -40,7 +40,9 @@ export const AuthProvider = ({ children }) => {
     const storagedId = localStorage.getItem('@App:id');
     const storagedEmail = localStorage.getItem('@App:email');
 
-    const { profile } = jwt(storagedToken);
+   
+    const { profile } = storagedToken && jwt(storagedToken) || {};
+    console.log('chegou aqui');
 
     if (storagedToken && storagedUser) {
       setUser({ id: JSON.parse(storagedId), profile, name: JSON.parse(storagedUser), email: storagedEmail });
