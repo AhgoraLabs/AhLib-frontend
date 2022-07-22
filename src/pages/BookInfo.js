@@ -225,7 +225,7 @@ const BookInfo = () => {
                                     </>
                                 )}
                             </div>
-                            <div className={`mx-10 overflow-hidden flex flex-col ${isOpen ? "" : "h-24"}`}>
+                            <div className={`mx-10 overflow-hidden flex flex-col ${isOpen ? "h-full" : "h-24"}`}>
                                 <h3 className="font-sans ">Descrição</h3>
                                 {description}
                             </div>
