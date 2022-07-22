@@ -19,8 +19,10 @@ const MenuProps = {
 };
 
 export default function MultipleSelectCheckmarks({ users, setUser, placeholder }) {
+    
 
-    const usersToShow = users.map(({ name, email }) => { return { email, name } });
+    const usersToShow = users.map(({ name, email }) => { return { email, name } }).sort((a, b) => a.email > b.email ? 1 : -1);
+        
     const [personName, setPersonName] = React.useState([]);
 
     const handleChange = (event) => {
