@@ -1,16 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState, useRef } from 'react'
 import { Link } from 'react-router-dom';
-import Input from '../components/Input'
-import Button from '../components/Button';
-import Box from '../components/Box';
+import Input from '../../components/Input'
+import Button from '../../components/Button';
+import Box from './components/Box';
 import { BiBookAdd } from "react-icons/bi";
 import { IconContext } from 'react-icons';
-import { listBooks, getBookByTitle, makeBookTable } from '../api/apiService';
-import { isAdminOrSuper } from '../utils/validationProfile';
-import { showFlashDataMsg } from '../utils/helpers';
-import Toast from '../components/Toasts';
-import Pagination from '../components/Pagination';
+import { listBooks, getBookByTitle, makeBookTable } from '../../api/apiService';
+import { isAdminOrSuper } from '../../utils/validationProfile';
+import { showFlashDataMsg } from '../../utils/helpers';
+import Toast from '../../components/Toasts';
+import Pagination from '../../components/Pagination';
 import _ from 'lodash';
 
 
@@ -88,12 +88,13 @@ const Books = () => {
                 <Input
                     placeholder={'Pesquisar'}
                     fetchBookForInput={fetchBookForInput}
+                    border='rounded-xl'
                 />
             </header>
             <main className=' text-base w-full flex justify-between'>
                 <section className='w-56 h-large'>
                 </section>
-                <section className='mb-80 w-8/12 h-large flex justify-center flex-row flex-wrap'>
+                <section className='mb-40 w-8/20 h-large flex justify-center flex-row flex-wrap'>
                     {books || books?.length > 0 ? books.map(({ _id, title, author, image, averageStars, isBookLoaned }) => (
                         <Box
                             key={_id}
