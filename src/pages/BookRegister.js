@@ -78,7 +78,6 @@ const BookRegister = ({ match }) => {
                     {...register('isbn')}
                     defaultValue={valueForm?.isbn}
                     required
-                    onBlur={(e) => isEdit ? '' : fetchBook(e.target.value)}
                 />
                 <input
                     className={styleInput}
