@@ -7,7 +7,7 @@ import { normalizeBookData } from '../utils/normalize';
 import axios from 'axios';
 import { redirectWithMsg } from '../utils/helpers';
 
-const urlBase = !window.location.host.includes('netlify') ? 'http://localhost:5000' : 'https://ahlibs.rj.r.appspot.com'
+const urlBase = !window.location.host.includes('netlify') ? 'http://localhost:5000' : 'https://ahlib.herokuapp.com'
 
 const BookRegister = ({ match }) => {
 

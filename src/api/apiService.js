@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 
-const urlBase = !window.location.host.includes('netlify') ? 'http://localhost:5000' : 'https://ahlibs.rj.r.appspot.com'
+const urlBase = !window.location.host.includes('netlify') ? 'http://localhost:5000' : 'https://ahlib.herokuapp.com'
 
 
 axios.defaults.headers.post['auth'] = window.localStorage.getItem('@App:token');

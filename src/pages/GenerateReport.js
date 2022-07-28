@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ReportOptions from '../components/Reports';
 import axios from 'axios';
 
-const urlBase = !window.location.host.includes('netlify') ? 'http://localhost:5000' : 'https://ahlibs.rj.r.appspot.com'
+const urlBase = !window.location.host.includes('netlify') ? 'http://localhost:5000' : 'https://ahlib.herokuapp.com'
 
 const Report = () => {
     const [users, setUsers] = useState([]);
