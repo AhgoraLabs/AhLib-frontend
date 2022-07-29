@@ -8,7 +8,7 @@ import AuthContext from "../context/auth/AuthContext";
 import { BiLike, BiUser, BiCommentMinus, BiBookBookmark } from "react-icons/bi";
 import { BsStopwatch } from "react-icons/bs";
 
-const urlBase = !window.location.host.includes("netlify") ? "http://localhost:5000" : "https://ahlibs.rj.r.appspot.com";
+const urlBase = !window.location.host.includes("netlify") ? "http://localhost:5000" : "https://ahlib.herokuapp.com";
 
 function Home() {
     const { user: { name: usuario } } = useContext(AuthContext);

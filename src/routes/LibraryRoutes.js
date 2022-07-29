@@ -3,7 +3,7 @@ import { NavRoute } from "../routes/NavRoute";
 import Reports from "../pages/Reports";
 import Login from "../pages/Login";
 import Navbar from "../components/Navbar";
-import Books from "../pages/Books";
+import Books from "../pages/ListBooks/index";
 import ReportPage from "../pages/GenerateReport";
 import BookInfo from "../pages/BookInfo";
 import BookLoan from "../pages/BookLoan";
