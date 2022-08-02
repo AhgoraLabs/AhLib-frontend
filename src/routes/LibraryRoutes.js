@@ -2,7 +2,7 @@ import { BrowserRouter as Routes, Route } from "react-router-dom";
 import { NavRoute } from "../routes/NavRoute";
 import Reports from "../pages/Reports";
 import Login from "../pages/Login";
-import Navbar from "../components/Navbar";
+import Navbar from "../components/Navbar/Navbar";
 import Books from "../pages/ListBooks/index";
 import ReportPage from "../pages/GenerateReport";
 import BookInfo from "../pages/BookInfo";

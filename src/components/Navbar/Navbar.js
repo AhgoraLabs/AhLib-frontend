@@ -2,16 +2,18 @@ import React, { useState } from 'react';
 import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
 import { Link } from 'react-router-dom';
-import { SideBarData } from './SidebarData';
+import NavOptions from './SidebarData';
 import { IconContext } from 'react-icons';
 
-import Button from '../components/Button';
+import Button from '../Button';
 
 function Navbar() {
     const [sidebar, setSidebar] = useState(false);
     const showSidebar = () => setSidebar(!sidebar);
     const navMenu = `z-10 bg-primary w-64 h-screen flex justify-center fixed top-0 delay-700`;
     const navMenuActive = `active:left-0 duration-300 ease-in-out active:delay-200 duration-300`
+
+    const SideBarData = NavOptions();
     return (
         <>
             <IconContext.Provider value={{ color: '#fff' }}>
