@@ -95,7 +95,7 @@ const Books = () => {
                 <section className='w-56 h-large'>
                 </section>
                 <section className='mb-40 w-8/20 h-large flex justify-center flex-row flex-wrap'>
-                    {books || books?.length > 0 ? books.map(({ _id, title, author, image, averageStars, isBookLoaned }) => (
+                    {books || books?.length > 0 ? books.map(({ _id, title, author, image, averageStars, isBookLoaned, isBookBooked }) => (
                         <Box
                             key={_id}
                             title={title}
@@ -104,6 +104,7 @@ const Books = () => {
                             image={image}
                             isBookLoaned={isBookLoaned}
                             averageStars={averageStars}
+                            isBookBooked={isBookBooked}
                             bookId={_id} />
 
                     )) : 'Não Foi encontrado nenhum livro'}
