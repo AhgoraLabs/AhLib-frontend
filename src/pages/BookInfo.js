@@ -11,6 +11,7 @@ import BoxInfoBook from "../components/BoxInfoBook";
 import Button from "../components/Button";
 import moment from "moment";
 import { getBookById, removeBook, getLoanByBookId, getAllLoansByBookId, getCommentsById, endLoan } from "../api/apiService";
+import { createRequestBooking, checkIfBookIsBookedById } from "../api/RequestService/index";
 import { isAdminOrSuper } from "../utils/validationProfile";
 import Modal from "../components/Modal";
 import ModalComments from "../components/ModalComments";
@@ -23,7 +24,7 @@ import NoImage from "../components/NoImageBook";
 const BookInfo = () => {
     const [isOpen, setIsOpen] = useState(!true);
     const {
-        user: { email, profile },
+        user: { email, profile, id: userId },
     } = useContext(AuthContext);
 
 
@@ -31,12 +32,15 @@ const BookInfo = () => {
     const [openModal, setOpenModal] = useState(false);
     const [openModalLoan, setOpenModalLoan] = useState(false);
     const [openModalComments, setOpenModalComments] = useState(false);
+    const [openModalRequest, setOpenModalRequest] = useState(false);
     const [comments, setComments] = useState([]);
     const [toastData, setToastData] = useState({});
     const [votes, setVotes] = useState([]);
     const [numberOfLoans, setNumberOfLoans] = useState(0);
     const [loan, setLoan] = useState({});
+    const [isBooked, setIsBooked] = useState(false);
     const [isLoading, setLoading] = useState(true);
+    console.log(isBooked, 'ibooked');
 
     const { id } = useParams();
 
@@ -53,6 +57,10 @@ const BookInfo = () => {
         const data = response.map(({ stars }) => stars);
         setVotes(data);
     };
+
+    const openModalRequestBook = () => {
+        setOpenModalRequest(!openModalComments);
+    }
     const openModalBookComments = () => {
         setOpenModalComments(!openModalComments);
     };
@@ -64,6 +72,13 @@ const BookInfo = () => {
         },
         [id]
     );
+
+    const fetchBooking = useCallback(
+        async function () {
+            const response = await checkIfBookIsBookedById(id);
+            setIsBooked(!!response);
+        }
+    )
 
     const fetchBook = useCallback(
         async function () {
@@ -82,6 +97,14 @@ const BookInfo = () => {
         if (response.status === 200) redirectWithMsg("/livros", "success", "O livro foi removido com sucesso");
     };
 
+    const handleRequestBooking = async () => {
+        const response = await createRequestBooking({ bookId: id, userId });
+        console.log(response, 'response')
+        if (response.status === 201) {
+            redirectWithMsg("/livros", "success", "Sua reserva foi realizada com sucesso");
+        }
+    }
+
     const handleLoansByBookId = async () => {
         const numberOfLoansFound = await getAllLoansByBookId(id);
         setNumberOfLoans(numberOfLoansFound);
@@ -96,6 +119,7 @@ const BookInfo = () => {
     useEffect(() => {
         fetchLoan();
         getTotalRating();
+        fetchBooking();
         handleLoansByBookId();
     }, []);
 
@@ -117,6 +141,14 @@ const BookInfo = () => {
                 action={handleBookRemoval}
                 title={"Exclusão de livro"}
                 text={"Tem certeza que deseja excluir o registro? Essa ação não poderá ser desfeita"}
+            />
+
+            <Modal
+                open={openModalRequest}
+                setOpen={setOpenModalRequest}
+                action={handleRequestBooking}
+                title={"Solicitação de reserva"}
+                text={`Ao confirmar, sua reserva será enviada ao RH, caso aprovada, um empréstimo será criado automaticamente.`}
             />
             <Modal
                 open={openModalLoan}
@@ -164,7 +196,13 @@ const BookInfo = () => {
                                             </Button>
                                         </div>
                                     )}
-                                    {!loan && (profile === 'admin' || profile === 'super') ? (
+
+                                    { isBooked && profile === 'user' ? (
+                                        <div style={{ marginBottom: 20 }}>
+                                             <p className="text-center font-medium">Reservado </p>
+                                        </div>
+                                    )
+                                    : !loan && (profile === 'admin' || profile === 'super') ? (
                                         <div>
                                             <Link to={`/livros/loan/${id}`}>
                                                 <Button width="w-26" height="h-12">
@@ -172,15 +210,21 @@ const BookInfo = () => {
                                                 </Button>
                                             </Link>
                                         </div>
+                                    ) : !loan && (profile === 'user') ? (
+                                        <div style={{ marginBottom: 20 }}>
+                                            <Button onClick={openModalRequestBook}>
+                                                Reservar Livro
+                                            </Button>
+                                        </div>
+
                                     ) : loan && (profile === 'admin' || profile === 'super') ? (
                                         <div style={{ marginBottom: 20 }}>
                                             <Button onClick={openModalBookEdit} fontSize={"28px"} width="w-26" height="h-12">
                                                 Terminar Empréstimo
                                             </Button>
                                         </div>
-                                    ) : (
-                                        ""
-                                    )}
+                                    ) :   ''}
+
                                     {loan && (
                                         <>
                                             <div>

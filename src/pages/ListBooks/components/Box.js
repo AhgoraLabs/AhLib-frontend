@@ -42,7 +42,8 @@ const BoxContainer = styled.div`
 `;
 
 
-const Box = ({ title, image, bookId, averageStars, isBookLoaned }) => {
+const Box = ({ title, image, bookId, averageStars, isBookLoaned, isBookBooked }) => {
+    console.log(isBookBooked, 'isBookBooked')
     const [isLoading, setLoading] = useState(true);
 
     setTimeout(() => {
@@ -62,7 +63,7 @@ const Box = ({ title, image, bookId, averageStars, isBookLoaned }) => {
                             <CircularProgress size={20} />
                         </div>
                     ) : (
-                        <div className={`${isBookLoaned ? "text-base font-thin text-danger font-medium" : " text-base font-thin text-textbook font-medium"} text-center `}>{isBookLoaned ? "alugado" : "Livre"}</div>
+                        <div className={`${isBookLoaned ? "text-base font-thin text-danger font-medium" : isBookBooked ? "text-base font-thin text-yellow-700 font-medium" :  "text-base font-thin text-textbook font-medium"} text-center `}>{isBookLoaned ? "alugado" : isBookBooked ? "Reservado" : "Livre"}</div>
                     )}
                 </div>
                 <label id="titleBook"> {title.split(":")[0]}</label>
