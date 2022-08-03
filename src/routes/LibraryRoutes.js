@@ -1,7 +1,7 @@
 import { BrowserRouter as Routes, Route } from "react-router-dom";
 import { NavRoute } from "../routes/NavRoute";
 import Reports from "../pages/Reports";
-import Login from "../pages/Login";
+import Login from "../pages/Login/index";
 import Navbar from "../components/Navbar/Navbar";
 import Books from "../pages/ListBooks/index";
 import ReportPage from "../pages/GenerateReport";
@@ -11,11 +11,11 @@ import BookRegister from "../pages/BookRegister";
 import Home from "../pages/Home";
 import Suggestions from "../pages/Suggestions";
 import Profile from "../pages/Profile";
-import UserRegister from "../pages/UserRegister";
-import Season from "../pages/Season";
+import UserRegister from "../pages/Login/UserRegister";
+import Season from "../pages/Seasons/Season";
 import AboutUs from "../pages/AboutUs/index";
 import download from "../pages/Download";
-import SeasonRegister from "../pages/SeasonRegister";
+import SeasonRegister from "../pages/Seasons/SeasonRegister";
 import Requests from '../pages/Requests/index'
 
 const LibraryRouter = () => {

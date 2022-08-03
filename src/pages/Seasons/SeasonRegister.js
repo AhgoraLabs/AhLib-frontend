@@ -1,11 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useContext } from 'react'
 import { TextField, Button } from '@mui/material'
-import AuthContext from '../context/auth/AuthContext';
+import AuthContext from '../../context/auth/AuthContext';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import { useEffect } from 'react';
-import { createRecommendation, listBooks } from '../api/apiService';
+import { createRecommendation, listBooks } from '../../api/apiService';
 
 const SeasonRegister = () => {
 

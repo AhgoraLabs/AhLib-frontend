@@ -4,9 +4,9 @@ import style from "styled-components";
 import { BidivAdd } from "react-icons/bi";
 import { IconContext } from "react-icons";
 import { Link } from "react-router-dom";
-import AuthContext from "../context/auth/AuthContext";
-import Button from "../components/Button";
-import { getRecommendation, getUser } from "../api/apiService";
+import AuthContext from "../../context/auth/AuthContext";
+import Button from "../../components/Button";
+import { getRecommendation, getUser } from "../../api/apiService";
 import moment from 'moment';
 
 const Season = () => {
@@ -32,7 +32,7 @@ const Season = () => {
     return (
         <div className="flex justify-center flex-col items-center h-full w-screen font-poppins">
             <div className="w-4/5 h-full">
-                {recommendations?.map(({ bookRecommended, description, user, seasonEndDate }) => {
+                {recommendations.length > 1 ? recommendations?.map(({ bookRecommended, description, user, seasonEndDate }) => {
 
                     return (
                         <div className="flex m-4 sm:h-card h-96 justify-between shadow-sm rounded-xl border-gray-100 bg-white">
@@ -65,7 +65,9 @@ const Season = () => {
                             </div>
                         </div>
                     );
-                })}
+                }) : (
+                <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}><h1>Sem recomendações para serem exibidas</h1></div>
+                )}
             </div>
             <div className="w-4/5 h-12 flex justify-end px-4 m-4">
                 <Link to="/recomendacao/adicionar">

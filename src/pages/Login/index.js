@@ -2,8 +2,8 @@ import React, { useContext, useState } from 'react'
 import { Button, TextField } from '@mui/material';
 import { Link, useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import AuthContext from '../context/auth/AuthContext';
-import { createUser } from '../api/apiService';
+import AuthContext from '../../context/auth/AuthContext';
+import { createUser } from '../../api/apiService';
 import Swal from 'sweetalert2';
 
 const Login = () => {

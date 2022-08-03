@@ -2,7 +2,7 @@ import React from 'react'
 import { Button, TextField } from '@mui/material';
 import { useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { createUser } from '../api/apiService';
+import { createUser } from '../../api/apiService';
 
 function UserRegister() {
 
