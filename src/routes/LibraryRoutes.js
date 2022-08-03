@@ -16,6 +16,7 @@ import Season from "../pages/Season";
 import AboutUs from "../pages/AboutUs/index";
 import download from "../pages/Download";
 import SeasonRegister from "../pages/SeasonRegister";
+import Requests from '../pages/Requests/index'
 
 const LibraryRouter = () => {
     return (
@@ -37,6 +38,7 @@ const LibraryRouter = () => {
                 <NavRoute exact path="/sugestoes/" header={<Navbar />} component={Suggestions}></NavRoute>
                 <NavRoute exact path="/sobre" header={<Navbar />} component={AboutUs}></NavRoute>
                 <NavRoute exact path="/download" header={<Navbar />} component={download}></NavRoute>
+                <NavRoute exact path="/requests" header={<Navbar />} component={Requests}></NavRoute>
 
             </Routes>
         </div>

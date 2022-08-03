@@ -22,7 +22,7 @@ const NavOptions = () => {
         },
         {
             title: "Solicitação",
-            path: "/solicitacao",
+            path: "/requests",
             icon: <IoIcons.IoMdPeople />,
             cName: `flex justify-start items-center py-2 pl-4 list-none h-14 hover:bg-blue`,
             admin: true,

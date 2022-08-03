@@ -149,3 +149,14 @@ export const createRecommendation = async (recommendation) => {
     const data = await axios.post(`${urlBase}/season`, recommendation)
     return data;
 }
+
+export const fetchRequest = async ({data, url, method}) => {
+    const response = await fetch(`${urlBase}${url}`, {
+        method,
+        body: JSON.stringify(data),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    });
+    return await response.json();
+}
