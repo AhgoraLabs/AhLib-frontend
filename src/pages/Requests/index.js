@@ -5,21 +5,24 @@ import {fetchRequest} from '../../api/apiService'
 import AuthContext from "../../context/auth/AuthContext";
 import moment from 'moment'
 
+import { SnackbarProvider, useSnackbar } from 'notistack'
+
 import {AiOutlineBook} from "react-icons/ai";
 import {BsPerson, BsCalendarDate} from "react-icons/bs";
 
 const Requests = ({ }) => {
    
     const [dataRequests, setDataRequests] = useState([])
+    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
     const { user: { id: userId } } = useContext(AuthContext);
 
     const approveRequests = async ({id, type = 'approve'}) => {
-        const response = await fetchRequest({url: `/request/${type}`, method: 'PUT', data: {
-            id, userId
-        }})
+        // const response = await fetchRequest({url: `/request/${type}`, method: 'PUT', data: {
+        //     id, userId
+        // }})
 
-        console.log(response)
+        enqueueSnackbar(`Solicitação ${type === 'approve' ? ' aprovada ': ' recusada' } com sucesso.`, { variant: `success` })
     }
 
     useEffect(async () => {

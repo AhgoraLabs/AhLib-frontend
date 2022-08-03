@@ -6,12 +6,16 @@ import AuthContext from '../../context/auth/AuthContext';
 import { createUser } from '../../api/apiService';
 import Swal from 'sweetalert2';
 
+import { SnackbarProvider, useSnackbar } from 'notistack'
+
 const Login = () => {
 
     const { Login } = useContext(AuthContext);
     const [active, setActive] = useState(false);
     const { register, handleSubmit } = useForm();
     const isLogged = !!localStorage.getItem('@App:token');
+
+    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
 
     let history = useHistory();
@@ -27,9 +31,6 @@ const Login = () => {
             title: 'Erro',
             text: 'Seus dados de acesso estão incorretos',
         })
-
-
-
     }
 
     const registerUser = async ({ email, name }) => {
@@ -44,6 +45,7 @@ const Login = () => {
         const response = await createUser(email, name);
 
         if (response.status === 200) {
+            enqueueSnackbar('Conta cadastrada com sucesso, um e-mail foi encaminhado, verifica a caixa de entrada.', { variant: 'success' })
             return history.go('/');
         }
 
@@ -103,7 +105,7 @@ const Login = () => {
                                 type='text'
                                 {...register('name')}
                             />
-                            <input className='bg-input-signup text-white text-l tracking-wider font-medium my-4 h-12 w-24 cursor-pointer' type='submit' value='Sign up'></input>
+                            <input className='bg-input-signup text-white text-l tracking-wider font-medium my-4 h-12 w-24 cursor-pointer' type='submit' value='Cadastrar'></input>
                         </form>
                         <p className='relative mt-5 text-sm tracking-large text-login font-light'>JÁ POSSUI UMA  CONTA?<span onClick={() => setActive(!active)} className='font-semibold text-link cursor-pointer'>ENTRE.</span></p>
                         {/* <Link to='#' className='text-blue-200'>Esqueci a senha</Link> */}

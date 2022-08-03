@@ -4,12 +4,16 @@ import './index.css'
 import App from './App';
 import { AuthProvider } from '../src/context/auth/AuthContext';
 
+import { SnackbarProvider } from 'notistack';
 
 ReactDOM.render(
   <React.StrictMode>
     <AuthProvider>
-      <App />
+      <SnackbarProvider maxSnack={3} autoHideDuration={5000}>
+        <App />
+      </SnackbarProvider>
     </AuthProvider>
+    
   </React.StrictMode>,
   document.getElementById('root')
 );
