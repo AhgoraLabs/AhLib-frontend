@@ -24,9 +24,10 @@ import NoImage from "../components/NoImageBook";
 const BookInfo = () => {
     const [isOpen, setIsOpen] = useState(!true);
     const {
-        user: { email, profile, id: userId },
+        user: { email, profile, id: userId, name: userName },
     } = useContext(AuthContext);
 
+    console.log(useContext(AuthContext))
 
     const [book, setBook] = useState({});
     const [openModal, setOpenModal] = useState(false);
@@ -76,7 +77,8 @@ const BookInfo = () => {
     const fetchBooking = useCallback(
         async function () {
             const response = await checkIfBookIsBookedById(id);
-            setIsBooked(!!response);
+            console.log(response, 'response')
+            setIsBooked(!!response.data);
         }
     )
 
@@ -98,7 +100,7 @@ const BookInfo = () => {
     };
 
     const handleRequestBooking = async () => {
-        const response = await createRequestBooking({ bookId: id, userId });
+        const response = await createRequestBooking({ bookId: id, userId, bookName: book.title, userName });
         console.log(response, 'response')
         if (response.status === 201) {
             redirectWithMsg("/livros", "success", "Sua reserva foi realizada com sucesso");
