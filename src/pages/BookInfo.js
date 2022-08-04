@@ -133,7 +133,7 @@ const BookInfo = () => {
 
     const options = { weekday: "long", year: "numeric", month: "long", day: "numeric" };
 
-    const { image = "", title = "", alugado = false, author = [], description = [], publicado = new Date().toLocaleDateString("pt-BR", options), publisher = "", language = "", pages = 0 } = book;
+    const { image = "", title = "", subtitle, alugado = false, author = [], description = [], publicado = new Date().toLocaleDateString("pt-BR", options), publisher = "", language = "", pages = 0 } = book;
 
     return (
         <>
@@ -259,6 +259,10 @@ const BookInfo = () => {
                         <div className="ml-4 w-full flex justify-start flex-col ">
                             <div className="w-bookTitle break-all h-16 mt-14 flex items-center justify-start font-sans mx-10">
                                 <h1 className="text-3xl">{title.toUpperCase()}</h1>
+                            </div>
+
+                            <div className="h-7 mx-10"> 
+                            <h2 className="text-xl">{subtitle.toUpperCase()}</h2>
                             </div>
                             <div className="h-7 mx-10 mt-8">
                                 <h2>Autor : {author.toString()}</h2>
