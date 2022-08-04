@@ -133,7 +133,7 @@ const BookInfo = () => {
 
     const options = { weekday: "long", year: "numeric", month: "long", day: "numeric" };
 
-    const { image = "", title = "", subtitle, alugado = false, author = [], description = [], publicado = new Date().toLocaleDateString("pt-BR", options), publisher = "", language = "", pages = 0 } = book;
+    const { image = "", title = "", subtitle = "", alugado = false, author = [], description = [], publicado = new Date().toLocaleDateString("pt-BR", options), publisher = "", language = "", pages = 0 } = book;
 
     return (
         <>
