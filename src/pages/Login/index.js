@@ -46,7 +46,10 @@ const Login = () => {
 
         if (response.error === false) {
             enqueueSnackbar('Conta cadastrada com sucesso, um e-mail foi encaminhado, verifica a caixa de entrada.', { variant: 'success' })
-            return history.go('/');
+            setTimeout(() => {
+                return history.go('/');
+            }, 4000);
+            
         }
 
         if (response.exists) {
