@@ -95,7 +95,7 @@ export const getUsers = async () => {
 };
 
 export const createSuggestion = async (suggestionData) => {
-    const data = await axios.post(`${urlBase}/suggestion`, suggestionData);
+    const data = await axios.post(`${urlBase}/suggestions`, suggestionData);
     return data;
 }
 
