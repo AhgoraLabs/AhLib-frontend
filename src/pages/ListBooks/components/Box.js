@@ -43,7 +43,6 @@ const BoxContainer = styled.div`
 
 
 const Box = ({ title, image, bookId, averageStars, isBookLoaned, isBookBooked }) => {
-    console.log(isBookBooked, 'isBookBooked')
     const [isLoading, setLoading] = useState(true);
 
     setTimeout(() => {

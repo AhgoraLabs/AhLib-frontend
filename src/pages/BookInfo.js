@@ -27,8 +27,6 @@ const BookInfo = () => {
         user: { email, profile, id: userId, name: userName },
     } = useContext(AuthContext);
 
-    console.log(useContext(AuthContext))
-
     const [book, setBook] = useState({});
     const [openModal, setOpenModal] = useState(false);
     const [openModalLoan, setOpenModalLoan] = useState(false);
@@ -41,7 +39,7 @@ const BookInfo = () => {
     const [loan, setLoan] = useState({});
     const [isBooked, setIsBooked] = useState(false);
     const [isLoading, setLoading] = useState(true);
-    console.log(isBooked, 'ibooked');
+
 
     const { id } = useParams();
 
@@ -77,7 +75,7 @@ const BookInfo = () => {
     const fetchBooking = useCallback(
         async function () {
             const response = await checkIfBookIsBookedById(id);
-            console.log(response, 'response')
+
             setIsBooked(!!response.data);
         }
     )
@@ -101,7 +99,7 @@ const BookInfo = () => {
 
     const handleRequestBooking = async () => {
         const response = await createRequestBooking({ bookId: id, userId, userEmail: email, bookName: book.title, userName });
-        console.log(response, 'response')
+     
         if (response.status === 201) {
             redirectWithMsg("/livros", "success", "Sua reserva foi realizada com sucesso");
         }

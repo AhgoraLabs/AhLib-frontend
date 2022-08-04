@@ -42,7 +42,7 @@ export const AuthProvider = ({ children }) => {
 
    
     const { profile } = storagedToken && jwt(storagedToken) || {};
-    console.log('chegou aqui');
+
 
     if (storagedToken && storagedUser) {
       setUser({ id: JSON.parse(storagedId), profile, name: JSON.parse(storagedUser), email: storagedEmail });
