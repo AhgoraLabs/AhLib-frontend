@@ -44,7 +44,7 @@ const Login = () => {
         }
         const response = await createUser(email, name);
 
-        if (response.status === 200) {
+        if (response.error === false) {
             enqueueSnackbar('Conta cadastrada com sucesso, um e-mail foi encaminhado, verifica a caixa de entrada.', { variant: 'success' })
             return history.go('/');
         }
