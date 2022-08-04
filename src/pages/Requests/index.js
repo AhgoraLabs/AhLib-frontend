@@ -18,9 +18,9 @@ const Requests = ({ }) => {
     const { user: { id: userId } } = useContext(AuthContext);
 
     const approveRequests = async ({id, type = 'approve'}) => {
-        // const response = await fetchRequest({url: `/request/${type}`, method: 'PUT', data: {
-        //     id, userId
-        // }})
+        const response = await fetchRequest({url: `/request/${type}`, method: 'PUT', data: {
+            id, userId
+        }})
 
         enqueueSnackbar(`Solicitação ${type === 'approve' ? ' aprovada ': ' recusada' } com sucesso.`, { variant: `success` })
     }
