@@ -4,7 +4,7 @@ import * as AiIcons from "react-icons/ai";
 import * as IoIcons from "react-icons/io";
 import * as ImIcons from "react-icons/im";
 
-import AuthContext from "../../context/auth/AuthContext";   
+import AuthContext from "../../context/auth/AuthContext";
 
 
 const NavOptions = () => {
@@ -49,12 +49,6 @@ const NavOptions = () => {
             title: "Sugestões",
             path: "/sugestoes",
             icon: <FaIcons.FaEnvelopeOpenText />,
-            cName: `flex justify-start items-center py-2 pl-4 list-none h-14 hover:bg-blue`,
-        },
-        {
-            title: "Sobre nós",
-            path: "/sobre",
-            icon: <IoIcons.IoMdHelpCircle />,
             cName: `flex justify-start items-center py-2 pl-4 list-none h-14 hover:bg-blue`,
         },
         {
