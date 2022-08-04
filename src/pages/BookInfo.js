@@ -100,7 +100,7 @@ const BookInfo = () => {
     };
 
     const handleRequestBooking = async () => {
-        const response = await createRequestBooking({ bookId: id, userId, bookName: book.title, userName });
+        const response = await createRequestBooking({ bookId: id, userId, userEmail: email, bookName: book.title, userName });
         console.log(response, 'response')
         if (response.status === 201) {
             redirectWithMsg("/livros", "success", "Sua reserva foi realizada com sucesso");
