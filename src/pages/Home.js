@@ -144,7 +144,7 @@ function Home() {
                 </h3>
                 <h3 className="ml-4 mt-4 flex flex-row items-center">
                     <BiCommentMinus size={20} color="#494949" style={{ marginRight: 5 }} />
-                    Recomendações: 2
+                    Recomendações: 0
                 </h3>
 
                 <h3 className="ml-4 mt-4 flex flex-row items-center">
