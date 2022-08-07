@@ -18,3 +18,7 @@ export const checkIfBookIsBookedById = (id) => {
 export const createRequestBooking = async (request) => {
     return  await axios.post(`${urlBase}/request`, request);
 }
+
+export const getApprovedRequests = async () => {
+    return await axios.get(`${urlBase}/request/approved`);
+}

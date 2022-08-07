@@ -4,6 +4,7 @@ import Button from '../../components/Button'
 import { fetchRequest } from '../../api/apiService'
 import AuthContext from "../../context/auth/AuthContext";
 import moment from 'moment'
+import {getApprovedRequests} from '../../api/RequestService/index';
 
 import { SnackbarProvider, useSnackbar } from 'notistack'
 
@@ -14,6 +15,7 @@ const Requests = ({ }) => {
 
     const [dataRequests, setDataRequests] = useState([])
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+    console.log(dataRequests)
 
     const { user: { id: userId } } = useContext(AuthContext);
 
@@ -23,7 +25,7 @@ const Requests = ({ }) => {
                 id, userId
             }
         })
-        mountPendingList(   );
+        mountPendingList();
 
         enqueueSnackbar(`Solicitação ${type === 'approve' ? ' aprovada ' : ' recusada'} com sucesso.`, { variant: `success` })
     }
@@ -32,6 +34,13 @@ const Requests = ({ }) => {
         const data = await fetchRequest({ url: '/request/pending', method: 'GET' })
         setDataRequests(data)
     }
+
+    const mountApprovedList = async () => {
+        const data = (await getApprovedRequests()).data;
+        console.log(data);
+        setDataRequests(data)
+    }
+    
     useEffect(async () => {
         mountPendingList();
     }, []);
@@ -39,7 +48,7 @@ const Requests = ({ }) => {
     return (
         <Container>
             <div id='menu'>
-                <Button height='h-8' fontSize='text-l' styleCustom='m-4'><h1>Aprovadas</h1></Button>
+                <Button  onClick={mountApprovedList} height='h-8' fontSize='text-l' styleCustom='m-4'><h1>Aprovadas</h1></Button>
                 <Button height='h-8' fontSize='text-l' styleCustom='m-4'><h1>Recusadas</h1></Button>
             </div>
             <div id='table'>
