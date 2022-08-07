@@ -15,7 +15,7 @@ const Requests = ({ }) => {
 
     const [dataRequests, setDataRequests] = useState([])
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-    console.log(dataRequests)
+    const [type, setType]= useState('Pendentes')
 
     const { user: { id: userId } } = useContext(AuthContext);
 
@@ -37,8 +37,8 @@ const Requests = ({ }) => {
 
     const mountApprovedList = async () => {
         const data = (await getApprovedRequests()).data;
-        console.log(data);
         setDataRequests(data)
+        setType('Aprovados')
     }
     
     useEffect(async () => {
@@ -51,6 +51,11 @@ const Requests = ({ }) => {
                 <Button  onClick={mountApprovedList} height='h-8' fontSize='text-l' styleCustom='m-4'><h1>Aprovadas</h1></Button>
                 <Button height='h-8' fontSize='text-l' styleCustom='m-4'><h1>Recusadas</h1></Button>
             </div>
+            <div className="flex justify-center">
+				<h1 className="text-2xl">{dataRequests.length ? `Exibindo ${type}` : 'Não há solicitações deste tipo para exibir'}</h1>
+			 </div> 
+               
+           
             <div id='table'>
                 {
                     dataRequests &&
