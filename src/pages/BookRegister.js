@@ -11,6 +11,16 @@ const urlBase = !window.location.host.includes('netlify') ? 'http://localhost:50
 
 const BookRegister = ({ match }) => {
 
+    const selectOptions = [
+        'TECNOLOGIA',
+        'EDUCAÇÃO CORPORATIVA',
+        'GESTÃO e NEGÓCIOS',
+        'PSICOLOGIA/FILOSOFIA/AUTO-AJUDA',
+        'ROMANCE',
+        'DIREITO',
+        'GERAL'
+    ];
+
     const InitialValue = {
         isbn: '',
         title: '',
@@ -19,6 +29,7 @@ const BookRegister = ({ match }) => {
         image: '',
         language: '',
         description: '',
+        category: '',
         subtitle: '',
         publisher: '',
     };
@@ -36,7 +47,6 @@ const BookRegister = ({ match }) => {
         for (const key in book) {
             setValue(key, book[key]);
         }
-
     }
 
     useEffect(() => {
@@ -46,7 +56,6 @@ const BookRegister = ({ match }) => {
     },  [isEdit, match.params?.id]);
 
     const onSubmit = async (dataForm) => {
-        debugger;
         let response = '';
         if (isEdit) {
             response = await editBook({ _id: match.params?.id, ...dataForm });
@@ -104,6 +113,17 @@ const BookRegister = ({ match }) => {
                     {...register('publisher')}
                     defaultValue={valueForm?.publisher}
                 />
+                <select
+                    className={styleInput}
+                    placeholder={'category'}
+                    {...register('category')}
+                    defaultValue={valueForm?.publisher}
+                >
+                    {selectOptions.map((option, index) => (
+                        <option key={index} value={option}>{option}</option>
+                    ))}
+                </select>
+
                 <input
                     className={styleInput}
                     placeholder={'Total de páginas'}
