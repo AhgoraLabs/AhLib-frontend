@@ -4,7 +4,7 @@ import Button from '../../components/Button'
 import { fetchRequest } from '../../api/apiService'
 import AuthContext from "../../context/auth/AuthContext";
 import moment from 'moment'
-import {getApprovedRequests} from '../../api/RequestService/index';
+import { getApprovedRequests } from '../../api/RequestService/index';
 
 import { SnackbarProvider, useSnackbar } from 'notistack'
 
@@ -14,8 +14,9 @@ import { BsPerson, BsCalendarDate } from "react-icons/bs";
 const Requests = ({ }) => {
 
     const [dataRequests, setDataRequests] = useState([])
+    
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-    const [type, setType]= useState('Pendentes')
+    const [type, setType] = useState('Pendentes')
 
     const { user: { id: userId } } = useContext(AuthContext);
 
@@ -40,7 +41,7 @@ const Requests = ({ }) => {
         setDataRequests(data)
         setType('Aprovados')
     }
-    
+
     useEffect(async () => {
         mountPendingList();
     }, []);
@@ -48,18 +49,19 @@ const Requests = ({ }) => {
     return (
         <Container>
             <div id='menu'>
-                <Button  onClick={mountApprovedList} height='h-8' fontSize='text-l' styleCustom='m-4'><h1>Aprovadas</h1></Button>
+                <Button onClick={mountApprovedList} height='h-8' fontSize='text-l' styleCustom='m-4'><h1>Aprovadas</h1></Button>
                 <Button height='h-8' fontSize='text-l' styleCustom='m-4'><h1>Recusadas</h1></Button>
             </div>
             <div className="flex justify-center">
-				<h1 className="text-2xl">{dataRequests.length ? `Exibindo ${type}` : 'Não há solicitações deste tipo para exibir'}</h1>
-			 </div> 
-               
-           
+                <h1 className="text-2xl">{dataRequests.length ? `Exibindo ${type}` : 'Não há solicitações deste tipo para exibir'}</h1>
+            </div>
+
+
             <div id='table'>
                 {
                     dataRequests &&
                     dataRequests.map((elem, index) =>
+
                     (
                         <div className='card' key={index}>
                             <div className='card-left'>
@@ -71,17 +73,27 @@ const Requests = ({ }) => {
                                     <AiOutlineBook size={18} />
                                     Livro: {elem.bookName || elem.bookId}
                                 </span>
+                                {elem.approvedByUserName && (
+                                    <span className=''>
+                                        Aprovado por: {elem.approvedByUserName}
+                                    </span>
+                                )}
+
                                 <span className='date'>
                                     <BsCalendarDate size={18} style={{ marginRight: 3 }} />
                                     Solicitado Dia: {moment(elem.createdAt).format("DD/MM/YYYY")}
                                 </span>
+
                             </div>
-                            <div className='card-right'>
-                                <div className='div-buttons'>
-                                    <Button onClick={() => approveRequests({ id: elem._id, type: 'approve' })} background='bg-green-700' height='h-6' width='w-18' fontSize='text-sm' styleCustom='m-4'><h1>Aprovar</h1></Button>
-                                    <Button onClick={() => approveRequests({ id: elem._id, type: 'decline' })} background='bg-red-700' height='h-6' width='w-18' fontSize='text-sm' styleCustom='m-4'><h1>Recusar</h1></Button>
-                                </div>
-                            </div>
+                            {type === 'Pendentes' && (
+                                <div className='card-right'>
+                                    <div className='div-buttons'>
+                                        <Button onClick={() => approveRequests({ id: elem._id, type: 'approve' })} background='bg-green-700' height='h-6' width='w-18' fontSize='text-sm' styleCustom='m-4'><h1>Aprovar</h1></Button>
+                                        <Button onClick={() => approveRequests({ id: elem._id, type: 'decline' })} background='bg-red-700' height='h-6' width='w-18' fontSize='text-sm' styleCustom='m-4'><h1>Recusar</h1></Button>
+                                    </div>
+                                </div>)
+                            }
+
                         </div>
                     ))
                 }
