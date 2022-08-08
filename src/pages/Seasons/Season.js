@@ -11,7 +11,7 @@ import moment from 'moment';
 
 const Season = () => {
     const [recommendations, setRecommendation] = useState([]);
-
+    
     const [user, setUser] = useState();
 
     const {
@@ -32,7 +32,7 @@ const Season = () => {
     return (
         <div className="flex justify-center flex-col items-center h-full w-screen font-poppins">
             <div className="w-4/5 h-full">
-                {recommendations.length > 1 ? recommendations?.map(({ bookRecommended, description, user, seasonEndDate }) => {
+                {recommendations.length > 0 ? recommendations?.map(({ bookRecommended, description, user, seasonEndDate }) => {
 
                     return (
                         <div className="flex m-4 sm:h-card h-96 justify-between shadow-sm rounded-xl border-gray-100 bg-white">
