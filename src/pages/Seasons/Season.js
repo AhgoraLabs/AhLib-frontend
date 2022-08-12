@@ -15,7 +15,7 @@ const Season = () => {
     const [user, setUser] = useState();
 
     const {
-        user: { email },
+        user: { email, profile },
     } = useContext(AuthContext);
 
 
@@ -24,10 +24,10 @@ const Season = () => {
 
     useEffect(async () => {
         const { data } = await fetchRecommendation();
-        const user = email ? await fetchUser() : "";
-        setUser(user.data);
+        // const user = email ? await fetchUser() : "";
+        // setUser(user.data);
         setRecommendation(data);
-    }, [email])
+    }, [])
 
     return (
         <div className="flex justify-center flex-col items-center h-full w-screen font-poppins">
@@ -71,7 +71,7 @@ const Season = () => {
             </div>
             <div className="w-4/5 h-12 flex justify-end px-4 m-4">
                 <Link to="/recomendacao/adicionar">
-                    {user && user?.profile === "lider-supremo" && (
+                    {profile && profile === "lider-supremo" && (
                         <Button height={"h-full"} width={"w-22"} styleCustom={"rounded-xl"}>
                             Adicionar
                         </Button>
