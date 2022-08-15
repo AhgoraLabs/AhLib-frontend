@@ -11,7 +11,7 @@ import moment from 'moment';
 
 const Season = () => {
     const [recommendations, setRecommendation] = useState([]);
-    
+
     const [user, setUser] = useState();
 
     const {
@@ -35,9 +35,13 @@ const Season = () => {
                 {recommendations.length > 0 ? recommendations?.map(({ bookRecommended, description, user, seasonEndDate }) => {
 
                     return (
+
                         <div className="flex m-4 sm:h-card h-96 justify-between shadow-sm rounded-xl border-gray-100 bg-white">
                             <div className="w-1/5 flex h-full justify-center items-center lg:flex hidden">
-                                <img className="h-3/4" src={bookRecommended.image} />
+                                <Link to={`livros/info/${bookRecommended._id}`} className="h-3/4">
+                                    <img className="h-full" src={bookRecommended.image} />
+                                </Link>
+
                             </div>
                             <div className="lg:w-3/4 w-4/4 flex flex-col justify-between">
                                 <div>
@@ -66,7 +70,7 @@ const Season = () => {
                         </div>
                     );
                 }) : (
-                <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}><h1>Sem recomendações para serem exibidas</h1></div>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}><h1>Sem recomendações para serem exibidas</h1></div>
                 )}
             </div>
             <div className="w-4/5 h-12 flex justify-end px-4 m-4">
