@@ -1,8 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect, useContext } from "react";
-import style from "styled-components";
-import { BidivAdd } from "react-icons/bi";
-import { IconContext } from "react-icons";
+import { likeRecommendation, removeLikeRecommendation } from '../../api/SeasonService/index';
+import * as AiIcons from 'react-icons/ai';
 import { Link } from "react-router-dom";
 import AuthContext from "../../context/auth/AuthContext";
 import Button from "../../components/Button";
@@ -15,8 +14,10 @@ const Season = () => {
     const [user, setUser] = useState();
 
     const {
-        user: { email, profile },
+        user: { id: userId, email, profile, name: userName },
     } = useContext(AuthContext);
+
+    console.log(useContext(AuthContext));
 
 
     const fetchUser = async () => await getUser(email);
@@ -32,7 +33,7 @@ const Season = () => {
     return (
         <div className="flex justify-center flex-col items-center h-full w-screen font-poppins">
             <div className="w-4/5 h-full">
-                {recommendations.length > 0 ? recommendations?.map(({ bookRecommended, description, user, seasonEndDate }) => {
+                {recommendations.length > 0 ? recommendations?.map(({ _id: seasonId, bookRecommended, description, likedList = [], user, seasonEndDate }) => {
 
                     return (
 
@@ -66,6 +67,11 @@ const Season = () => {
                             </div>
                             <div className='w-18 flex justify-end items-end lg:flex hidden'>
                                 <img className='m-4 w-3/4 rounded-full h-1/4' src={user.pictureUrl || 'https://conteudo.imguol.com.br/blogs/174/files/2018/05/iStock-648229868-1024x909.jpg'} />
+                            </div>
+                            <div className="flex">
+                                <div className={`${likedList.some(({ id }) => id === userId ) ? 'text-blue-800' : 'text-black-800'} mt-auto mb-2 text-3xl bg-none`}>
+                                    <AiIcons.AiFillLike onClick={() => { likedList.some(({ id }) => id === userId) ? removeLikeRecommendation(seasonId) : likeRecommendation(seasonId) }} />
+                                </div>
                             </div>
                         </div>
                     );
