@@ -58,7 +58,7 @@ export const authUser = async (email, password) => {
 
         const response = await fetch(`${urlBase}/users/auth`, settings);
         const data = await response.json();
-        
+
 
         return data;
     } catch (error) {
@@ -125,8 +125,17 @@ export const endLoan = async (id) => {
 }
 
 export const extendLoan = async (id, newDate) => {
+    const settings = {
+        'body': JSON.stringify({newLoanEnd: newDate, loanEndHasBeenExtended: true}),
+        'headers': {
+            'Accept': 'application/json',
+            'Content-type': 'application/json',
+        },
+        "Authorization": window.localStorage.getItem('@App:token'),
+        'method': 'put'
+    }
+    const data  = await fetch(`${urlBase}/loan/${id}`, settings);
 
-    const data = await axios.patch(`${urlBase}/loan/${id}`, { newLoanEnd: newDate, loanEndHasBeenExtended: true })
     return data;
 }
 

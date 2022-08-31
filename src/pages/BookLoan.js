@@ -26,6 +26,7 @@ const BookLoan = ({ match }) => {
     const [selectValue, setSelectValue] = useState();
 
     const onSubmit = async (data) => {
+
         const response = isExtendingLoan ? await extendLoan(loan._id, data.date) : await createLoan({
             bookId: match.params?.id,
             loanEnd: data.date,
