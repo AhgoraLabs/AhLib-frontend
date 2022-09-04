@@ -40,6 +40,8 @@ const BookInfo = () => {
     const [isBooked, setIsBooked] = useState(false);
     const [isLoading, setLoading] = useState(true);
 
+    const userHasGreatAccess = isAdminOrSuper(profile);
+
 
     const { id } = useParams();
 
@@ -99,7 +101,7 @@ const BookInfo = () => {
 
     const handleRequestBooking = async () => {
         const response = await createRequestBooking({ bookId: id, userId, userEmail: email, bookName: book.title, userName });
-     
+
         if (response.status === 201) {
             redirectWithMsg("/livros", "success", "Sua reserva foi realizada com sucesso");
         }
@@ -184,7 +186,7 @@ const BookInfo = () => {
                                     </Button>
                                 )}
                                 <div className="flex items-center flex-col">
-                                    {profile === 'admin' || profile === 'super' && (
+                                    {userHasGreatAccess && (
                                         <div className="flex justify-between w-48 mb-4">
                                             <Link to={`/livros/edit/${id}`}>
                                                 <Button width="w-18" height="h-8" fontSize="text-base">
@@ -197,33 +199,40 @@ const BookInfo = () => {
                                         </div>
                                     )}
 
-                                    { isBooked && profile === 'user' ? (
+                                    {book.ebookUrl ? (
+                                        <a href={book.ebookUrl} target="_blank" rel="noreferrer">
+                                            <Button width="w-18" height="h-8" fontSize="text-base">
+                                                Download
+                                            </Button>
+                                        </a>
+                                    ) : isBooked && !userHasGreatAccess ? (
                                         <div style={{ marginBottom: 20 }}>
-                                             <p className="text-center font-medium">Reservado </p>
+                                            <p className="text-center font-medium">Reservado </p>
                                         </div>
                                     )
-                                    : !loan && (profile === 'admin' || profile === 'super') ? (
-                                        <div>
-                                            <Link to={`/livros/loan/${id}`}>
-                                                <Button width="w-26" height="h-12">
-                                                    Empréstimo
+                                        : !loan && userHasGreatAccess ? (
+                                            <div>
+                                                <Link to={`/livros/loan/${id}`}>
+                                                    <Button width="w-26" height="h-12">
+                                                        Empréstimo
+                                                    </Button>
+                                                </Link>
+                                            </div>
+                                        ) : !loan && (profile === 'user') ? (
+                                            <div style={{ marginBottom: 20 }}>
+                                                <Button onClick={openModalRequestBook}>
+                                                    Reservar Livro
                                                 </Button>
-                                            </Link>
-                                        </div>
-                                    ) : !loan && (profile === 'user') ? (
-                                        <div style={{ marginBottom: 20 }}>
-                                            <Button onClick={openModalRequestBook}>
-                                                Reservar Livro
-                                            </Button>
-                                        </div>
+                                            </div>
 
-                                    ) : loan && (profile === 'admin' || profile === 'super') ? (
-                                        <div style={{ marginBottom: 20 }}>
-                                            <Button onClick={openModalBookEdit} fontSize={"28px"} width="w-26" height="h-12">
-                                                Terminar Empréstimo
-                                            </Button>
-                                        </div>
-                                    ) :   ''}
+                                        ) : loan && userHasGreatAccess ? (
+                                            <div style={{ marginBottom: 20 }}>
+                                                <Button onClick={openModalBookEdit} fontSize={"28px"} width="w-26" height="h-12">
+                                                    Terminar Empréstimo
+                                                </Button>
+                                            </div>
+                                        ) : ''
+                                    }
 
                                     {loan && (
                                         <>
@@ -259,8 +268,8 @@ const BookInfo = () => {
                                 <h1 className="text-3xl">{title.toUpperCase()}</h1>
                             </div>
 
-                            <div className="h-7 mx-10"> 
-                            <h2 className="text-xl">{subtitle.toUpperCase()}</h2>
+                            <div className="h-7 mx-10">
+                                <h2 className="text-xl">{subtitle.toUpperCase()}</h2>
                             </div>
                             <div className="h-7 mx-10 mt-8">
                                 <h2>Autor : {author.toString()}</h2>
