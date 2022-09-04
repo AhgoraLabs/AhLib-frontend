@@ -11,9 +11,9 @@ axios.defaults.headers.delete['auth'] = window.localStorage.getItem('@App:token'
 axios.defaults.headers.common['Authorization'] = window.localStorage.getItem('@App:token');
 
 export const likeRecommendation = async (id) => {
-    return await axios.patch(`${urlBase}/season/${id}/like`);
+    return await axios.put(`${urlBase}/season/${id}/like`);
 }
 
 export const removeLikeRecommendation = async (id) => {
-    return await axios.patch(`${urlBase}/season/${id}/dislike`);
+    return await axios.put(`${urlBase}/season/${id}/dislike`);
 }
