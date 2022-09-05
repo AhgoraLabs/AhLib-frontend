@@ -117,7 +117,7 @@ const BookRegister = ({ match }) => {
 					className={styleInput}
 					placeholder={'category'}
 					{...register('category')}
-					defaultValue={valueForm?.publisher}
+					defaultValue={valueForm?.category}
 				>
 					{selectOptions.map((option, index) => (
 						<option key={index} value={option}>{option}</option>

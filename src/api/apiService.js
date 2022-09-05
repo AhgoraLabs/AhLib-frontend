@@ -47,6 +47,7 @@ export const getBookById = async (id) => {
 
 
 export const authUser = async (email, password) => {
+    console.log(email, password);
     try {
         const settings = {
             method: 'POST',

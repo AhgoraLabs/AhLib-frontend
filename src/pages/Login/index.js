@@ -25,6 +25,7 @@ const Login = () => {
     }
     const onSubmit = async ({ login, password }) => {
         const response = await Login(login, password);
+        console.log(response, 'response');
         if (response) return window.location.href = '/home';
         Swal.fire({
             icon: 'error',
