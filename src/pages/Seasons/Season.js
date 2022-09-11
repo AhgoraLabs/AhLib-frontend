@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import AuthContext from "../../context/auth/AuthContext";
 import Button from "../../components/Button";
 import { getRecommendation, getUser } from "../../api/apiService";
+import ReactTooltip from 'react-tooltip';
 import moment from 'moment';
 
 const Season = () => {
@@ -19,16 +20,28 @@ const Season = () => {
 
     console.log(useContext(AuthContext));
 
+    const handleRemoveLike = async (id) => {
+        await removeLikeRecommendation(id);
+        await refreshRecomendationList();
+    }
+
+    const handleLike = async (id) => {
+        await likeRecommendation(id);
+        await refreshRecomendationList();
+    }
+
 
     const fetchUser = async () => await getUser(email);
     const fetchRecommendation = async () => await getRecommendation();
 
     useEffect(async () => {
-        const { data } = await fetchRecommendation();
-        // const user = email ? await fetchUser() : "";
-        // setUser(user.data);
-        setRecommendation(data);
+        refreshRecomendationList();
     }, [])
+
+    const refreshRecomendationList = async () => {
+        const { data } = await fetchRecommendation();
+        setRecommendation(data);
+    }
 
     return (
         <div className="flex justify-center flex-col items-center h-full w-screen font-poppins">
@@ -69,8 +82,10 @@ const Season = () => {
                                 <img className='m-4 w-3/4 rounded-full h-1/4' src={user.pictureUrl || 'https://conteudo.imguol.com.br/blogs/174/files/2018/05/iStock-648229868-1024x909.jpg'} />
                             </div>
                             <div className="flex">
-                                <div className={`${likedList.some(({ id }) => id === userId ) ? 'text-blue-800' : 'text-black-800'} mt-auto mb-2 text-3xl bg-none`}>
-                                    <AiIcons.AiFillLike onClick={() => { likedList.some(({ id }) => id === userId) ? removeLikeRecommendation(seasonId) : likeRecommendation(seasonId) }} />
+
+                            <ReactTooltip />
+                                <div data-tip={`${likedList.length} pessoas curtiram esta recomendação`} className={`${likedList.some(({ id }) => id === userId ) ? 'text-blue-800' : 'text-black-800'} mt-auto mb-2 text-3xl bg-none`}>
+                                    <AiIcons.AiFillLike onClick={() => { likedList.some(({ id }) => id === userId) ? handleRemoveLike(seasonId) : handleLike(seasonId) }} />
                                 </div>
                             </div>
                         </div>
