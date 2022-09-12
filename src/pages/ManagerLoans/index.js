@@ -5,7 +5,7 @@ import moment from "moment";
 import AuthContext from "../../context/auth/AuthContext";
 import { BsPerson, BsCalendarDate } from "react-icons/bs";
 import { AiOutlineBook } from "react-icons/ai";
-import { fetchLoansByType } from '../../api/LoanService/index';
+import { memoizeFetchLoansByType } from '../../api/LoanService/index';
 import { Link } from 'react-router-dom';
 
 
@@ -13,7 +13,9 @@ const Requests = ({ }) => {
 
 	const [requestType, setRequestType] = useState('Pendentes');
 
-	const [loans, setLoans] = useState([]);	
+	const [loans, setLoans] = useState([]);
+
+	const [typeRequested, setTypeRequested] = useState(['pending']);
 
 	const typeTranslate = {
 		'pending': 'Pendentes',
@@ -21,11 +23,15 @@ const Requests = ({ }) => {
 		'returned': 'Devolvidos',
 	}
 
+	
+
 	const doLoanRequest = (type) => async () => {
 		setRequestType(typeTranslate[type]);
-		const loans = await fetchLoansByType(type);
+		setTypeRequested([...typeRequested, type]);
+		const loans = await memoizeFetchLoansByType(type);
 		setLoans(loans.data);
 	}
+	
 
 	const { user: { id: userId } } = useContext(AuthContext);
 

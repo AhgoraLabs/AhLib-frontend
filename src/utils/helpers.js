@@ -1,5 +1,20 @@
 const moment = require('moment');
 
+const memoize = (fn) => {
+    const cache = {};
+    return (...args) => {
+        const n = args[0];
+        if (n in cache) {
+        return cache[n];
+        }
+        else {
+        const result = fn(n);
+        cache[n] = result;
+        return result;
+        }
+    }
+}
+
 module.exports = {
     redirectWithMsg: (url, type, msg) => {
         window.localStorage.removeItem('flashData');
@@ -9,6 +24,7 @@ module.exports = {
         window.localStorage.setItem('flashData', JSON.stringify(object));
         window.location.href = url;
     },
+    memoize,
     showFlashDataMsg: () => {
 
         const flashData = JSON.parse(window.localStorage.getItem('flashData'));
