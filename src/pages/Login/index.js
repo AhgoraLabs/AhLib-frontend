@@ -25,6 +25,10 @@ const Login = () => {
     }
     const onSubmit = async ({ login, password }) => {
         const response = await Login(login, password);
+<<<<<<< Updated upstream
+=======
+        window.navigator.vibrate(300);
+>>>>>>> Stashed changes
         if (response) return window.location.href = '/home';
         Swal.fire({
             icon: 'error',
