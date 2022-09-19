@@ -8,7 +8,7 @@ import ReportPage from "../pages/GenerateReport";
 import BookInfo from "../pages/BookInfo";
 import BookLoan from "../pages/BookLoan";
 import BookRegister from "../pages/BookRegister";
-import Home from "../pages/Home";
+import Home from "../pages/Home/index.js";
 import Suggestions from "../pages/Suggestions";
 import Profile from "../pages/Profile";
 import UserRegister from "../pages/Login/UserRegister";
