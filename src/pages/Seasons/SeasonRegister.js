@@ -46,8 +46,8 @@ const SeasonRegister = () => {
 
     return (
         <div className='h-screen flex justify-center items-center flex-col'>
-            <form className='bg-white rounded-xl h-3/6 w-2/4 flex justify-between p-4 items-center flex-col shadow-lg' onSubmit={handleSubmit(onSubmit)}>
-                <select className='w-1/2 h-12 bg-white outline-none border-2 rounded-md px-2 text-base'
+            <form className='bg-white rounded-xl h-3/6 w-5/6 flex justify-between p-4 items-center flex-col shadow-lg' onSubmit={handleSubmit(onSubmit)}>
+                <select className='w-5/6 h-12 bg-white outline-none border-2 rounded-md px-2 text-base'
                  onClick={({target}) => handleChange(target.value)}
                   >
                     {books?.map(({ title, _id }) => {
@@ -63,13 +63,13 @@ const SeasonRegister = () => {
                     })}
                 </select>
                 <TextField
-                    className='h-12 w-1/2 border-blue-500'
+                    className='h-12 w-5/6 border-blue-500'
                     type='Date'
                     name={'seasonEndDate'}
                     {...register('seasonEndDate')}
                 />
                 <TextField
-                    className='h-24 w-1/2 mx-10 mb-8'
+                    className='h-24 w-5/6 mx-10 mb-8'
                     multiline
                     rows={4}
                     name='description'

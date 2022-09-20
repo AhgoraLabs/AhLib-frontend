@@ -12,7 +12,7 @@ import Home from "../pages/Home/index.js";
 import Suggestions from "../pages/Suggestions";
 import Profile from "../pages/Profile";
 import UserRegister from "../pages/Login/UserRegister";
-import Season from "../pages/Seasons/Season";
+import Season from "../pages/Seasons/index";
 import AboutUs from "../pages/AboutUs/index";
 import download from "../pages/Download";
 import SeasonRegister from "../pages/Seasons/SeasonRegister";
