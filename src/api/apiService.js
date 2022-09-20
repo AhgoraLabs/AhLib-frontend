@@ -120,7 +120,7 @@ export const getAllLoan = async (id) => {
 }
 
 export const endLoan = async (id) => {
-    const data = await axios.patch(`${urlBase}/loan/${id}`, { bookHasReturned: true })
+    const data = await axios.put(`${urlBase}/loan/${id}`, { bookHasReturned: true })
     return data;
 }
 
