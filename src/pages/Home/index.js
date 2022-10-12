@@ -1,13 +1,13 @@
-import React, { useState, useEffect, useContext, useMemo } from "react";
-import { Chart } from "react-google-charts";
-import { listBooks, getUsers } from "../../api/apiService";
-import moment from "moment";
 import _ from "lodash";
-import qrCode from "../../images/qrCodeApp.png";
-import AuthContext from "../../context/auth/AuthContext";
-import { BiLike, BiUser, BiCommentMinus, BiBookBookmark } from "react-icons/bi";
+import moment from "moment";
+import React, { useContext, useEffect, useState } from "react";
+import { Chart } from "react-google-charts";
+import { BiBookBookmark, BiCommentMinus, BiLike, BiUser } from "react-icons/bi";
 import { BsStopwatch } from "react-icons/bs";
-import { Container, Dashboard } from './style'
+import { getUsers, listBooks } from "../../api/apiService";
+import AuthContext from "../../context/auth/AuthContext";
+import qrCode from "../../images/qrCodeApp.png";
+import { Container, Dashboard } from './style';
 
 const urlBase = !window.location.host.includes("netlify") ? "http://localhost:5000" : "https://ahlib.herokuapp.com";
 

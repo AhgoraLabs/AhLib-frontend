@@ -55,13 +55,7 @@ const BookLoan = ({ match }) => {
                    {!isExtendingLoan && <MultiSelect users={users} setUser={setSelectValue} />}
                     <div className="flex flex-col my-16">
                         <label className="my-4">{!isExtendingLoan ? 'Data final' : 'Nova Data Final'}</label>
-                        <input
-                            className={styleInput}
-                            placeholder={''}
-                            type='date'
-                            {...register('date')}
-                            required
-                        />
+                        <input className={styleInput} placeholder={''} type='date' {...register('date')} required />
                     </div>
                     <Button className={'cursor-pointer bg-primary'} variant="contained" type="submit">Emprestar</Button>
                 </form>

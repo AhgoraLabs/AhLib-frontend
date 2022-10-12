@@ -1,15 +1,15 @@
-import React, { useEffect, useState, useContext } from "react";
-import { Container } from './style'
-import Button from '../../components/Button'
-import { fetchRequest } from '../../api/apiService'
-import AuthContext from "../../context/auth/AuthContext";
-import moment from 'moment'
-import { getApprovedRequests } from '../../api/RequestService/index';
-
-import { SnackbarProvider, useSnackbar } from 'notistack'
-
+import moment from 'moment';
+import { useSnackbar } from 'notistack';
+import React, { useContext, useEffect, useState } from "react";
 import { AiOutlineBook } from "react-icons/ai";
-import { BsPerson, BsCalendarDate } from "react-icons/bs";
+import { BsCalendarDate, BsPerson } from "react-icons/bs";
+import { fetchRequest } from '../../api/apiService';
+import { getApprovedRequests } from '../../api/RequestService/index';
+import Button from '../../components/Button';
+import AuthContext from "../../context/auth/AuthContext";
+import { Container } from './style';
+
+
 
 const Requests = ({ }) => {
 

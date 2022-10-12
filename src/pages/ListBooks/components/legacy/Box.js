@@ -1,11 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from "react";
-import Rating from "@mui/material/Rating";
-import { getCommentsById, getLoanByBookId } from "../../../api/apiService";
-import { totalStars } from "../../../utils/totalStar";
 import CircularProgress from "@mui/material/CircularProgress";
-
+import Rating from "@mui/material/Rating";
+import React, { useState } from "react";
 import NoImage from "../../../components/NoImageBook";
+
 
 const Box = ({ title, image, bookId, averageStars, isBookLoaned }) => {
     const [loan, setLoan] = useState({});

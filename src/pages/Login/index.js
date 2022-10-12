@@ -1,12 +1,10 @@
-import React, { useContext, useState } from 'react'
-import { Button, TextField } from '@mui/material';
-import { Link, useHistory } from 'react-router-dom';
+import { useSnackbar } from 'notistack';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import AuthContext from '../../context/auth/AuthContext';
-import { createUser } from '../../api/apiService';
+import { useHistory } from 'react-router-dom';
 import Swal from 'sweetalert2';
-
-import { SnackbarProvider, useSnackbar } from 'notistack'
+import { createUser } from '../../api/apiService';
+import AuthContext from '../../context/auth/AuthContext';
 
 const Login = () => {
 
@@ -16,7 +14,6 @@ const Login = () => {
     const isLogged = !!localStorage.getItem('@App:token');
 
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-
 
     let history = useHistory();
 

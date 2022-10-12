@@ -1,15 +1,13 @@
-import { Container } from "./styles";
-import arrows1 from "./assets/arrows_1.png";
-import arrows2 from "./assets/arrows_2.png";
 import arrowLeft from "../../images/arrowLeft.png";
 import arrowRight from "../../images/arrowRight.png";
-
-//person
-import pedro from "./assets/pedro_photo.png";
-import pablo from "./assets/pablo_photo.png";
 import bruno1 from "./assets/bruno1_photo.png";
 import bruno2 from "./assets/bruno2_photo.png";
 import joarle from "./assets/joarle_photo.png";
+import pablo from "./assets/pablo_photo.png";
+//person
+import pedro from "./assets/pedro_photo.png";
+import { Container } from "./styles";
+
 
 function AboutUs() {
     const team = [
