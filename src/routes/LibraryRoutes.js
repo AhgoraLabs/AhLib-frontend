@@ -18,6 +18,7 @@ import download from "../pages/Download";
 import SeasonRegister from "../pages/Seasons/SeasonRegister";
 import Requests from '../pages/Requests/index'
 import ManagerLoans from '../pages/ManagerLoans/index';
+import NewBookInfo from '../pages/BookInfo/index.js'
 
 const LibraryRouter = () => {
     return (
@@ -31,6 +32,7 @@ const LibraryRouter = () => {
                 <NavRoute exact path="/recomendacao" header={<Navbar />} component={Season}></NavRoute>
                 <NavRoute exact path="/recomendacao/adicionar" header={<Navbar />} component={SeasonRegister}></NavRoute>
                 <NavRoute exact path="/livros/info/:id" header={<Navbar />} component={BookInfo}></NavRoute>
+                <NavRoute exact path="/livros/info/newlivros/info/:id" header={<Navbar />} component={NewBookInfo}></NavRoute>
                 <NavRoute exact path="/livros/loan/:id" header={<Navbar />} component={BookLoan}></NavRoute>
                 <NavRoute exact path="/livros/cadastrar" header={<Navbar />} component={BookRegister}></NavRoute>
                 <NavRoute exact path="/perfil" header={<Navbar />} component={Profile}></NavRoute>

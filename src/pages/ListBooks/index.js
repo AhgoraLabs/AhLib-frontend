@@ -43,7 +43,6 @@ const Books = () => {
     const fetchBookForInput = async (value) => {
 
         clearTimeout(typingTime);
-        let data = '';
         typingTime = setTimeout(async () => {
             setPage(0);
             await fetchBooks(booksPerPage, 0, value);

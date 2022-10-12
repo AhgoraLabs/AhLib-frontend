@@ -31,7 +31,6 @@ const BoxContainer = styled.div`
         position: relative;
         top: 0;
         margin-top: -40px;
-        margin-bottom: 10px;
     }
 
     #titleBook {
