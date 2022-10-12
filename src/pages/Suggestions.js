@@ -14,9 +14,7 @@ const SuggestionPage = () => {
         'Outro'
     ];
 
-    const handleOnChangeType = (e) => {
-        setSuggestionType({ ...suggestionData, type: e.target.value });
-    }
+    const handleOnChangeType = (e) => setSuggestionType({ ...suggestionData, type: e.target.value });
 
     const handleInput = e => {
         const { value } = e.target;
@@ -34,11 +32,8 @@ const SuggestionPage = () => {
                 <select onChange={handleOnChangeType} className='h-16 px-4 border-2 border-gray-400 rounded-xl font-sans text-center'>
                     {selectOptions.map(option => <option value={option}> {option} </option>)}
                 </select>
-
                 <textarea
-                    className='h-32 px-4 mt-5 outline-none border-2 border-gray-400 rounded-xl focus:border-blue-700 font-sans'
-                    onChange={handleInput}
-                ></textarea>
+                    className='h-32 px-4 mt-5 outline-none border-2 border-gray-400 rounded-xl focus:border-blue-700 font-sans' onChange={handleInput} />
                 <div className=' mt-5 flex flex-col rounded-xl h-3/4  mt-4 w-4/4'>
                     <Button onClick={handleSendForm} className='cursor-pointer bg-primary' variant="contained">Enviar</Button>
                 </div>

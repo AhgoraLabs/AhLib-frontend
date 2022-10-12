@@ -19,7 +19,6 @@ const Report = () => {
     return (
         <>
             {<ReportOptions users={users} setUser={setUser} />}
-
         </>
     )
 

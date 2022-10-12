@@ -5,7 +5,6 @@ export const Container = styled.div`
     height: 85vh;
     border: 1px solid;
 
-
     #menu {
         margin-top: 10px;
         display: flex;

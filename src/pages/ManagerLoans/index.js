@@ -23,8 +23,6 @@ const Requests = ({ }) => {
 		'returned': 'Devolvidos',
 	}
 
-	
-
 	const doLoanRequest = (type) => async () => {
 		setRequestType(typeTranslate[type]);
 		setTypeRequested([...typeRequested, type]);
@@ -32,7 +30,6 @@ const Requests = ({ }) => {
 		setLoans(loans.data);
 	}
 	
-
 	const { user: { id: userId } } = useContext(AuthContext);
 
 	useEffect(() => {
@@ -73,14 +70,11 @@ const Requests = ({ }) => {
 										Aprovado por: {elem.approvedByUserName}
 									</span>
 								)}
-
 								<span className='date'>
 									<BsCalendarDate size={18} style={{ marginRight: 3 }} />
 									Termina Dia: { moment(elem.loanEnd).format('DD/MM/YYYY') }
 								</span>
-
 							</div>
-
 						</div>
 					))
 				}
