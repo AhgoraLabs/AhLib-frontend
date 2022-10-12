@@ -168,100 +168,22 @@ const BookInfo = () => {
                         <div className="w-96 h-full ">
                             {image ? (
                                 <div className="flex justify-center mb-14">
-                                    <div
-                                        style={{ backgroundImage: `url(${!!image ? image : "https://www.biotecdermo.com.br/wp-content/uploads/2016/10/sem-imagem-10.jpg"})` }}
-                                        className="flex justify-center h-48 w-44 mt-4 bg-no-repeat bg-contain bg-center "
-                                    ></div>
+                                    <Link to={`newlivros/info/${id}`}>
+                                        <div
+                                            style={{ backgroundImage: `url(${!!image ? image : "https://www.biotecdermo.com.br/wp-content/uploads/2016/10/sem-imagem-10.jpg"})` }}
+                                            className="flex justify-center h-48 w-44 mt-4 bg-no-repeat bg-contain bg-center "
+                                        ></div>
+                                    </Link>
                                 </div>
                             ) : (
                                 <div style={{ marginBottom: 20, display: "flex", justifyContent: "center" }}>
-                                    <NoImage title={title} />
+                                    <Link to={`newlivros/info/${id}`}>
+                                        <NoImage title={title} />
+                                    </Link>
                                 </div>
                             )}
 
-                            <div className="flex justify-around">
-                                {alugado && (
-                                    <Button width="w-18" height="h-8" fontSize="text-base">
-                                        Alugar
-                                    </Button>
-                                )}
-                                <div className="flex items-center flex-col">
-                                    {userHasGreatAccess && (
-                                        <div className="flex justify-between w-48 mb-4">
-                                            <Link to={`/livros/edit/${id}`}>
-                                                <Button width="w-18" height="h-8" fontSize="text-base">
-                                                    Editar
-                                                </Button>
-                                            </Link>
-                                            <Button onClick={openModalBookDeletion} width="w-18" height="h-8" fontSize="text-base">
-                                                Excluir
-                                            </Button>
-                                        </div>
-                                    )}
 
-                                    {book.ebookUrl ? (
-                                        <a href={book.ebookUrl} target="_blank" rel="noreferrer">
-                                            <Button width="w-18" height="h-8" fontSize="text-base">
-                                                Download
-                                            </Button>
-                                        </a>
-                                    ) : isBooked && !userHasGreatAccess ? (
-                                        <div style={{ marginBottom: 20 }}>
-                                            <p className="text-center font-medium">Reservado </p>
-                                        </div>
-                                    )
-                                        : !loan && userHasGreatAccess ? (
-                                            <div>
-                                                <Link to={`/livros/loan/${id}`}>
-                                                    <Button width="w-26" height="h-12">
-                                                        Empréstimo
-                                                    </Button>
-                                                </Link>
-                                            </div>
-                                        ) : !loan && (profile === 'user') ? (
-                                            <div style={{ marginBottom: 20 }}>
-                                                <Button onClick={openModalRequestBook}>
-                                                    Reservar Livro
-                                                </Button>
-                                            </div>
-
-                                        ) : loan && userHasGreatAccess ? (
-                                            <div style={{ marginBottom: 20 }}>
-                                                <Button onClick={openModalBookEdit} fontSize={"28px"} width="w-26" height="h-12">
-                                                    Terminar Empréstimo
-                                                </Button>
-                                            </div>
-                                        ) : ''
-                                    }
-
-                                    {loan && (
-                                        <>
-                                            <div>
-                                                <p className="text-center font-light">Este livro está emprestado para </p>
-                                                <p className="text-center font-medium">{loan.person} </p>
-                                            </div>
-
-                                            <div>
-                                                <br></br>
-                                                <p>Término do empréstimo</p>
-                                                <p className="text-center font-medium">
-                                                    {moment(loan.newLoanEnd || loan.loanEnd, "YYYY-MM-DD").format("DD-MM-YYYY")}
-                                                    {new Date(loan.newLoanEnd || loan.loanEnd) < new Date() && <p className="text-lg text-red-600 "> Devolução em atraso </p>}
-                                                </p>
-                                            </div>
-                                        </>
-                                    )}
-                                    {checkIfUserCanExtendLoan(loan, email) && (
-                                        <div style={{ marginTop: 30 }}>
-                                            <Link to={`/livros/loan/${id}?extend=true`}>
-                                                <Button fontSize={"28px"} width="w-26" height="h-12">
-                                                    Estender empréstimo
-                                                </Button>
-                                            </Link>
-                                        </div>
-                                    )}
-                                </div>
-                            </div>
                         </div>
                         <div className="ml-4 w-full flex justify-start flex-col ">
                             <div className="w-bookTitle break-all h-16 mt-14 flex items-center justify-start font-sans mx-10">
