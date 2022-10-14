@@ -8,7 +8,6 @@ import Button from "../../components/Button";
 import { getRecommendation, getUser } from "../../api/apiService";
 import ReactTooltip from 'react-tooltip';
 import moment from 'moment';
-import ReadMoreReact from 'read-more-react';
 
 import {Container} from './style.js'
 
