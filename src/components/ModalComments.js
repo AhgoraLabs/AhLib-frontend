@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { styled, Box } from "@mui/system";
-import ModalUnstyled from "@mui/base/ModalUnstyled";
+import { Modal } from '@mui/material';
+
+
+
+
 import Button from "./Button";
 import { Rating } from "@mui/material";
 import { getCommentsById } from "../api/apiService";
 import ModalAdd from "./ModalAdd";
 
-const StyledModal = styled(ModalUnstyled)`
+const StyledModal = styled(Modal)`
     position: fixed;
     z-index: 1300;
     right: 0;

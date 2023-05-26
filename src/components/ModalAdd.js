@@ -1,11 +1,13 @@
 import React from 'react';
 import { styled, Box } from '@mui/system';
-import ModalUnstyled from '@mui/base/ModalUnstyled';
+import { Modal } from '@mui/material';
+
+
 import { useForm, Controller } from 'react-hook-form';
 import { TextField, Button, Rating } from '@mui/material';
 import { createComment } from '../api/apiService';
 
-const StyledModal = styled(ModalUnstyled)`
+const StyledModal = styled(Modal)`
   position: fixed;
   z-index: 1300;
   right: 0;

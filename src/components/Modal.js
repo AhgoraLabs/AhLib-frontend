@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import { styled, Box } from '@mui/system';
-import ModalUnstyled from '@mui/base/ModalUnstyled';
+import { Modal as materialModal }  from '@mui/material';
+
 import Button from './Button';
 
-const StyledModal = styled(ModalUnstyled)`
+const StyledModal = styled(materialModal)`
   position: fixed;
   z-index: 1300;
   right: 0;

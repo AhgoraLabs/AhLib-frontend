@@ -5,7 +5,7 @@ import Login from "../pages/Login/index";
 import Navbar from "../components/Navbar/Navbar";
 import Books from "../pages/ListBooks/index";
 import ReportPage from "../pages/GenerateReport";
-import BookInfo from "../pages/BookInfo";
+import BookInfo from "../pages/BookInfo/index";
 import BookLoan from "../pages/BookLoan";
 import BookRegister from "../pages/BookRegister";
 import Home from "../pages/Home/index.js";

@@ -1,11 +1,9 @@
 
 import { Container } from './style';
-
 import React, { useState, useEffect, useCallback, useContext, useReducer } from "react";
 import { useParams, Link } from "react-router-dom";
 import { totalStars } from "../../utils/totalStar";
 import Rating from "@mui/material/Rating";
-import { Button as ButtonMui } from "@mui/material";
 import { GrLanguage } from "react-icons/gr";
 import { RiPagesLine } from "react-icons/ri";
 import { AiOutlineArrowRight } from "react-icons/ai";
@@ -13,7 +11,6 @@ import Button from "../../components/Button";
 import moment from "moment";
 import { getBookById, removeBook, getLoanByBookId, getAllLoansByBookId, getCommentsById, endLoan } from "../../api/apiService";
 import { createRequestBooking, checkIfBookIsBookedById } from "../../api/RequestService/index";
-import { isAdminOrSuper } from "../../utils/validationProfile";
 import Modal from "../../components/Modal";
 import ModalComments from "../../components/ModalComments";
 import Toast from "../../components/Toasts";
@@ -51,7 +48,6 @@ const BookInfo = () => {
         }
     })
 
-    const [isOpen, setIsOpen] = useState(!true);
     const {
         user: { email, profile, id: userId, name: userName },
     } = useContext(AuthContext);
@@ -64,7 +60,6 @@ const BookInfo = () => {
     const [isBooked, setIsBooked] = useState(false);
     const [isLoading, setLoading] = useState(true);
 
-    //const userHasGreatAccess = isAdminOrSuper(profile);
     const userHasGreatAccess = true;
 
     const { id } = useParams();
@@ -140,11 +135,16 @@ const BookInfo = () => {
     };
 
     useEffect(() => {
-        fetchLoan();
-        getTotalRating();
-        fetchBooking();
-        handleLoansByBookId();
+        const fetchData = async () => {
+            await fetchLoan();
+            await getTotalRating();
+            await fetchBooking();
+            await handleLoansByBookId();
+        };
+    
+        fetchData();
     }, []);
+    
 
     useEffect(async () => {
         fetchBook();
@@ -226,6 +226,7 @@ const BookInfo = () => {
                                                 </div>
                                             ) : !state.data.loan && (profile === 'user') ? (
                                                 <div style={{ marginBottom: 20 }}>
+                                                    {console.log('oi3')}
                                                     <Button onClick={openModalRequestBook}>
                                                         Reservar Livro
                                                     </Button>
@@ -233,6 +234,7 @@ const BookInfo = () => {
 
                                             ) : state.data.loan && userHasGreatAccess ? (
                                                 <div style={{ marginBottom: 20 }}>
+                                                     {console.log('oi2')}
                                                     <Button onClick={openModalBookEdit} fontSize={"28px"} width="w-26" height="h-12">
                                                         Terminar Empréstimo
                                                     </Button>
@@ -243,6 +245,7 @@ const BookInfo = () => {
                                         {state.data.loan && (
                                             <>
                                                 <div>
+                                                    {console.log('oi')}
                                                     <p className="text-center font-light">Este livro está emprestado para </p>
                                                     <p className="text-center font-medium">{state.data.loan.person} </p>
                                                 </div>
