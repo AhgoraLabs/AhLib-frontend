@@ -49,12 +49,10 @@ function AboutUs() {
                 <img className="arrow" src={arrowRight} />
                 <div id="header-container">
                     <h1>
-                        O Ahlib é<h1 style={{ marginLeft: 15 }}>Open source</h1>
+                        O Ahlib é<h1 style={{ marginLeft: 15 }}>um projeto voluntário</h1>
                     </h1>
                     <h2>Contribua com o nosso projeto e nos ajude a organizar os empréstimos de livro da Ahgora.</h2>
-                    <a href="https://github.com/AhgoraLabs" target="_blank">
-                        <button>GITHUB</button>
-                    </a>
+                    
                 </div>
                 <img className="arrow" src={arrowLeft} />
             </div>
@@ -74,7 +72,7 @@ function AboutUs() {
                 </div>
             </div>
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginTop: 40 }}>
-                <h1 style={{ fontSize: 50, color: "#494949" }}>Não sabe programar mas quer ajudar?</h1>
+                <h1 style={{ fontSize: 50, color: "#494949" }}>Não sabe programar e quer ajudar?</h1>
                 <h2 style={{ fontSize: 30, color: "#808080" }}>Envie sua sugestão de melhoria através do nosso formulário</h2>
                 <a href="https://forms.gle/mRgZhyzjj8wH3DJ9A" target="_blank">
                     <button style={{ background: "#335AFF", color: "#fff", fontSize: 20, borderRadius: 5, padding: 15, marginTop: 20, marginBottom: 20 }}>Clique aqui</button>

@@ -53,6 +53,12 @@ const NavOptions = () => {
             cName: `flex justify-start items-center py-2 pl-4 list-none h-14 hover:bg-blue`,
         },
         {
+            title: "Sobre",
+            path: "/sobre",
+            icon: <IoIcons.IoMdPeople />,
+            cName: `flex justify-start items-center py-2 pl-4 list-none h-14 hover:bg-blue`,
+        },
+        {
             title: "Sugestões",
             path: "/sugestoes",
             icon: <FaIcons.FaEnvelopeOpenText />,
